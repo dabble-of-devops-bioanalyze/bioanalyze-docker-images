@@ -22,13 +22,39 @@ env:
   GITHUB_REF: ${{ github.ref }}
 
 jobs:
+  base-image:
+    env:
+      IMAGE: pangeo-base-notebook
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
 
-  # I"m not using the base-image job
+    - name: Set Job Environment Variables
+      run: |
+        CALVER="$( date -u '+%Y.%m.%d' )"
+        SHA7="${GITHUB_SHA::7}"
+        DOCKER_TAG=pangeo-${PANGEO_TAG}--rstudio-${RSTUDIO_VERSION}--${SHA7}
+        IMAGE_SPEC="${DOCKER_ORG}/${{ env.IMAGE }}:${DOCKER_TAG}"
+        echo "DOCKER_TAG=${DOCKER_TAG}" >> $GITHUB_ENV
+        echo "IMAGE_SPEC=${IMAGE_SPEC}" >> $GITHUB_ENV
+
+    - name: Build and Publish to DockerHub
+      uses: elgohr/Publish-Docker-Github-Action@2.12
+      with:
+        name: ${{env.DOCKER_ORG}}/${{ env.IMAGE }}
+        username: ${{ secrets.DOCKERHUB_USER }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+        workdir: ${{ env.IMAGE }}
+        tags: "master, ${{env.DOCKER_TAG}}"
+
+
   matrix-build:
+    needs: base-image
     strategy:
       fail-fast: false
       matrix:
-        IMAGE: [pangeo-base-notebook, pangeo-ml-notebook]
+        IMAGE: [pangeo-ml-notebook]
     name: ${{ matrix.IMAGE }}
     runs-on: ubuntu-latest
     steps:
