@@ -1,6 +1,6 @@
 ARG PANGEO_TAG=2020.12.04
 
-FROM pangeo/base-notebook:${PANGEO_TAG}
+FROM pangeo/base-image:${PANGEO_TAG}
 
 USER root
 

@@ -26,7 +26,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        IMAGE: [pangeo-base-notebook, pangeo-ml-notebook]
+        IMAGE: [base-image, pangeo-base-notebook, pangeo-ml-notebook]
     name: ${{ matrix.IMAGE }}
     runs-on: ubuntu-latest
     steps:
@@ -51,10 +51,10 @@ jobs:
         workdir: ${{ matrix.IMAGE }}
         tags: "master, ${{env.DOCKER_TAG}}"
 
-#    - name: Export Full Conda Environment
-#      run: |
-#        docker run ${DOCKER_ORG}/${{ matrix.IMAGE }}:master conda list --export
-#
-#    - name: Test Image
-#      run: |
-#        docker run -u 1000 -w /srv/test -v $PWD:/srv/test ${DOCKER_ORG}/${{ matrix.IMAGE }}:master ./run_tests.sh ${{ matrix.IMAGE }}
+    - name: Export Full Conda Environment
+      run: |
+        docker run ${DOCKER_ORG}/${{ matrix.IMAGE }}:master conda list --export
+
+    - name: Test Image
+      run: |
+        docker run -u 1000 -w /srv/test -v $PWD:/srv/test ${DOCKER_ORG}/${{ matrix.IMAGE }}:master ./run_tests.sh ${{ matrix.IMAGE }}

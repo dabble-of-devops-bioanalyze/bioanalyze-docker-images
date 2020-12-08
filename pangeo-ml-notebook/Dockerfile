@@ -4,7 +4,7 @@ FROM pangeo/ml-notebook:${PANGEO_TAG}
 
 USER root
 
-ARG RSTUDIO_VERSION=1.3.107
+ARG RSTUDIO_VERSION=1.3.1073
 ENV DEBIAN_FRONTEND noninteractive
 
 WORKDIR /tmp
