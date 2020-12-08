@@ -1,10 +1,11 @@
 ARG PANGEO_TAG=2020.12.04
-ARG DEBIAN_FRONTEND=noninteractive
 ARG RSTUDIO_VERSION=1.3.107
 
 FROM pangeo/base-notebook:${PANGEO_TAG}
 
 USER root
+
+ENV DEBIAN_FRONTEND noninteractive
 
 WORKDIR /tmp
 
