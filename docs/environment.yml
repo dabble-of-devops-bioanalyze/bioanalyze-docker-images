@@ -1,0 +1,13 @@
+name: docs
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.8*
+  - pangeo-notebook=2020.11.06
+  - pip
+  - numpy
+  - pandas
+  - pip:
+      - nbsphinx
+      - jupyter-book

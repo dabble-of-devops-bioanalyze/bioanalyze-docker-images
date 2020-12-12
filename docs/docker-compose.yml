@@ -1,0 +1,32 @@
+version: '3'
+
+networks:
+  app-tier:
+    driver: bridge
+
+services:
+
+  jupyter:
+    build:
+      context: .
+    volumes:
+      - ./:/docs:z
+    ports:
+      - "8888:8888"
+    working_dir: "/docs"
+    networks:
+      - app-tier
+    command: |
+      bash -c "source activate docs && jupyter notebook --ip 0.0.0.0 --allow-root"
+
+  jupyter-book:
+    build:
+      context: .
+    volumes:
+      - ./docs:/docs:z
+    ports:
+      - "8002:8001"
+    networks:
+      - app-tier
+    command: |
+      bash -c "source activate docs && python /docs/run-jupyterbook.py"

@@ -127,7 +127,8 @@ ONBUILD RUN echo "Checking for 'apt.txt'..." \
         ; fi
 
 # R Build process caches stuff
-ONBUILD RUN rm -rf /tmp/Rtmp*
+ONBUILD RUN rm -rf /tmp/Rtmp* ; \
+    rm -rf /tmp/tmp*
 
 ONBUILD USER ${NB_USER}
 
