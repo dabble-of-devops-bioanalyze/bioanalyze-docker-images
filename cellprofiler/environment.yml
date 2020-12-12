@@ -30,6 +30,7 @@ dependencies:
  - sparse
  - xarray
  - zarr
+ - wxpython
  - pip:
     - CellProfiler==4.0.7
     - nbsphinx
