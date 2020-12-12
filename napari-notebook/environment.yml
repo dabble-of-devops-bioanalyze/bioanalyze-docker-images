@@ -1,0 +1,27 @@
+name: scanpy
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - python=3.8*
+  - pangeo-notebook=2020.11.06
+  - pip
+  - fsspec
+  - gcsfs
+  - s3fs>0.5
+  - h5netcdf
+  - h5py
+  - jupyterlab-nvdashboard
+  - matplotlib-base
+  - nb_conda_kernels
+  - numpy
+  - pandas
+  - scikit-learn
+  - scipy
+  - zarr
+  - napari=0.4.2
+  - pip:
+      - nbsphinx
+      - jupyter-book
+      - jupyter-rsession-proxy
