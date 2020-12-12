@@ -1,4 +1,4 @@
-name: scanpy
+name: napari
 channels:
   - conda-forge
   - bioconda
