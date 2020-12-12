@@ -16,17 +16,43 @@ on:
 
 env:
   PANGEO_TAG: 2020.12.04
-  RSTUDIO_VERSION: 1.3.107
+  RSTUDIO_VERSION: 1.3.1073
   DOCKER_ORG: dabbleofdevops
   GITHUB_SHA: ${{ github.sha }}
   GITHUB_REF: ${{ github.ref }}
 
 jobs:
+  base-image:
+    env:
+      IMAGE: base-image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set Job Environment Variables
+        run: |
+          CALVER="$( date -u '+%Y.%m.%d' )"
+          SHA7="${GITHUB_SHA::7}"
+          DOCKER_TAG=$SHA7
+          IMAGE_SPEC="${DOCKER_ORG}/${{ env.IMAGE }}:${DOCKER_TAG}"
+          echo "DOCKER_TAG=${DOCKER_TAG}" >> $GITHUB_ENV
+          echo "IMAGE_SPEC=${IMAGE_SPEC}" >> $GITHUB_ENV
+      - name: Build and Publish to DockerHub
+        uses: elgohr/Publish-Docker-Github-Action@2.12
+        with:
+          name: ${{env.DOCKER_ORG}}/${{ env.IMAGE }}
+          username: ${{ secrets.DOCKERHUB_USER }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          workdir: ${{ env.IMAGE }}
+          tags: "master, ${{env.DOCKER_TAG}}"
+
   matrix-build:
+    needs: base-image
     strategy:
       fail-fast: false
       matrix:
-        IMAGE: [base-image, pangeo-base-notebook, pangeo-ml-notebook]
+        IMAGE: [base-notebook, ml-notebook, cellprofiler]
     name: ${{ matrix.IMAGE }}
     runs-on: ubuntu-latest
     steps:
