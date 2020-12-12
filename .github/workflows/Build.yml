@@ -45,7 +45,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USER }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
           workdir: ${{ env.IMAGE }}
-          tags: "master, ${{env.DOCKER_TAG}}"
+          tags: "master, latest, ${{env.DOCKER_TAG}}"
 
   matrix-build:
     needs: base-image
@@ -75,7 +75,7 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USER }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
         workdir: ${{ matrix.IMAGE }}
-        tags: "master, ${{env.DOCKER_TAG}}"
+        tags: "master, latest, ${{env.DOCKER_TAG}}"
 
 #    - name: Export Full Conda Environment
 #      run: |

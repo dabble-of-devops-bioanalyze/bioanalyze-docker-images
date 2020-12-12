@@ -66,6 +66,7 @@ RUN apt-get update -y; apt-get upgrade -y; \
     dpkg -i rstudio-${RSTUDIO_VERSION}-amd64.deb && \
     dpkg -i rstudio-server-${RSTUDIO_VERSION}-amd64.deb && \
     rm -rf rstudio*deb && \
+    rm -rf /tmp/Rtmp* && \
     rm -rf /var/lib/apt/lists/*
 
 # End Install RStudio
@@ -125,6 +126,8 @@ ONBUILD RUN echo "Checking for 'apt.txt'..." \
         && rm -rf /var/lib/apt/lists/* \
         ; fi
 
+# R Build process caches stuff
+ONBUILD RUN rm -rf /tmp/Rtmp*
 ONBUILD USER ${NB_USER}
 
 # Create "notebook" conda environment and dask labextensions

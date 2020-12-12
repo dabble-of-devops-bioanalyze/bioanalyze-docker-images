@@ -1,41 +1,45 @@
 name: pangeo
 channels:
- - conda-forge
- - defaults
+  - conda-forge
+  - defaults
 dependencies:
- - python=3.8*
- - pangeo-notebook=2020.11.06
- - pip
-# ERROR: panel 0.9.3 has requirement bokeh>=2.0.0, but you'll have bokeh 1.4.0 which is incompatible
-# Conda solver conflicts for these
-#rapidsai-nightly/linux-64::cuspatial
-#rapidsai-nightly/linux-64::cudf
- - conda-forge/linux-64::cupy
- - pkgs/main/linux-64::tensorflow-gpu>=2
- - adlfs
- - datashader
- - fsspec
- - gcsfs
- - geopandas
- - geoviews-core
- - h5netcdf
- - h5py
- - holoviews
- - hvplot
- - intake
- - intake-xarray
- - jupyterlab-nvdashboard
- - lz4
- - matplotlib-base
- - nb_conda_kernels
- - numpy
- - pandas
- - panel
- - rasterio
- - s3fs>0.5
- - scikit-image
- - scikit-learn
- - scipy
- - sparse
- - xarray
- - zarr
+  - python=3.8*
+  - pangeo-notebook=2020.11.06
+  - pip
+  # ERROR: panel 0.9.3 has requirement bokeh>=2.0.0, but you'll have bokeh 1.4.0 which is incompatible
+  # Conda solver conflicts for these
+  #rapidsai-nightly/linux-64::cuspatial
+  #rapidsai-nightly/linux-64::cudf
+  - conda-forge/linux-64::cupy
+  - pkgs/main/linux-64::tensorflow-gpu>=2
+  - adlfs
+  - datashader
+  - fsspec
+  - gcsfs
+  - geopandas
+  - geoviews-core
+  - h5netcdf
+  - h5py
+  - holoviews
+  - hvplot
+  - intake
+  - intake-xarray
+  - jupyterlab-nvdashboard
+  - lz4
+  - matplotlib-base
+  - nb_conda_kernels
+  - numpy
+  - pandas
+  - panel
+  - rasterio
+  - s3fs>0.5
+  - scikit-image
+  - scikit-learn
+  - scipy
+  - sparse
+  - xarray
+  - zarr
+  - pip:
+      - nbsphinx
+      - jupyter-book
+      - jupyter-rsession-proxy
