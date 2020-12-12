@@ -4,6 +4,7 @@ channels:
  - defaults
 dependencies:
  - python=3.8*
+ - pangeo-notebook=2020.11.06
  - mysql
  - openjdk
  - zeromq
