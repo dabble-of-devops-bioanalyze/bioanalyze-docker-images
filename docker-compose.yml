@@ -13,7 +13,7 @@ services:
       - ./docs:/docs:z
       - ./:/app:z
     ports:
-      - "8888:8888"
+      - "8889:8888"
     working_dir: "/docs"
     networks:
       - app-tier

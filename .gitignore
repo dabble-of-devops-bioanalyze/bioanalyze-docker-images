@@ -1,5 +1,9 @@
 docker_access_token
 .mypy_cache
 .idea
-doccs/_build
+docs/_build
+docs/auto-deployment
+**/.terraform
+**/.terraform.tfstate
+**/.terraform.tfstate.backup
 

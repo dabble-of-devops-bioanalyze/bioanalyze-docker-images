@@ -9,6 +9,9 @@ build-docs:
 	docker-compose build && \
 		docker-compose up -d
 
+up:
+	docker-compose up
+
 docs:
 	docker-compose up -d
 

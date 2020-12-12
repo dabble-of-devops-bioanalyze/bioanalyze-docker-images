@@ -87,3 +87,8 @@ jobs:
 #    - name: Test Image
 #      run: |
 #        docker run -u 1000 -w /srv/test -v $PWD:/srv/test ${DOCKER_ORG}/${{ matrix.IMAGE }}:master ./run_tests.sh ${{ matrix.IMAGE }}
+
+#    TODO Upload the docs to S3
+#    - name: Upload Docs
+#      run: |
+#        docker run -u 1000 -w /srv/test -v $PWD:/srv/test ${DOCKER_ORG}/${{ matrix.IMAGE }}:master ./run_tests.sh ${{ matrix.IMAGE }}
