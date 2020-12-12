@@ -6,6 +6,8 @@ dependencies:
   - python=3.8*
   - pangeo-notebook=2020.11.06
   - pip
+  - sphinx
+  - sphinx-autobuild=0.7.1
   - numpy
   - pandas
   - pip:

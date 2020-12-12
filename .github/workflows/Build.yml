@@ -52,7 +52,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        IMAGE: [base-notebook, ml-notebook, cellprofiler]
+        IMAGE: [base-notebook, ml-notebook, cellprofiler-notebook, scanpy-notebook, seurat-notebook]
     name: ${{ matrix.IMAGE }}
     runs-on: ubuntu-latest
     steps:

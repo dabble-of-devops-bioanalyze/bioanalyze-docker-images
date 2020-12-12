@@ -8,25 +8,27 @@ services:
 
   jupyter:
     build:
-      context: .
+      context: docs
     volumes:
-      - ./:/docs:z
+      - ./docs:/docs:z
+      - ./:/app:z
     ports:
       - "8888:8888"
     working_dir: "/docs"
     networks:
       - app-tier
     command: |
-      bash -c "source activate docs && jupyter notebook --ip 0.0.0.0 --allow-root"
+      bash -c "source activate notebook && jupyter notebook --ip 0.0.0.0 --allow-root"
 
   jupyter-book:
     build:
-      context: .
+      context: docs
     volumes:
       - ./docs:/docs:z
+      - ./:/app:z
     ports:
       - "8002:8001"
     networks:
       - app-tier
     command: |
-      bash -c "source activate docs && python /docs/run-jupyterbook.py"
+      bash -c "source activate notebook && python /docs/run-jupyterbook.py"
