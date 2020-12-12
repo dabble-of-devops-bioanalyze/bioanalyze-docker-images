@@ -9,3 +9,7 @@ base-notebook :
 	cd pangeo-base-notebook; \
 	docker build -t pangeo-base-notebook \
 		--build-arg PANGEO_TAG=${PANGEO_TAG} .
+
+cellprofiler :
+	cd cellprofiler; \
+	docker build -t cellprofiler

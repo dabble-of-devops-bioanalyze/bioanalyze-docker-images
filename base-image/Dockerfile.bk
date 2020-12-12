@@ -1,6 +1,6 @@
 ARG PANGEO_TAG=2020.12.04
 
-FROM pangeo/base-notebook:${PANGEO_TAG}
+FROM pangeo/base-image:${PANGEO_TAG}
 
 USER root
 
@@ -33,6 +33,11 @@ RUN apt-get update -y; apt-get upgrade -y; \
     dpkg -i rstudio-${RSTUDIO_VERSION}-amd64.deb && \
     dpkg -i rstudio-server-${RSTUDIO_VERSION}-amd64.deb && \
     rm -rf /var/lib/apt/lists/*
+
+#    wget https://download1.rstudio.org/desktop/bionic/amd64/rstudio-1.3.1073-amd64.deb && \
+#    wget https://download2.rstudio.org/server/bionic/amd64/rstudio-server-1.3.1073-amd64.deb && \
+#    dpkg -i rstudio-1.3.1073-amd64.deb && \
+#    dpkg -i rstudio-server-1.3.1073-amd64.deb && \
 
 USER ${NB_USER}
 WORKDIR ${HOME}

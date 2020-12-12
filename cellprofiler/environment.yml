@@ -1,0 +1,34 @@
+name: cellprofiler 
+channels:
+ - conda-forge
+ - defaults
+dependencies:
+ - python=3.8*
+ - mysql
+ - openjdk
+ - zeromq
+ - pyzmq
+ - pip
+ - datashader
+ - fsspec
+ - gcsfs
+ - h5netcdf
+ - h5py
+ - holoviews
+ - hvplot
+ - lz4
+ - matplotlib-base
+ - nb_conda_kernels
+ - numpy
+ - pandas
+ - panel
+ - rasterio
+ - s3fs>0.5
+ - scikit-image
+ - scikit-learn
+ - scipy
+ - sparse
+ - xarray
+ - zarr
+ - pip:
+    - CellProfiler==4.0.7
