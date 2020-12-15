@@ -41,7 +41,7 @@ You can add any number of images to the startup profile.
 
 ## Single User Usage
 
-These are docker images and can always be run individually.
+These are docker images and can always be run individually. Each image has a single conda env named `notebook`.
 
 ```
 docker run -it -p 8888:8888 \
