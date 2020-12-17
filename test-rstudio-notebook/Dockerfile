@@ -1,14 +1,12 @@
-#ARG PANGEO_TAG=2020.12.04
-ARG PANGEO_TAG=2020.11.06
+FROM  jupyter/minimal-notebook:6d42503c684f
 
-FROM pangeo/ml-notebook:${PANGEO_TAG}
+# https://hub.docker.com/r/rocker/rstudio/dockerfile
 
 USER root
 
 WORKDIR /tmp
 
-ARG DEBIAN_FRONTEND=noninteractive
-ARG RSTUDIO_VERSION=1.3.107
+ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update -y; apt-get upgrade -y; \
     apt-get install -y curl vim-tiny vim-athena jq; \
@@ -33,31 +31,38 @@ RUN apt-get update -y; apt-get upgrade -y; \
     wget https://download2.rstudio.org/server/bionic/amd64/rstudio-server-1.3.1073-amd64.deb && \
     dpkg -i rstudio-1.3.1073-amd64.deb && \
     dpkg -i rstudio-server-1.3.1073-amd64.deb && \
-    rm -rf /var/lib/apt/lists/* && \
-    rm -rf rstudio*.deb
+    rm -rf /var/lib/apt/lists/*
 
-# Setup R environmental variables
-# https://github.com/jupyterhub/jupyter-rsession-proxy/blob/master/jupyter_rsession_proxy/__init__.py#L48
-#'R --slave --vanilla -e 'cat(paste(R.home("home"),R.home("share"),R.home("include"),R.home("doc"),getRversion(),sep=":"))' '
-#        R_HOME, R_SHARE_DIR, R_INCLUDE_DIR, R_DOC_DIR, version = \
-#            r_output.decode().split(':')
-# Get the output and add those to these variables
-#/usr/lib/R:/usr/share/R/share:/usr/share/R/include:/usr/share/R/doc:3.4.4
+USER $NB_UID
 
-USER ${NB_USER}
-WORKDIR ${HOME}
+# Jupyterhub session proxy
+RUN pip install jupyter-rsession-proxy
+RUN conda install -c conda-forge r-base r-essentials jupyter-server-proxy && \
+    conda clean --all -f -y
 
-ENV R_HOME "/usr/lib/R"
-ENV R_SHARE_DIR "/usr/share/R/share"
-ENV R_INCLUDE_DIR "/usr/share/R/include"
-ENV R_DOC_DIR "/usr/share/R/doc"
+RUN jupyter labextension install @jupyterlab/server-proxy && \
+    jupyter serverextension enable --sys-prefix jupyter_server_proxy
 
-ENV RSTUDIO_DEFAULT_R_VERSION_HOME "/usr/lib/R"
-ENV RSTUDIO_DEFAULT_R_VERSION "3.4.4"
+RUN fix-permissions "${CONDA_DIR}" && \
+    fix-permissions "/home/${NB_USER}"
 
-ENV USER ${NB_USER}
+USER root
 
-RUN bash -c "source activate notebook && \
-    pip install jupyter-rsession-proxy  && \
-    jupyter labextension install --clean \
-            @jupyterlab/server-proxy"
+COPY ./custom-fix-permissions.sh /tmp/custom-fix-permissions.sh
+
+RUN chmod 777 /tmp/custom-fix-permissions.sh && \
+    /tmp/custom-fix-permissions.sh
+
+USER $NB_USER
+
+WORKDIR /home/${NB_USER}
+
+# Dask
+#RUN conda install -c conda-forge dask dask-ml dask-labextension && \
+#    conda clean --all -f -y && \
+#    fix-permissions "${CONDA_DIR}" && \
+#    fix-permissions "/home/${NB_USER}"
+#
+#RUN jupyter labextension install dask-labextension && \
+#    jupyter serverextension enable dask_labextension
+#
