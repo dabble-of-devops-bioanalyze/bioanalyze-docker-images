@@ -1,4 +1,5 @@
-ARG PANGEO_TAG=2020.12.04
+#ARG PANGEO_TAG=2020.12.04
+ARG PANGEO_TAG=2020.11.06
 
 FROM pangeo/ml-notebook:${PANGEO_TAG}
 
@@ -56,3 +57,7 @@ ENV RSTUDIO_DEFAULT_R_VERSION "3.4.4"
 
 ENV USER ${NB_USER}
 
+RUN bash -c "source activate notebook && \
+    pip install jupyter-rsession-proxy  && \
+    jupyter labextension install --clean \
+            @jupyterlab/server-proxy"

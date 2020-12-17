@@ -4,7 +4,9 @@ This project was very heavily inspired by the [Pangeo Docker Images Repo] (https
 
 This project is still very much in the WIP stage!
 
-Additionally, each image will have RStudio Server installed.
+WIP - Additionally, each image will have RStudio Server installed.
+
+*Note* - Each image used to have RStudio installed, and then I broke something somewhere. Will fix in the new year!
 
 This project is in collaboration with [STEMAway.](https://stemaway.com/) 
 
