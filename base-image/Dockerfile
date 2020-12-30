@@ -1,7 +1,7 @@
 ARG R_VER="4.0.3"
 
-FROM rocker/tidyverse:${R_VER}
-#FROM rocker/tidyverse:3.6.3
+#FROM rocker/tidyverse:${R_VER}
+FROM rocker/tidyverse:3.6.3
 
 # ----------------------
 # We are clobbering together two docker files
