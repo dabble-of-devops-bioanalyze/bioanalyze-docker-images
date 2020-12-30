@@ -52,6 +52,10 @@ RUN echo "Installing Apt-get packages..." \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /tmp/*
+
+RUN mv /etc/rstudio/disable_auth_rserver.conf /etc/rstudio/rserver.conf && \
+	echo "USER=$NB_USER" >> /etc/environment
+
 # ========================
 
 USER ${NB_USER}
