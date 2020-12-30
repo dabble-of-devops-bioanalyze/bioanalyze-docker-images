@@ -54,8 +54,6 @@ RUN echo "Installing Apt-get packages..." \
 
 # ========================
 # Installing R packages for Running RStudio Server
-RUN R --quiet -e "devtools::install_github('IRkernel/IRkernel')" && \
-    R --quiet -e "IRkernel::installspec(prefix='${VENV_DIR}')"
 
 USER ${NB_USER}
 WORKDIR ${HOME}
@@ -138,6 +136,8 @@ ONBUILD RUN echo "Checking for 'postBuild'..." \
         && ./postBuild \
         && conda install -y pip && \
         && pip install --no-cache-dir jupyter-rsession-proxy \
+        && R --quiet -e "devtools::install_github('IRkernel/IRkernel')" \
+        && R --quiet -e "IRkernel::installspec(prefix='${CONDA_DIR}')" \
         && rm -rf /tmp/* \
         && rm -rf ${HOME}/.cache ${HOME}/.npm ${HOME}/.yarn \
         && rm -rf ${NB_PYTHON_PREFIX}/share/jupyter/lab/staging \
