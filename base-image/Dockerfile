@@ -52,6 +52,11 @@ RUN echo "Installing Apt-get packages..." \
     && rm -rf /var/lib/apt/lists/*
 # ========================
 
+# ========================
+# Installing R packages for Running RStudio Server
+RUN R --quiet -e "devtools::install_github('IRkernel/IRkernel')" && \
+    R --quiet -e "IRkernel::installspec(prefix='${VENV_DIR}')"
+
 USER ${NB_USER}
 WORKDIR ${HOME}
 
@@ -131,6 +136,8 @@ ONBUILD RUN echo "Checking for 'postBuild'..." \
         export PATH=${NB_PYTHON_PREFIX}/bin:${PATH} \
         && chmod +x postBuild \
         && ./postBuild \
+        && conda install -y pip && \
+        && pip install --no-cache-dir jupyter-rsession-proxy \
         && rm -rf /tmp/* \
         && rm -rf ${HOME}/.cache ${HOME}/.npm ${HOME}/.yarn \
         && rm -rf ${NB_PYTHON_PREFIX}/share/jupyter/lab/staging \
@@ -148,4 +155,5 @@ ONBUILD RUN echo "Checking for 'start'..." \
         && cp start /srv/start \
         ; fi
 # ----------------------
+
 
