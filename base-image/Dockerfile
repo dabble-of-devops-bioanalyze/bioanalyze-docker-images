@@ -98,6 +98,10 @@ ONBUILD RUN echo "Checking for 'apt.txt'..." \
         && rm -rf /var/lib/apt/lists/* \
         ; fi
 
+ONBUILD RUN echo "Cleaning out tmp" \
+        rm -rf /tmp/*
+
+
 ONBUILD USER ${NB_USER}
 
 # Create "notebook" conda environment and dask labextensions

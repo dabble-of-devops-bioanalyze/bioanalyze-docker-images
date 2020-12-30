@@ -1,10 +1,9 @@
 #!/bin/bash
 
 
-# server-proxy is not available for jupyterlab 3.0?
-#                            @jupyterlab/server-proxy \
 jupyter labextension install --clean \
                             @jupyter-widgets/jupyterlab-manager \
-                            dask-labextension 
+                            @jupyterlab/server-proxy \
+                            dask-labextension
 
 #EOF
