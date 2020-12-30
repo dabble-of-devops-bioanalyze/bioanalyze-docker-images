@@ -30,6 +30,8 @@ ENV NB_PYTHON_PREFIX=${CONDA_DIR}/envs/${CONDA_ENV} \
 
 # TODO Not sure this is a great idea.
 # There are probably hard coded things in there
+RUN echo "Cleaning out tmp" \
+        rm -rf /tmp/*
 
 RUN echo "Deleting rstudio user..." \
     && userdel rstudio
@@ -100,7 +102,6 @@ ONBUILD RUN echo "Checking for 'apt.txt'..." \
 
 ONBUILD RUN echo "Cleaning out tmp" \
         rm -rf /tmp/*
-
 
 ONBUILD USER ${NB_USER}
 
