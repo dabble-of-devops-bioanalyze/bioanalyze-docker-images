@@ -153,6 +153,7 @@ ONBUILD RUN echo "Installing IRkernel..." \
             jupyter-book \
         && R --quiet -e "devtools::install_github('IRkernel/IRkernel')" \
         && R --quiet -e "IRkernel::installspec(prefix='${CONDA_DIR}')" \
+        && R --quiet -e "install.packages('rmarkdown')" \
         && rm -rf /tmp/*
 
 # Overwrite start entrypoint script if present
