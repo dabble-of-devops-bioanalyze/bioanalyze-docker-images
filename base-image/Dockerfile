@@ -100,6 +100,13 @@ ONBUILD RUN echo "Checking for 'apt.txt'..." \
 ONBUILD RUN echo "Cleaning out tmp" \
         rm -rf /tmp/*
 
+ONBUILD RUN echo "Installing R Jupyterhub + RStudio Magic..." \
+        && export PATH=${NB_PYTHON_PREFIX}/bin:${PATH} \
+        && R --quiet -e "devtools::install_github('IRkernel/IRkernel')" \
+        && R --quiet -e "IRkernel::installspec(prefix='${CONDA_DIR}')" \
+        && R --quiet -e "install.packages('rmarkdown')" \
+        && rm -rf /tmp/*
+
 ONBUILD USER ${NB_USER}
 
 # Create "notebook" conda environment and dask labextensions
@@ -145,8 +152,7 @@ ONBUILD RUN echo "Checking for 'postBuild'..." \
         ; fi
 
 # ========================
-# Installing R packages for Running RStudio Server
-ONBUILD RUN echo "Installing Jupyterhub + RStudio Magic..." \
+ONBUILD RUN echo "Installing Python Jupyterhub + RStudio Magic..." \
         && export PATH=${NB_PYTHON_PREFIX}/bin:${PATH} \
         && conda install -c conda-forge -y \
             pip=20 jupyter-server-proxy \
@@ -154,9 +160,6 @@ ONBUILD RUN echo "Installing Jupyterhub + RStudio Magic..." \
             jupyter-rsession-proxy \
             nbsphinx \
             jupyter-book \
-        && R --quiet -e "devtools::install_github('IRkernel/IRkernel')" \
-        && R --quiet -e "IRkernel::installspec(prefix='${CONDA_DIR}')" \
-        && R --quiet -e "install.packages('rmarkdown')" \
         && rm -rf /tmp/*
 
 # Overwrite start entrypoint script if present
