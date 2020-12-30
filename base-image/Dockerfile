@@ -147,7 +147,7 @@ ONBUILD RUN echo "Checking for 'postBuild'..." \
 # ========================
 # Installing R packages for Running RStudio Server
 ONBUILD RUN echo "Installing Jupyterhub + RStudio Magic..." \
-        export PATH=${NB_PYTHON_PREFIX}/bin:${PATH} \
+        && export PATH=${NB_PYTHON_PREFIX}/bin:${PATH} \
         && conda install -c conda-forge -y \
             pip=20 jupyter-server-proxy  && \
         && pip install --no-cache-dir \
