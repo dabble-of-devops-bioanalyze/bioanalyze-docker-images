@@ -1,10 +1,20 @@
-FROM ubuntu:20.04
-# Master build file for pangeo images
+FROM rocker/tidyverse:4.0.3
+
+# ----------------------
+# We are clobbering together two docker files
+# The rocker/binder file
+# https://hub.docker.com/r/rocker/binder/dockerfile
+# And the Pangeo Base
+# https://github.com/pangeo-data/pangeo-docker-images/blob/master/base-image/Dockerfile
+# ----------------------
+USER root
+
 
 # Run this section as root
 # try to keep conda version in sync with repo2docker
 # ========================
 ENV CONDA_VERSION=4.9.2-0 \
+    LD_LIBRARY_PATH=/usr/local/lib/R/lib \
     CONDA_ENV=notebook \
     NB_USER=jovyan \
     NB_UID=1000 \
@@ -17,6 +27,12 @@ ENV NB_PYTHON_PREFIX=${CONDA_DIR}/envs/${CONDA_ENV} \
     DASK_ROOT_CONFIG=${CONDA_DIR}/etc \
     HOME=/home/${NB_USER} \
     PATH=${CONDA_DIR}/bin:${PATH}
+
+# TODO Not sure this is a great idea.
+# There are probably hard coded things in there
+
+RUN echo "Deleting rstudio user..." \
+    && userdel rstudio
 
 # Create jovyan user, permissions, add conda init to startup script
 RUN echo "Creating ${NB_USER} user..." \
@@ -36,55 +52,8 @@ RUN echo "Installing Apt-get packages..." \
     && rm -rf /var/lib/apt/lists/*
 # ========================
 
-# ========================
-# Install RStudio Server
-WORKDIR /tmp
-
-ARG RSTUDIO_VERSION=1.3.1073
-
-RUN apt-get update -y; apt-get upgrade -y; \
-    apt-get install -y curl vim-tiny vim-athena jq; \
-    apt-get install -y --no-install-recommends \
-    uuid \
-    file \
-    git \
-    libapparmor1 \
-    libclang-dev \
-    libcurl4-openssl-dev \
-    libedit2 \
-    libssl-dev \
-    lsb-release \
-    psmisc \
-    procps \
-    python-setuptools \
-    sudo \
-    wget \
-    libxkbcommon-x11-0 \
-    libedit2 r-base gdebi-core && \
-    wget https://download1.rstudio.org/desktop/bionic/amd64/rstudio-${RSTUDIO_VERSION}-amd64.deb && \
-    wget https://download2.rstudio.org/server/bionic/amd64/rstudio-server-${RSTUDIO_VERSION}-amd64.deb && \
-    dpkg -i rstudio-${RSTUDIO_VERSION}-amd64.deb && \
-    dpkg -i rstudio-server-${RSTUDIO_VERSION}-amd64.deb && \
-    rm -rf rstudio*deb && \
-    rm -rf /tmp/Rtmp* && \
-    rm -rf /var/lib/apt/lists/*
-
-# End Install RStudio
-# ========================
-
 USER ${NB_USER}
 WORKDIR ${HOME}
-
-# ========================
-# Begin Set RStudio Vars
-ENV R_HOME "/usr/lib/R"
-ENV R_SHARE_DIR "/usr/share/R/share"
-ENV R_INCLUDE_DIR "/usr/share/R/include"
-ENV R_DOC_DIR "/usr/share/R/doc"
-ENV RSTUDIO_DEFAULT_R_VERSION_HOME "/usr/lib/R"
-ENV RSTUDIO_DEFAULT_R_VERSION "3.4.4"
-# End Set RStudio Vars
-# ========================
 
 RUN echo "Installing Miniforge..." \
     && URL="https://github.com/conda-forge/miniforge/releases/download/${CONDA_VERSION}/Miniforge3-${CONDA_VERSION}-Linux-x86_64.sh" \
@@ -125,10 +94,6 @@ ONBUILD RUN echo "Checking for 'apt.txt'..." \
         && apt-get clean \
         && rm -rf /var/lib/apt/lists/* \
         ; fi
-
-# R Build process caches stuff
-ONBUILD RUN rm -rf /tmp/Rtmp* ; \
-    rm -rf /tmp/tmp*
 
 ONBUILD USER ${NB_USER}
 
@@ -183,3 +148,4 @@ ONBUILD RUN echo "Checking for 'start'..." \
         && cp start /srv/start \
         ; fi
 # ----------------------
+
