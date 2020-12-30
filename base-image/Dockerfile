@@ -134,10 +134,6 @@ ONBUILD RUN echo "Checking for 'postBuild'..." \
         export PATH=${NB_PYTHON_PREFIX}/bin:${PATH} \
         && chmod +x postBuild \
         && ./postBuild \
-        && conda install -y pip && \
-        && pip install --no-cache-dir jupyter-rsession-proxy \
-        && R --quiet -e "devtools::install_github('IRkernel/IRkernel')" \
-        && R --quiet -e "IRkernel::installspec(prefix='${CONDA_DIR}')" \
         && rm -rf /tmp/* \
         && rm -rf ${HOME}/.cache ${HOME}/.npm ${HOME}/.yarn \
         && rm -rf ${NB_PYTHON_PREFIX}/share/jupyter/lab/staging \
@@ -145,6 +141,14 @@ ONBUILD RUN echo "Checking for 'postBuild'..." \
         && find ${CONDA_DIR} -follow -type f -name '*.pyc' -delete \
         && find ${CONDA_DIR} -follow -type f -name '*.js.map' -delete \
         ; fi
+
+ONBUILD RUN echo "Installing IRkernel..." \
+        export PATH=${NB_PYTHON_PREFIX}/bin:${PATH} \
+        && conda install -y pip && \
+        && pip install --no-cache-dir jupyter-rsession-proxy \
+        && R --quiet -e "devtools::install_github('IRkernel/IRkernel')" \
+        && R --quiet -e "IRkernel::installspec(prefix='${CONDA_DIR}')" \
+        && rm -rf /tmp/*
 
 # Overwrite start entrypoint script if present
 ONBUILD RUN echo "Checking for 'start'..." \
