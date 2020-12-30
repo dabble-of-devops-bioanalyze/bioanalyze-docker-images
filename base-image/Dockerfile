@@ -1,4 +1,6 @@
-FROM rocker/tidyverse:4.0.3
+ARG R_VER="4.0.3"
+
+FROM rocker/tidyverse:${R_VER}
 #FROM rocker/tidyverse:3.6.3
 
 # ----------------------
@@ -46,7 +48,7 @@ RUN echo "Creating ${NB_USER} user..." \
           \nloadRData="0" \
           \nsaveAction="0"' \
           > /home/${NB_USER}/.rstudio/monitored/user-settings/user-settings \
-    && chown -R ${NB_USER}:${NB_USER} /home/rstudio/.rstudio
+    && chown -R ${NB_USER}:${NB_USER} /home/${NB_USER}/.rstudio
 
 # SEE: https://github.com/phusion/baseimage-docker/issues/58
 ARG DEBIAN_FRONTEND=noninteractive
@@ -59,7 +61,8 @@ RUN echo "Installing Apt-get packages..." \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /tmp/*
 
-RUN mv /etc/rstudio/disable_auth_rserver.conf /etc/rstudio/rserver.conf && \
+# RStudio with NO AUTH
+RUN cp /etc/rstudio/disable_auth_rserver.conf /etc/rstudio/rserver.conf && \
 	echo "USER=$NB_USER" >> /etc/environment
 
 # ========================
