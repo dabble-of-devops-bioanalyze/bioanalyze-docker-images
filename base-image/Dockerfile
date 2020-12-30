@@ -40,7 +40,13 @@ RUN echo "Creating ${NB_USER} user..." \
     && groupadd --gid ${NB_UID} ${NB_USER}  \
     && useradd --create-home --gid ${NB_UID} --no-log-init --uid ${NB_UID} ${NB_USER} \
     && echo ". ${CONDA_DIR}/etc/profile.d/conda.sh ; conda activate ${CONDA_ENV}" > /etc/profile.d/init_conda.sh \
-    && chown -R ${NB_USER}:${NB_USER} /srv
+    && chown -R ${NB_USER}:${NB_USER} /srv \
+    && mkdir -p /home/${NB_USER}/.rstudio/monitored/user-settings \
+    && echo 'alwaysSaveHistory="0" \
+          \nloadRData="0" \
+          \nsaveAction="0"' \
+          > /home/${NB_USER}/.rstudio/monitored/user-settings/user-settings \
+    && chown -R ${NB_USER}:${NB_USER} /home/rstudio/.rstudio
 
 # SEE: https://github.com/phusion/baseimage-docker/issues/58
 ARG DEBIAN_FRONTEND=noninteractive
