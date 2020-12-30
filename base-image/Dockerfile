@@ -142,10 +142,15 @@ ONBUILD RUN echo "Checking for 'postBuild'..." \
         && find ${CONDA_DIR} -follow -type f -name '*.js.map' -delete \
         ; fi
 
+# Install RStudio + Jupyterhub Magic
 ONBUILD RUN echo "Installing IRkernel..." \
         export PATH=${NB_PYTHON_PREFIX}/bin:${PATH} \
-        && conda install -y pip && \
-        && pip install --no-cache-dir jupyter-rsession-proxy \
+        && conda install -c conda-forge -y \
+            pip=20 jupyter-server-proxy  && \
+        && pip install --no-cache-dir \
+            jupyter-rsession-proxy \
+            nbsphinx \
+            jupyter-book \
         && R --quiet -e "devtools::install_github('IRkernel/IRkernel')" \
         && R --quiet -e "IRkernel::installspec(prefix='${CONDA_DIR}')" \
         && rm -rf /tmp/*
