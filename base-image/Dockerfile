@@ -1,4 +1,5 @@
 FROM rocker/tidyverse:4.0.3
+#FROM rocker/tidyverse:3.6.3
 
 # ----------------------
 # We are clobbering together two docker files
@@ -8,7 +9,6 @@ FROM rocker/tidyverse:4.0.3
 # https://github.com/pangeo-data/pangeo-docker-images/blob/master/base-image/Dockerfile
 # ----------------------
 USER root
-
 
 # Run this section as root
 # try to keep conda version in sync with repo2docker
@@ -21,7 +21,8 @@ ENV CONDA_VERSION=4.9.2-0 \
     SHELL=/bin/bash \
     LANG=C.UTF-8  \
     LC_ALL=C.UTF-8 \
-    CONDA_DIR=/srv/conda
+    CONDA_DIR=/srv/conda \
+    DISABLE_AUTH=true
 
 ENV NB_PYTHON_PREFIX=${CONDA_DIR}/envs/${CONDA_ENV} \
     DASK_ROOT_CONFIG=${CONDA_DIR}/etc \
@@ -32,7 +33,9 @@ ENV NB_PYTHON_PREFIX=${CONDA_DIR}/envs/${CONDA_ENV} \
 # There are probably hard coded things in there
 
 RUN echo "Deleting rstudio user..." \
-    && userdel rstudio
+    && usermod -u 1001 rstudio
+    && groupmod -g 1001 rstudio
+
 
 # Create jovyan user, permissions, add conda init to startup script
 RUN echo "Creating ${NB_USER} user..." \
@@ -52,7 +55,6 @@ RUN echo "Installing Apt-get packages..." \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /tmp/*
 # ========================
-
 
 USER ${NB_USER}
 WORKDIR ${HOME}
@@ -99,7 +101,6 @@ ONBUILD RUN echo "Checking for 'apt.txt'..." \
 
 ONBUILD RUN echo "Cleaning out tmp" \
         rm -rf /tmp/*
-
 
 ONBUILD USER ${NB_USER}
 
@@ -172,6 +173,10 @@ ONBUILD RUN echo "Installing R Jupyterhub + RStudio Magic..." \
         && export PATH=${NB_PYTHON_PREFIX}/bin:${PATH} \
         && R --quiet -e "devtools::install_github('IRkernel/IRkernel')" \
         && R --quiet -e "install.packages('rmarkdown')" \
-        && rm -rf /tmp/*
+        && rm -rf /tmp/* \
+        && rstudio-server stop
 
 ONBUILD USER ${NB_USER}
+
+ENV USER ${NB_USER}
+ENV HOME /home/${NB_USER}

@@ -55,7 +55,7 @@ jobs:
       fail-fast: false
       matrix:
         #IMAGE: [test-rstudio-notebook, base-notebook, ml-notebook, cellprofiler-notebook, scanpy-notebook, seurat-notebook, napari-notebook]
-        IMAGE: [base-notebook]
+        IMAGE: [base-notebook, cellprofiler]
     name: ${{ matrix.IMAGE }}
     runs-on: ubuntu-latest
     steps:
