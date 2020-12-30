@@ -100,12 +100,6 @@ ONBUILD RUN echo "Checking for 'apt.txt'..." \
 ONBUILD RUN echo "Cleaning out tmp" \
         rm -rf /tmp/*
 
-ONBUILD RUN echo "Installing R Jupyterhub + RStudio Magic..." \
-        && export PATH=${NB_PYTHON_PREFIX}/bin:${PATH} \
-        && R --quiet -e "devtools::install_github('IRkernel/IRkernel')" \
-        && R --quiet -e "IRkernel::installspec(prefix='${CONDA_DIR}')" \
-        && R --quiet -e "install.packages('rmarkdown')" \
-        && rm -rf /tmp/*
 
 ONBUILD USER ${NB_USER}
 
@@ -155,7 +149,7 @@ ONBUILD RUN echo "Checking for 'postBuild'..." \
 ONBUILD RUN echo "Installing Python Jupyterhub + RStudio Magic..." \
         && export PATH=${NB_PYTHON_PREFIX}/bin:${PATH} \
         && conda install -c conda-forge -y \
-            pip=20 jupyter-server-proxy \
+            pip=20 jupyter-server-proxy jupyter_client \
         && pip install --no-cache-dir \
             jupyter-rsession-proxy \
             nbsphinx \
@@ -172,4 +166,12 @@ ONBUILD RUN echo "Checking for 'start'..." \
         ; fi
 # ----------------------
 
+ONBUILD USER root
+ONBUILD RUN echo "Installing R Jupyterhub + RStudio Magic..." \
+        && export PATH=${NB_PYTHON_PREFIX}/bin:${PATH} \
+        && R --quiet -e "devtools::install_github('IRkernel/IRkernel')" \
+        && R --quiet -e "IRkernel::installspec(prefix='${CONDA_DIR}')" \
+        && R --quiet -e "install.packages('rmarkdown')" \
+        && rm -rf /tmp/*
 
+ONBUILD USER ${NB_USER}
