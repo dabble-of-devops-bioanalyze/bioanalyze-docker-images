@@ -32,10 +32,9 @@ ENV NB_PYTHON_PREFIX=${CONDA_DIR}/envs/${CONDA_ENV} \
 # TODO Not sure this is a great idea.
 # There are probably hard coded things in there
 
-RUN echo "Deleting rstudio user..." \
+RUN echo "Updating rstudio user..." \
     && usermod -u 1001 rstudio
     && groupmod -g 1001 rstudio
-
 
 # Create jovyan user, permissions, add conda init to startup script
 RUN echo "Creating ${NB_USER} user..." \
