@@ -4,7 +4,9 @@ channels:
   - defaults
 dependencies:
   - python=3.8*
-  - pangeo-notebook=2020.11.06
+  - pangeo-notebook=2020.12.16
+  # NOTE: many of the extensions don't support 3.0 yet
+  - jupyterlab=2.2.9
   - mysql
   - openjdk
   - zeromq

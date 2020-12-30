@@ -30,8 +30,6 @@ ENV NB_PYTHON_PREFIX=${CONDA_DIR}/envs/${CONDA_ENV} \
 
 # TODO Not sure this is a great idea.
 # There are probably hard coded things in there
-RUN echo "Cleaning out tmp" \
-        rm -rf /tmp/*
 
 RUN echo "Deleting rstudio user..." \
     && userdel rstudio
@@ -51,11 +49,10 @@ RUN echo "Installing Apt-get packages..." \
     && apt-get install -y apt-utils 2> /dev/null \
     && apt-get install -y wget zip libzmq3-dev \
     && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /tmp/*
 # ========================
 
-# ========================
-# Installing R packages for Running RStudio Server
 
 USER ${NB_USER}
 WORKDIR ${HOME}
@@ -147,8 +144,9 @@ ONBUILD RUN echo "Checking for 'postBuild'..." \
         && find ${CONDA_DIR} -follow -type f -name '*.js.map' -delete \
         ; fi
 
-# Install RStudio + Jupyterhub Magic
-ONBUILD RUN echo "Installing IRkernel..." \
+# ========================
+# Installing R packages for Running RStudio Server
+ONBUILD RUN echo "Installing Jupyterhub + RStudio Magic..." \
         export PATH=${NB_PYTHON_PREFIX}/bin:${PATH} \
         && conda install -c conda-forge -y \
             pip=20 jupyter-server-proxy  && \
