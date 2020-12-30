@@ -167,10 +167,10 @@ ONBUILD RUN echo "Checking for 'start'..." \
 # ----------------------
 
 ONBUILD USER root
+#        && R --quiet -e "IRkernel::installspec(prefix='${CONDA_DIR}')" \
 ONBUILD RUN echo "Installing R Jupyterhub + RStudio Magic..." \
         && export PATH=${NB_PYTHON_PREFIX}/bin:${PATH} \
         && R --quiet -e "devtools::install_github('IRkernel/IRkernel')" \
-        && R --quiet -e "IRkernel::installspec(prefix='${CONDA_DIR}')" \
         && R --quiet -e "install.packages('rmarkdown')" \
         && rm -rf /tmp/*
 
