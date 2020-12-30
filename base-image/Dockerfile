@@ -47,7 +47,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN echo "Installing Apt-get packages..." \
     && apt-get update --fix-missing \
     && apt-get install -y apt-utils 2> /dev/null \
-    && apt-get install -y wget zip \
+    && apt-get install -y wget zip libzmq3-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 # ========================
