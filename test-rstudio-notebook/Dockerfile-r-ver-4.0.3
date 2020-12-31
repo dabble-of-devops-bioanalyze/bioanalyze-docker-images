@@ -1,5 +1,5 @@
-FROM  jupyter/minimal-notebook:6d42503c684f
-#FROM rocker/r-ver:4.0.3
+#FROM  jupyter/minimal-notebook:6d42503c684f
+FROM rocker/r-ver:4.0.3
 
 USER root
 # https://hub.docker.com/r/rocker/rstudio/dockerfile
@@ -11,6 +11,18 @@ ENV S6_VERSION=${S6_VERSION:-v1.21.7.0}
 ENV S6_BEHAVIOUR_IF_STAGE2_FAILS=2
 ENV PATH=/usr/lib/rstudio-server/bin:$PATH
 ENV PANDOC_TEMPLATES_VERSION=${PANDOC_TEMPLATES_VERSION:-2.9}
+
+# ========================
+ENV CONDA_VERSION=4.9.2-0 \
+    LD_LIBRARY_PATH=/usr/local/lib/R/lib \
+    CONDA_ENV=notebook \
+    NB_USER=jovyan \
+    NB_UID=1000 \
+    SHELL=/bin/bash \
+    LANG=C.UTF-8  \
+    LC_ALL=C.UTF-8 \
+    CONDA_DIR=/srv/conda \
+    DISABLE_AUTH=true
 
 
 WORKDIR /tmp
@@ -65,32 +77,63 @@ RUN apt-get update \
     \n}' >> /usr/local/lib/R/etc/Rprofile.site \
   && echo "PATH=${PATH}" >> /usr/local/lib/R/etc/Renviron
 
+# Start Jupyterhub Stuff
+ENV NB_PYTHON_PREFIX=${CONDA_DIR}/envs/${CONDA_ENV} \
+    DASK_ROOT_CONFIG=${CONDA_DIR}/etc \
+    HOME=/home/${NB_USER} \
+    PATH=${CONDA_DIR}/bin:${PATH}
 
-USER $NB_UID
+# TODO Not sure this is a great idea.
+# There are probably hard coded things in there
+#RUN echo "Updating rstudio user..." \
+#    && usermod -u 1001 rstudio \
+#    && groupmod -g 1001 rstudio
+
+# Create jovyan user, permissions, add conda init to startup script
+RUN echo "Creating ${NB_USER} user..." \
+    && groupadd --gid ${NB_UID} ${NB_USER}  \
+    && useradd --create-home --gid ${NB_UID} --no-log-init --uid ${NB_UID} ${NB_USER} \
+    && echo ". ${CONDA_DIR}/etc/profile.d/conda.sh ; conda activate ${CONDA_ENV}" > /etc/profile.d/init_conda.sh \
+    && chown -R ${NB_USER}:${NB_USER} /srv
+
+# SEE: https://github.com/phusion/baseimage-docker/issues/58
+ARG DEBIAN_FRONTEND=noninteractive
+
+RUN echo "Installing Apt-get packages..." \
+    && apt-get update --fix-missing \
+    && apt-get install -y apt-utils 2> /dev/null \
+    && apt-get install -y wget zip libzmq3-dev \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /tmp/*
+
+## RStudio with NO AUTH
+#RUN cp /etc/rstudio/disable_auth_rserver.conf /etc/rstudio/rserver.conf && \
+#	echo "USER=$NB_USER" >> /etc/environment
+
+# ========================
+
+USER ${NB_USER}
+WORKDIR ${HOME}
+
+RUN echo "Installing Miniforge..." \
+    && URL="https://github.com/conda-forge/miniforge/releases/download/${CONDA_VERSION}/Miniforge3-${CONDA_VERSION}-Linux-x86_64.sh" \
+    && wget --quiet ${URL} -O miniconda.sh \
+    && /bin/bash miniconda.sh -u -b -p ${CONDA_DIR} \
+    && rm miniconda.sh \
+    && conda install -y -c conda-forge mamba \
+    && mamba clean -afy \
+    && find ${CONDA_DIR} -follow -type f -name '*.a' -delete \
+    && find ${CONDA_DIR} -follow -type f -name '*.pyc' -delete
 
 # Jupyterhub session proxy
-RUN conda install -y -c conda-forge pip r-base=4.0.3 r-essentials jupyter-server-proxy \
+RUN conda install -y -c conda-forge \
+    pip r-base=4.0.3 r-essentials jupyterlab=2.2.9 jupyter-server-proxy \
     && pip install jupyter-rsession-proxy \
-    && conda clean --all -f -y
+    && conda clean --all -f -y \
+    && mamba clean -afy
 
-#RUN jupyter labextension install @jupyterlab/server-proxy && \
-#    jupyter serverextension enable --sys-prefix jupyter_server_proxy
+EXPOSE 8888
+#ENTRYPOINT ["/srv/start"]
 
-RUN fix-permissions "${CONDA_DIR}" && \
-    fix-permissions "/home/${NB_USER}"
 
-USER root
-
-USER $NB_USER
-
-WORKDIR /home/${NB_USER}
-
-# Dask
-#RUN conda install -c conda-forge dask dask-ml dask-labextension && \
-#    conda clean --all -f -y && \
-#    fix-permissions "${CONDA_DIR}" && \
-#    fix-permissions "/home/${NB_USER}"
-#
-#RUN jupyter labextension install dask-labextension && \
-#    jupyter serverextension enable dask_labextension
-#

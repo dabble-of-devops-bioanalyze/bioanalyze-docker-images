@@ -1,7 +1,8 @@
 ARG R_VER="4.0.3"
 
 #FROM rocker/tidyverse:${R_VER}
-FROM rocker/tidyverse:3.6.3
+#FROM rocker/tidyverse:3.6.3
+FROM rocker/r-ver:${R_VER}
 
 # ----------------------
 # We are clobbering together two docker files
@@ -26,16 +27,71 @@ ENV CONDA_VERSION=4.9.2-0 \
     CONDA_DIR=/srv/conda \
     DISABLE_AUTH=true
 
+# RStudio Stuff
+ARG RSTUDIO_VERSION
+ENV RSTUDIO_VERSION=${RSTUDIO_VERSION:-1.2.5042}
+ARG S6_VERSION
+ARG PANDOC_TEMPLATES_VERSION
+ENV S6_VERSION=${S6_VERSION:-v1.21.7.0}
+ENV S6_BEHAVIOUR_IF_STAGE2_FAILS=2
+ENV PATH=/usr/lib/rstudio-server/bin:$PATH
+ENV PANDOC_TEMPLATES_VERSION=${PANDOC_TEMPLATES_VERSION:-2.9}
+
+
 ENV NB_PYTHON_PREFIX=${CONDA_DIR}/envs/${CONDA_ENV} \
     DASK_ROOT_CONFIG=${CONDA_DIR}/etc \
     HOME=/home/${NB_USER} \
     PATH=${CONDA_DIR}/bin:${PATH}
 
-# TODO Not sure this is a great idea.
-# There are probably hard coded things in there
-RUN echo "Updating rstudio user..." \
-    && usermod -u 1001 rstudio \
-    && groupmod -g 1001 rstudio
+# ========================
+## Install RStudio
+## Download and install RStudio server & dependencies
+## Attempts to get detect latest version, otherwise falls back to version given in $VER
+## Symlink pandoc, pandoc-citeproc so they are available system-wide
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends \
+    curl vim-tiny vim-athena jq \
+    file \
+    git \
+    libapparmor1 \
+    libclang-dev \
+    libcurl4-openssl-dev \
+    libedit2 \
+    libssl-dev \
+    lsb-release \
+    psmisc \
+    procps \
+    python-setuptools \
+    sudo \
+    wget \
+  && if [ -z "$RSTUDIO_VERSION" ]; \
+    then RSTUDIO_URL="https://www.rstudio.org/download/latest/stable/server/bionic/rstudio-server-latest-amd64.deb"; \
+    else RSTUDIO_URL="http://download2.rstudio.org/server/bionic/amd64/rstudio-server-${RSTUDIO_VERSION}-amd64.deb"; fi \
+  && wget -q $RSTUDIO_URL \
+  && dpkg -i rstudio-server-*-amd64.deb \
+  && rm rstudio-server-*-amd64.deb \
+  ## Symlink pandoc & standard pandoc templates for use system-wide
+  && ln -s /usr/lib/rstudio-server/bin/pandoc/pandoc /usr/local/bin \
+  && ln -s /usr/lib/rstudio-server/bin/pandoc/pandoc-citeproc /usr/local/bin \
+  && git clone --recursive --branch ${PANDOC_TEMPLATES_VERSION} https://github.com/jgm/pandoc-templates \
+  && mkdir -p /opt/pandoc/templates \
+  && cp -r pandoc-templates*/* /opt/pandoc/templates && rm -rf pandoc-templates* \
+  && mkdir /root/.pandoc && ln -s /opt/pandoc/templates /root/.pandoc/templates \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/ \
+  ## RStudio wants an /etc/R, will populate from $R_HOME/etc
+  && mkdir -p /usr/local/lib/R/etc/ \
+  && touch  /usr/local/lib/R/etc/Rprofile.site \
+  && mkdir -p /etc/R \
+  ## Write config files in $R_HOME/etc
+  && echo '\n\
+    \n# Configure httr to perform out-of-band authentication if HTTR_LOCALHOST \
+    \n# is not set since a redirect to localhost may not work depending upon \
+    \n# where this Docker container is running. \
+    \nif(is.na(Sys.getenv("HTTR_LOCALHOST", unset=NA))) { \
+    \n  options(httr_oob_default = TRUE) \
+    \n}' >> /usr/local/lib/R/etc/Rprofile.site \
+  && echo "PATH=${PATH}" >> /usr/local/lib/R/etc/Renviron
 
 # Create jovyan user, permissions, add conda init to startup script
 RUN echo "Creating ${NB_USER} user..." \
@@ -60,10 +116,6 @@ RUN echo "Installing Apt-get packages..." \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /tmp/*
-
-# RStudio with NO AUTH
-RUN cp /etc/rstudio/disable_auth_rserver.conf /etc/rstudio/rserver.conf && \
-	echo "USER=$NB_USER" >> /etc/environment
 
 # ========================
 
@@ -179,13 +231,13 @@ ONBUILD RUN echo "Checking for 'start'..." \
 # ----------------------
 
 ONBUILD USER root
-#        && R --quiet -e "IRkernel::installspec(prefix='${CONDA_DIR}')" \
-ONBUILD RUN echo "Installing R Jupyterhub + RStudio Magic..." \
-        && export PATH=${NB_PYTHON_PREFIX}/bin:${PATH} \
-        && R --quiet -e "devtools::install_github('IRkernel/IRkernel')" \
-        && R --quiet -e "install.packages('rmarkdown')" \
-        && rm -rf /tmp/* \
-        && rstudio-server stop
+##        && R --quiet -e "IRkernel::installspec(prefix='${CONDA_DIR}')" \
+#ONBUILD RUN echo "Installing R Jupyterhub + RStudio Magic..." \
+#        && export PATH=${NB_PYTHON_PREFIX}/bin:${PATH} \
+#        && R --quiet -e "devtools::install_github('IRkernel/IRkernel')" \
+#        && R --quiet -e "install.packages('rmarkdown')" \
+#        && rm -rf /tmp/* \
+#        && rstudio-server stop
 
 ONBUILD USER ${NB_USER}
 
