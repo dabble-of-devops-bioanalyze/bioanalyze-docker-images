@@ -216,6 +216,7 @@ ONBUILD RUN echo "Installing Python Jupyterhub + RStudio Magic..." \
         && conda install -c conda-forge -y \
             pip=20 jupyter-server-proxy jupyter_client \
         && pip install --no-cache-dir \
+            jupyter-kite \
             jupyter-rsession-proxy \
             nbsphinx \
             jupyter-book \

@@ -5,7 +5,8 @@ channels:
 dependencies:
   - python=3.8*
   - pangeo-notebook=2020.11.06
-  - pip
+  - jupyterlab=2.2.9
+  - pip=20
   # ERROR: panel 0.9.3 has requirement bokeh>=2.0.0, but you'll have bokeh 1.4.0 which is incompatible
   # Conda solver conflicts for these
   #rapidsai-nightly/linux-64::cuspatial
