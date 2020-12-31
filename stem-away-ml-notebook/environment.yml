@@ -23,8 +23,6 @@ dependencies:
   - spacy
   - scikit-learn
   - requests
-  - pkgs/main/linux-64::tensorflow-gpu>=2
-  - keras
   # R Things
   - r-base=4.0.3
   - r-base=4.0.3
@@ -75,4 +73,6 @@ dependencies:
   - xarray
   - zarr
   - pip:
+      - tensorflow
+      - keras
       - git+git://github.com/titipata/pubmed_parser.git
