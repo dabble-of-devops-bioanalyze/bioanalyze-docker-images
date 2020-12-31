@@ -23,7 +23,7 @@ dependencies:
   - spacy
   - scikit-learn
   - requests
-  - pkgs/main/linux-64::tensorflow-gpu>=2
+#  - pkgs/main/linux-64::tensorflow-gpu>=2
   - keras
   # R Things
   - r-base=4.0.3
