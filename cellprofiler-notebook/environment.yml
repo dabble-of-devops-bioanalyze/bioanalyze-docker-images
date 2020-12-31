@@ -37,6 +37,3 @@ dependencies:
   - pip=20
   - pip:
       - CellProfiler==4.0.7
-      - nbsphinx
-      - jupyter-book
-      - jupyter-rsession-proxy
