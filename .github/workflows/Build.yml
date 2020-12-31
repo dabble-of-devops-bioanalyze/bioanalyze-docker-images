@@ -60,6 +60,7 @@ jobs:
         IMAGE:
           - base-notebook
           - conda-r-4.0.3-notebook
+          - conda-r-3.6.1-notebook
           - cellprofiler-notebook
           - stem-away-ml-notebook
     name: ${{ matrix.IMAGE }}
