@@ -20,10 +20,10 @@ dependencies:
   - wand
   - streamlit
   - nltk
-  - spacey
+  - spacy
   - scikit-learn
   - requests
-  - tensorflow
+  - pkgs/main/linux-64::tensorflow-gpu>=2
   - keras
   # R Things
   - r-base=4.0.3
@@ -37,8 +37,7 @@ dependencies:
   - r-rocr
   - r-caret
   - r-mlrmbo
-  - h20-py
-  #  - r-rgenoud
+  - h2o-py
   - r-dicekriging
   - r-randomforestsrc
   - r-checkmate
