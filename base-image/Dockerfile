@@ -1,7 +1,5 @@
 ARG R_VER="4.0.3"
 
-#FROM rocker/tidyverse:${R_VER}
-#FROM rocker/tidyverse:3.6.3
 FROM rocker/r-ver:${R_VER}
 
 # ----------------------
@@ -28,9 +26,11 @@ ENV CONDA_VERSION=4.9.2-0 \
     DISABLE_AUTH=true
 
 # RStudio Stuff
+# RStudio 1.3 used to work and now it doesn't
 ARG RSTUDIO_VERSION
 ENV RSTUDIO_VERSION=${RSTUDIO_VERSION:-1.2.5042}
 ARG S6_VERSION
+ARG DEBIAN_FRONTEND=noninteractive
 ARG PANDOC_TEMPLATES_VERSION
 ENV S6_VERSION=${S6_VERSION:-v1.21.7.0}
 ENV S6_BEHAVIOUR_IF_STAGE2_FAILS=2
@@ -107,7 +107,6 @@ RUN echo "Creating ${NB_USER} user..." \
     && chown -R ${NB_USER}:${NB_USER} /home/${NB_USER}/.rstudio
 
 # SEE: https://github.com/phusion/baseimage-docker/issues/58
-ARG DEBIAN_FRONTEND=noninteractive
 
 RUN echo "Installing Apt-get packages..." \
     && apt-get update --fix-missing \
@@ -210,6 +209,8 @@ ONBUILD RUN echo "Checking for 'postBuild'..." \
         ; fi
 
 # ========================
+# If they have a conda R this should bring up that R
+# Otherwise it will just use the system R
 ONBUILD RUN echo "Installing Python Jupyterhub + RStudio Magic..." \
         && export PATH=${NB_PYTHON_PREFIX}/bin:${PATH} \
         && conda install -c conda-forge -y \
