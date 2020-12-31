@@ -5,8 +5,11 @@ channels:
   - defaults
 dependencies:
   - python=3.8*
-  - pangeo-notebook=2020.11.06
-  - pip
+  - pangeo-notebook=2020.12.16
+  # NOTE: many of the extensions don't support 3.0 yet
+  - jupyterlab=2.2.9
+  # NOTE: pip required for running tests in this repo
+  - pip=20
   - fsspec
   - gcsfs
   - s3fs>0.5
@@ -21,7 +24,3 @@ dependencies:
   - scipy
   - zarr
   - napari=0.4.2
-  - pip:
-      - nbsphinx
-      - jupyter-book
-      - jupyter-rsession-proxy

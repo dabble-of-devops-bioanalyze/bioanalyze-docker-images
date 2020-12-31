@@ -11,3 +11,4 @@ dependencies:
   - r-base=4.0.3
   - r-essentials
   - r-tidyverse
+  - r-bookdown

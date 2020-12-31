@@ -5,18 +5,12 @@ channels:
   - defaults
 dependencies:
   - python=3.8*
-  - pangeo-notebook=2020.11.06
-  - pip
-  # ERROR: panel 0.9.3 has requirement bokeh>=2.0.0, but you'll have bokeh 1.4.0 which is incompatible
-  # Conda solver conflicts for these
-  #rapidsai-nightly/linux-64::cuspatial
-  #rapidsai-nightly/linux-64::cudf
-  - r-base
+  - pangeo-notebook=2020.12.16
+  # NOTE: many of the extensions don't support 3.0 yet
+  - jupyterlab=2.2.9
+  - pip=20
+  - r-base=4.0.3
   - r-essentials
   - r-shiny
-  - r-seurat=3.2.2
+  - r-seurat
   - r-bookdown
-  - pip:
-      - nbsphinx
-      - jupyter-book
-      - jupyter-rsession-proxy
