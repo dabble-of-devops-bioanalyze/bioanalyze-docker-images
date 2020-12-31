@@ -200,7 +200,6 @@ ONBUILD RUN echo "Checking for 'postBuild'..." \
         export PATH=${NB_PYTHON_PREFIX}/bin:${PATH} \
         && chmod +x postBuild \
         && ./postBuild \
-        && rm -rf /tmp/* \
         && rm -rf ${HOME}/.cache ${HOME}/.npm ${HOME}/.yarn \
         && rm -rf ${NB_PYTHON_PREFIX}/share/jupyter/lab/staging \
         && find ${CONDA_DIR} -follow -type f -name '*.a' -delete \
@@ -220,7 +219,6 @@ ONBUILD RUN echo "Installing Python Jupyterhub + RStudio Magic..." \
             jupyter-rsession-proxy \
             nbsphinx \
             jupyter-book \
-        && rm -rf /tmp/*
 
 # Overwrite start entrypoint script if present
 ONBUILD RUN echo "Checking for 'start'..." \
@@ -233,15 +231,13 @@ ONBUILD RUN echo "Checking for 'start'..." \
 # ----------------------
 
 ONBUILD USER root
-##        && R --quiet -e "IRkernel::installspec(prefix='${CONDA_DIR}')" \
-#ONBUILD RUN echo "Installing R Jupyterhub + RStudio Magic..." \
-#        && export PATH=${NB_PYTHON_PREFIX}/bin:${PATH} \
-#        && R --quiet -e "devtools::install_github('IRkernel/IRkernel')" \
-#        && R --quiet -e "install.packages('rmarkdown')" \
-#        && rm -rf /tmp/* \
-#        && rstudio-server stop
+ONBUILD RUN echo "Cleaning  /tmp" \
+        && rm -rf /tmp/*
 
 ONBUILD USER ${NB_USER}
+
+USER ${NB_USER}
+WORKDIR ${HOME}
 
 ENV USER ${NB_USER}
 ENV HOME /home/${NB_USER}
