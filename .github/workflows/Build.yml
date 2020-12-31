@@ -63,6 +63,7 @@ jobs:
           - conda-r-3.6.1-notebook
           - cellprofiler-notebook
           - stem-away-ml-notebook
+          - ml-notebook
     name: ${{ matrix.IMAGE }}
     runs-on: ubuntu-latest
     steps:
