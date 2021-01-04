@@ -222,7 +222,7 @@ ONBUILD RUN echo "Installing Python Jupyterhub + RStudio Magic..." \
             jupyter-kite \
             jupyter-rsession-proxy \
             nbsphinx \
-            jupyter-book \
+            jupyter-book
 
 # Overwrite start entrypoint script if present
 ONBUILD RUN echo "Checking for 'start'..." \
