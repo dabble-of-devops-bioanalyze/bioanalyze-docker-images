@@ -7,6 +7,8 @@ dependencies:
   - pangeo-notebook=2020.12.16
   # NOTE: many of the extensions don't support 3.0 yet
   - jupyterlab=2.2.9
+  - jupyter-server-proxy
+  - jupyter_client
   - pip=20
   # ERROR: panel 0.9.3 has requirement bokeh>=2.0.0, but you'll have bokeh 1.4.0 which is incompatible
   # Conda solver conflicts for these
@@ -42,6 +44,7 @@ dependencies:
   - xarray
   - zarr
   - pip:
+      - jupyter-kite
       - nbsphinx
       - jupyter-book
       - jupyter-rsession-proxy

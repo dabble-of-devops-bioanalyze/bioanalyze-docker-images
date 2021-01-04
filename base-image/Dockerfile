@@ -131,11 +131,6 @@ RUN echo "Installing Miniforge..." \
     && /bin/bash miniconda.sh -u -b -p ${CONDA_DIR} \
     && rm miniconda.sh \
     && conda install -y -c conda-forge mamba \
-    && conda install -c conda-forge -y \
-        pip=20 jupyter-server-proxy jupyter_client \
-    && pip install --no-cache-dir \
-        jupyter-kite \
-        jupyter-rsession-proxy \
     && mamba clean -afy \
     && find ${CONDA_DIR} -follow -type f -name '*.a' -delete \
     && find ${CONDA_DIR} -follow -type f -name '*.pyc' -delete

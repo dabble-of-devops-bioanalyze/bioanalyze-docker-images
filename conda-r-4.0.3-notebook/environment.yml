@@ -6,9 +6,14 @@ dependencies:
   - pangeo-notebook=2020.12.16
   # NOTE: many of the extensions don't support 3.0 yet
   - jupyterlab=2.2.9
+  - jupyter-server-proxy
+  - jupyter_client
   # NOTE: pip required for running tests in this repo
   - pip=20
   - r-base=4.0.3
   - r-essentials
   - r-tidyverse
   - r-bookdown
+  - pip:
+      - jupyter-kite
+      - jupyter-rsession-proxy
