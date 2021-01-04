@@ -118,7 +118,8 @@ RUN echo "Installing Apt-get packages..." \
 
 # ========================
 RUN echo "Installing Kite ..." \
-    && bash -c "$(wget -q -O - https://linux.kite.com/dls/linux/current)"
+    && wget -q -O install-kite.sh https://linux.kite.com/dls/linux/current \
+    && chmod 777 install-kite.sh
 
 
 # ========================

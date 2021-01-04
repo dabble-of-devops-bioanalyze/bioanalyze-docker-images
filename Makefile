@@ -16,7 +16,8 @@ docs:
 	docker-compose up -d
 
 rebuild:
-	docker-compose build --no-cache
+	cd $(IMAGE); \
+	docker build --no-cache -t $(IMAGE) .
 
 jupyter-token:
 	docker-compose logs jupyter | grep 127 | tail
@@ -24,8 +25,7 @@ jupyter-token:
 # IMAGE=cellprofiler-notebook make build
 build :
 	cd $(IMAGE); \
-	docker build -t $(IMAGE) \
-		--build-arg PANGEO_TAG=${PANGEO_TAG} .
+	docker build -t $(IMAGE) .
 
 clean:
 	docker-compose stop; docker-compose rm -v -f
