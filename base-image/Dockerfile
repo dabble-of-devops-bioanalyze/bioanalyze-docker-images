@@ -116,10 +116,6 @@ RUN echo "Installing Apt-get packages..." \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /tmp/*
 
-# ========================
-RUN echo "Installing Kite ..." \
-    && wget -q -O install-kite.sh https://linux.kite.com/dls/linux/current \
-    && chmod 777 install-kite.sh
 
 
 # ========================
@@ -135,6 +131,13 @@ RUN echo "Installing Miniforge..." \
     && mamba clean -afy \
     && find ${CONDA_DIR} -follow -type f -name '*.a' -delete \
     && find ${CONDA_DIR} -follow -type f -name '*.pyc' -delete
+
+# ========================
+RUN echo "Installing Kite ..." \
+    && wget -q -O install-kite.sh https://linux.kite.com/dls/linux/current \
+    && chmod 777 install-kite.sh \
+    && ./install-kite.sh --download \
+    && ./install-kite.sh --install
 
 EXPOSE 8888
 ENTRYPOINT ["/srv/start"]
