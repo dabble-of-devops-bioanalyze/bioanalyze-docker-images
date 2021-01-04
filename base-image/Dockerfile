@@ -117,7 +117,11 @@ RUN echo "Installing Apt-get packages..." \
     && rm -rf /tmp/*
 
 # ========================
+RUN echo "Installing Kite ..." \
+    && bash -c "$(wget -q -O - https://linux.kite.com/dls/linux/current)"
 
+
+# ========================
 USER ${NB_USER}
 WORKDIR ${HOME}
 
@@ -127,6 +131,11 @@ RUN echo "Installing Miniforge..." \
     && /bin/bash miniconda.sh -u -b -p ${CONDA_DIR} \
     && rm miniconda.sh \
     && conda install -y -c conda-forge mamba \
+    && conda install -c conda-forge -y \
+        pip=20 jupyter-server-proxy jupyter_client \
+    && pip install --no-cache-dir \
+        jupyter-kite \
+        jupyter-rsession-proxy \
     && mamba clean -afy \
     && find ${CONDA_DIR} -follow -type f -name '*.a' -delete \
     && find ${CONDA_DIR} -follow -type f -name '*.pyc' -delete
@@ -239,5 +248,5 @@ ONBUILD USER ${NB_USER}
 USER ${NB_USER}
 WORKDIR ${HOME}
 
-ENV USER ${NB_USER}
+ENV USER ${NB_UID}
 ENV HOME /home/${NB_USER}
