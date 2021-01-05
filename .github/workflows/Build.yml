@@ -50,9 +50,8 @@ jobs:
           # Should this be tag_names?
           tags: "master, latest, ${{env.CALVER}}, ${{env.DOCKER_TAG}}"
 
-  # TODO Build matrix with R-3 and R-4
   matrix-build:
-    needs: base-image
+#    needs: base-image
     strategy:
       fail-fast: false
       matrix:
@@ -87,7 +86,7 @@ jobs:
           name: ${{env.DOCKER_ORG}}/${{ matrix.IMAGE }}
           username: ${{ secrets.DOCKERHUB_USER }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-          workdir: "${{env.PROJECT_SLUG}}/pangeo-notebook-${{env.PANGEO_TAG}}/${{ env.IMAGE }}"
+          workdir: "${{env.PROJECT_SLUG}}/pangeo-notebook-${{env.PANGEO_TAG}}/${{env.IMAGE}}"
           tags: "master, latest, ${{env.CALVER}}, ${{env.DOCKER_TAG}}"
 
 #    - name: Export Full Conda Environment
