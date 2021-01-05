@@ -35,3 +35,4 @@ dependencies:
     - jupyter-rsession-proxy
     - jupyter-book
     - nbsphinx
+    - cellbrowser

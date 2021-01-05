@@ -19,3 +19,4 @@ dependencies:
   {%- for package in cookiecutter.default_packages.pip_packages %}
     - {{ package }}
   {%- endfor %}
+    - cellbrowser
