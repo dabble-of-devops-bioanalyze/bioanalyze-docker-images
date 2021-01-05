@@ -64,6 +64,7 @@ jobs:
           - napari-notebook
           - scanpy-notebook
           - seurat-notebook
+          - cellprofiler-notebook
     name: ${{ matrix.IMAGE }}
     runs-on: ubuntu-latest
     steps:
