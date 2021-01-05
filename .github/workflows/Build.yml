@@ -35,7 +35,7 @@ jobs:
         run: |
           CALVER="$( date -u '+%Y.%m.%d' )"
           SHA7="${GITHUB_SHA::7}"
-          DOCKER_TAG="pangeo-${PANGEO_TAG}--rstudio-${RSTUDIO_VERSION}--dodo-${SHA7}"
+          DOCKER_TAG="rstudio-${RSTUDIO_VERSION}--dodo-${SHA7}"
           IMAGE_SPEC="${DOCKER_ORG}/${{ matrix.IMAGE }}:${DOCKER_TAG}"
           echo "CALVER=${CALVER}" >> $GITHUB_ENV
           echo "DOCKER_TAG=${DOCKER_TAG}" >> $GITHUB_ENV

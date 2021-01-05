@@ -116,8 +116,6 @@ RUN echo "Installing Apt-get packages..." \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /tmp/*
 
-
-
 # ========================
 USER ${NB_USER}
 WORKDIR ${HOME}
