@@ -132,12 +132,6 @@ RUN echo "Installing Miniforge..." \
     && find ${CONDA_DIR} -follow -type f -name '*.a' -delete \
     && find ${CONDA_DIR} -follow -type f -name '*.pyc' -delete
 
-# ========================
-RUN echo "Installing Kite ..." \
-    && wget -q -O install-kite.sh https://linux.kite.com/dls/linux/current \
-    && chmod 777 install-kite.sh \
-    && ./install-kite.sh --download \
-    && ./install-kite.sh --install
 
 EXPOSE 8888
 ENTRYPOINT ["/srv/start"]
@@ -216,17 +210,11 @@ ONBUILD RUN echo "Checking for 'postBuild'..." \
         ; fi
 
 # ========================
-# If they have a conda R this should bring up that R
-# Otherwise it will just use the system R
-ONBUILD RUN echo "Installing Python Jupyterhub + RStudio Magic..." \
-        && export PATH=${NB_PYTHON_PREFIX}/bin:${PATH} \
-        && conda install -c conda-forge -y \
-            pip=20 jupyter-server-proxy jupyter_client \
-        && pip install --no-cache-dir \
-            jupyter-kite \
-            jupyter-rsession-proxy \
-            nbsphinx \
-            jupyter-book
+ONBUILD RUN  echo "Installing Kite ..." \
+    && wget -q -O install-kite.sh https://linux.kite.com/dls/linux/current \
+    && chmod 777 install-kite.sh \
+    && ./install-kite.sh --download \
+    && ./install-kite.sh --install
 
 # Overwrite start entrypoint script if present
 ONBUILD RUN echo "Checking for 'start'..." \
