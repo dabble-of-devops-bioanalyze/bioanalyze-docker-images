@@ -1,0 +1,21 @@
+name: napari
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  {%- for package in cookiecutter.default_packages.conda_packages %}
+  - {{ package }}
+  {%- endfor %}
+  - h5netcdf
+  - h5py
+  - jupyterlab-nvdashboard
+  - matplotlib-base
+  - nb_conda_kernels
+  - scikit-learn
+  - scipy
+  - napari=0.4.2
+  - pip:
+  {%- for package in cookiecutter.default_packages.pip_packages %}
+    - {{ package }}
+  {%- endfor %}

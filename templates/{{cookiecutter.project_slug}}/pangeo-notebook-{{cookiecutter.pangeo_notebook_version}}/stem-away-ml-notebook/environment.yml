@@ -1,0 +1,67 @@
+name: notebook
+channels:
+  - conda-forge
+dependencies:
+  {%- for package in cookiecutter.default_packages.conda_packages %}
+  - {{ package }}
+  {%- endfor %}
+  # Python things
+  - time
+  - gensim
+  - bs4
+  - selenium
+  - sentence-transformers
+  - transformers
+  - pytorch>=1.6
+  - cudatoolkit=10.2
+  - wand
+  - streamlit
+  - nltk
+  - spacy
+  - scikit-learn
+  - requests
+  # R Things
+  - r-base=4.0.3
+  - r-essentials
+  - r-tidyverse
+  - r-plumber
+  - r-data.table
+  - r-mlr
+  - r-glmnet
+  - r-rocr
+  - r-caret
+  - r-mlrmbo
+  - h2o-py
+  - r-dicekriging
+  - r-randomforestsrc
+  - r-checkmate
+  - r-fastdummies
+  - r-jsonlite
+  - xgboost
+  - r-lubridate
+  - r-stringi
+  # Pangeo ML
+  - adlfs
+  - datashader
+  - geopandas
+  - geoviews-core
+  - holoviews
+  - hvplot
+  - intake
+  - intake-xarray
+  - jupyterlab-nvdashboard
+  - matplotlib-base
+  - nb_conda_kernels
+  - panel
+  - rasterio
+  - scikit-image
+  - scikit-learn
+  - scipy
+  - sparse
+  - pip:
+    {%- for package in cookiecutter.default_packages.pip_packages %}
+      - {{ package }}
+    {%- endfor %}
+      - tensorflow
+      - keras
+      - git+git://github.com/titipata/pubmed_parser.git

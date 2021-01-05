@@ -1,0 +1,5 @@
+#!/bin/bash
+
+{{cookiecutter.post_build}}
+
+#EOF

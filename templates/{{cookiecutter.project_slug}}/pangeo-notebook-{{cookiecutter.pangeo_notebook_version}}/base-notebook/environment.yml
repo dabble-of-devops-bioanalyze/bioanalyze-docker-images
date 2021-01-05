@@ -1,0 +1,11 @@
+name: notebook
+channels:
+  - conda-forge
+dependencies:
+  {%- for package in cookiecutter.default_packages.conda_packages %}
+  - {{ package }}
+  {%- endfor %}
+  - pip:
+  {%- for package in cookiecutter.default_packages.pip_packages %}
+      - {{ package }}
+  {%- endfor %}

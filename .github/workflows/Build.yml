@@ -15,9 +15,10 @@ on:
       - 'update_lockfile.sh'
 
 env:
-  PANGEO_TAG: 2020.12.04
-  RSTUDIO_VERSION: 1.2.5042
-  DOCKER_ORG: dabbleofdevops
+  PROJECT_SLUG: "biohub-docker-images"
+  PANGEO_TAG: "2020.12.22"
+  RSTUDIO_VERSION: "1.2.5042"
+  DOCKER_ORG: "dabbleofdevops"
   GITHUB_SHA: ${{ github.sha }}
   GITHUB_REF: ${{ github.ref }}
 
@@ -45,7 +46,7 @@ jobs:
           name: ${{env.DOCKER_ORG}}/${{ env.IMAGE }}
           username: ${{ secrets.DOCKERHUB_USER }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-          workdir: ${{ env.IMAGE }}
+          workdir: "${{ env.PROJECT_SLUG }}/${{ env.IMAGE }}"
           # Should this be tag_names?
           tags: "master, latest, ${{env.CALVER}}, ${{env.DOCKER_TAG}}"
 
@@ -86,7 +87,7 @@ jobs:
           name: ${{env.DOCKER_ORG}}/${{ matrix.IMAGE }}
           username: ${{ secrets.DOCKERHUB_USER }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-          workdir: ${{ matrix.IMAGE }}
+          workdir: "${{env.PROJECT_SLUG}}/pangeo-notebook-{{env.PANGEO_TAG}}/${{ env.IMAGE }}"
           tags: "master, latest, ${{env.CALVER}}, ${{env.DOCKER_TAG}}"
 
 #    - name: Export Full Conda Environment
