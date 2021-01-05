@@ -1,11 +1,11 @@
-name: scanpy
+name: seurat
 channels:
   - conda-forge
   - bioconda
   - defaults
 dependencies:
   - python=3.8*
-  - pangeo-notebook=2020.12.22
+  - pangeo-notebook=2020.11.06
   - jupyterlab=2.2.9
   - pip=20
   - jupyter-server-proxy
@@ -22,14 +22,11 @@ dependencies:
   - pyarrow
   - h5py
   - h5netcdf
-  - jupyterlab-nvdashboard
-  - matplotlib-base
-  - nb_conda_kernels
-  - scikit-learn
-  - scipy
-  - scanpy=1.6.0
-  - anndata
-  - cellxgene
+  - r-base=4.0.3
+  - r-essentials
+  - r-shiny
+  - r-seurat
+  - r-bookdown
   - pip:
     - jupyter-kite
     - jupyter-rsession-proxy

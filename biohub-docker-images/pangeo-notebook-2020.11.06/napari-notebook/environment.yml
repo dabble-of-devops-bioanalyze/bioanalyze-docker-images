@@ -1,9 +1,11 @@
-name: notebook
+name: napari
 channels:
   - conda-forge
+  - bioconda
+  - defaults
 dependencies:
   - python=3.8*
-  - pangeo-notebook=2020.12.22
+  - pangeo-notebook=2020.11.06
   - jupyterlab=2.2.9
   - pip=20
   - jupyter-server-proxy
@@ -20,10 +22,14 @@ dependencies:
   - pyarrow
   - h5py
   - h5netcdf
-  - r-base=3.6.1
-  - r-essentials
-  - r-tidyverse
-  - r-bookdown
+  - h5netcdf
+  - h5py
+  - jupyterlab-nvdashboard
+  - matplotlib-base
+  - nb_conda_kernels
+  - scikit-learn
+  - scipy
+  - napari=0.4.2
   - pip:
     - jupyter-kite
     - jupyter-rsession-proxy
