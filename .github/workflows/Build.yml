@@ -51,7 +51,7 @@ jobs:
           tags: "master, latest, ${{env.CALVER}}, ${{env.DOCKER_TAG}}"
 
   matrix-build:
-#    needs: base-image
+    needs: base-image
     strategy:
       fail-fast: false
       matrix:

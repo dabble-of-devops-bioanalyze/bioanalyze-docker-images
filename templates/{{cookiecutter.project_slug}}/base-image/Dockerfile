@@ -211,8 +211,8 @@ ONBUILD RUN echo "Checking for 'postBuild'..." \
 ONBUILD RUN  echo "Installing Kite ..." \
     && wget -q -O install-kite.sh https://linux.kite.com/dls/linux/current \
     && chmod 777 install-kite.sh \
-    && ./install-kite.sh --download \
-    && ./install-kite.sh --install
+    && ./install-kite.sh --download > /dev/null 2>&1 \
+    && ./install-kite.sh --install > /dev/null 2>&1
 
 # Overwrite start entrypoint script if present
 ONBUILD RUN echo "Checking for 'start'..." \
