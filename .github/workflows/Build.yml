@@ -86,7 +86,7 @@ jobs:
           name: ${{env.DOCKER_ORG}}/${{ matrix.IMAGE }}
           username: ${{ secrets.DOCKERHUB_USER }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-          workdir: "${{env.PROJECT_SLUG}}/pangeo-notebook-${{env.PANGEO_TAG}}/${{env.IMAGE}}"
+          workdir: "${{env.PROJECT_SLUG}}/pangeo-notebook-${{env.PANGEO_TAG}}/${{matrix.IMAGE}}"
           tags: "master, latest, ${{env.CALVER}}, ${{env.DOCKER_TAG}}"
 
 #    - name: Export Full Conda Environment
