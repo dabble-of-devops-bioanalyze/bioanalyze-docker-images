@@ -16,7 +16,7 @@ on:
 
 env:
   PROJECT_SLUG: "biohub-docker-images"
-  PANGEO_TAG: "2020-12-22"
+  PANGEO_TAG: "2020.12.22"
   RSTUDIO_VERSION: "1.2.5042"
   DOCKER_ORG: "dabbleofdevops"
   GITHUB_SHA: ${{ github.sha }}

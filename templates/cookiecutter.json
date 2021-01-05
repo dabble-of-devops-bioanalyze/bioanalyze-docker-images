@@ -1,9 +1,9 @@
 {
   "docker_org": "dabbleofdevops",
   "project_slug": "biohub-docker-images",
-  "pangeo_versions": ["2020-12-22"],
+  "pangeo_versions": ["2020.12.22"],
   "rstudio_version": "1.2.5042",
-  "pangeo_notebook_version": "2020-12-22",
+  "pangeo_notebook_version": "2020.12.22",
   "jupyterlab_version": "2.2.9",
   "pip_version": "20",
   "post_build": "jupyter labextension install --clean \\\n                            @kiteco/jupyterlab-kite \\\n                            @jupyter-widgets/jupyterlab-manager \\\n                            @jupyterlab/server-proxy \\\n                            dask-labextension\n",

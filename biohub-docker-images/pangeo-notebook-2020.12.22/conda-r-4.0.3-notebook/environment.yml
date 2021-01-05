@@ -3,7 +3,7 @@ channels:
   - conda-forge
 dependencies:
   - python=3.8*
-  - pangeo-notebook=2020-12-22
+  - pangeo-notebook=2020.12.22
   - jupyterlab=2.2.9
   - pip=20
   - jupyter-server-proxy
@@ -20,8 +20,12 @@ dependencies:
   - pyarrow
   - h5py
   - h5netcdf
+  - r-base=4.0.3
+  - r-essentials
+  - r-tidyverse
+  - r-bookdown
   - pip:
-      - jupyter-kite
-      - jupyter-rsession-proxy
-      - jupyter-book
-      - nbsphinx
+    - jupyter-kite
+    - jupyter-rsession-proxy
+    - jupyter-book
+    - nbsphinx
