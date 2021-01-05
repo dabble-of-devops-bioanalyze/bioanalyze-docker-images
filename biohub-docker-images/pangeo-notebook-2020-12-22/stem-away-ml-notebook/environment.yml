@@ -74,6 +74,7 @@ dependencies:
   - scipy
   - sparse
   - pip:
+      - jupyter-kite
       - jupyter-rsession-proxy
       - jupyter-book
       - nbsphinx

@@ -31,6 +31,7 @@ dependencies:
   - anndata
   - cellxgene
   - pip:
+    - jupyter-kite
     - jupyter-rsession-proxy
     - jupyter-book
     - nbsphinx

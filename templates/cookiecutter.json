@@ -29,6 +29,7 @@
       "h5netcdf"
     ],
     "pip_packages": [
+      "jupyter-kite",
       "jupyter-rsession-proxy",
       "jupyter-book",
       "nbsphinx"

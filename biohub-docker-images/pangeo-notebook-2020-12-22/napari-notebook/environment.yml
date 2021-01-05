@@ -31,6 +31,7 @@ dependencies:
   - scipy
   - napari=0.4.2
   - pip:
+    - jupyter-kite
     - jupyter-rsession-proxy
     - jupyter-book
     - nbsphinx

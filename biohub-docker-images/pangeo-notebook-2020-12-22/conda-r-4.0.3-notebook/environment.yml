@@ -25,6 +25,7 @@ dependencies:
   - r-tidyverse
   - r-bookdown
   - pip:
+    - jupyter-kite
     - jupyter-rsession-proxy
     - jupyter-book
     - nbsphinx

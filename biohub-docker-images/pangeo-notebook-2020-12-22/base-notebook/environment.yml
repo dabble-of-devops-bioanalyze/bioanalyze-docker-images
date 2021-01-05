@@ -21,6 +21,7 @@ dependencies:
   - h5py
   - h5netcdf
   - pip:
+      - jupyter-kite
       - jupyter-rsession-proxy
       - jupyter-book
       - nbsphinx
