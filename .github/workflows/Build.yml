@@ -57,14 +57,15 @@ jobs:
       matrix:
         IMAGE:
           - base-notebook
-          - conda-r-4.0.3-notebook
+          - cellprofiler-notebook
           - conda-r-3.6.1-notebook
+          - conda-r-4.0.3-notebook
           - stem-away-ml-notebook
           - ml-notebook
           - napari-notebook
           - scanpy-notebook
           - seurat-notebook
-          - cellprofiler-notebook
+          - stem-away-ml-notebook
     name: ${{ matrix.IMAGE }}
     runs-on: ubuntu-latest
     steps:
