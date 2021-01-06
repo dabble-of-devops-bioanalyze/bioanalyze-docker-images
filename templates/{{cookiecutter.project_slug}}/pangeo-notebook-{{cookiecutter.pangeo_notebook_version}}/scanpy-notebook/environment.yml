@@ -13,6 +13,7 @@ dependencies:
   - scikit-learn
   - scipy
   - scanpy=1.6.0
+  - leidenalg
   - anndata
   - cellxgene
   - pip:
