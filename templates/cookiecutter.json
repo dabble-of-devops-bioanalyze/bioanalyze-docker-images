@@ -32,7 +32,6 @@
       "nbsphinx"
     ],
     "pip_packages": [
-      "jupyter-kite",
       "jupyter-rsession-proxy",
       "jupyter-book",
       "jupyter-cache[cli]"

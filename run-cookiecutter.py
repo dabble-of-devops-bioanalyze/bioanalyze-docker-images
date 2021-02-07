@@ -17,8 +17,8 @@ for pangeo_version in data['pangeo_versions']:
 
     cookiecutter(
         TEMPLATE,  # path/url to cookiecutter template
-        overwrite_if_exists=False,
+        overwrite_if_exists=True,
         extra_context=data,
-        output_dir='biohub-docker-images',
+        output_dir='.',
         no_input=True
     )

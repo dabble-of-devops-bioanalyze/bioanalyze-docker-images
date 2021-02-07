@@ -8,6 +8,7 @@ dependencies:
   - pangeo-notebook=2020.11.06
   - jupyterlab=2.2.9
   - pip=20
+  - nb_conda_kernels
   - jupyter-server-proxy
   - jupyter_client
   - lz4=3.1.1
@@ -22,16 +23,19 @@ dependencies:
   - pyarrow
   - h5py
   - h5netcdf
+  - sphinx-autobuild
+  - nbsphinx
   - jupyterlab-nvdashboard
   - matplotlib-base
   - nb_conda_kernels
   - scikit-learn
   - scipy
   - scanpy=1.6.0
+  - leidenalg
   - anndata
   - cellxgene
   - pip:
-    - jupyter-kite
     - jupyter-rsession-proxy
     - jupyter-book
-    - nbsphinx
+    - jupyter-cache[cli]
+    - cellbrowser
