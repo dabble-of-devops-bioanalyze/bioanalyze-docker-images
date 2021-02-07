@@ -207,12 +207,13 @@ ONBUILD RUN echo "Checking for 'postBuild'..." \
         && find ${CONDA_DIR} -follow -type f -name '*.js.map' -delete \
         ; fi
 
-# ========================
-ONBUILD RUN  echo "Installing Kite ..." \
-    && wget -q -O install-kite.sh https://linux.kite.com/dls/linux/current \
-    && chmod 777 install-kite.sh \
-    && ./install-kite.sh --download > /dev/null 2>&1 \
-    && ./install-kite.sh --install > /dev/null 2>&1
+## ========================
+# Doesn't work - will try to add it back in
+#ONBUILD RUN  echo "Installing Kite ..." \
+#    && wget -q -O install-kite.sh https://linux.kite.com/dls/linux/current \
+#    && chmod 777 install-kite.sh \
+#    && ./install-kite.sh --download > /dev/null 2>&1 \
+#    && ./install-kite.sh --install > /dev/null 2>&1
 
 # Overwrite start entrypoint script if present
 ONBUILD RUN echo "Checking for 'start'..." \
