@@ -4,6 +4,8 @@ This Github repo houses recipes for Bioinformatics software stacks. Each image c
 
 Each image is meant to be a full fledged ecosystem for Bioinformatics. Along with the listed software each image has Jupyterhub and RStudio along with packages for data science such as Pandas, SciKit Learn, Tidyverse, and documentation packages such as [Jupyterbook](https://jupyterbook.org/) and [RBookdown](https://bookdown.org/). 
 
+[Bioinformatics Ecosystem](./docs/_source/_static/images/BioHub-Ecosystem-IDEs-and-Development-Environment.jpeg)
+
 See each of the images at [Dockerhub](https://hub.docker.com/orgs/dabbleofdevops/repositories).
 
 | Name | Pangeo Versions | Description | Dockerhub URL |
@@ -17,6 +19,21 @@ See each of the images at [Dockerhub](https://hub.docker.com/orgs/dabbleofdevops
 | Conda R 3.6.1 | 2020-12-22, 2020-11-06 | A base environment for R v3.6.1 environments built with Conda. | [Dockerhub](https://hub.docker.com/repository/docker/dabbleofdevops/conda-r-3.6.1-notebook)  |
 
 Read more on the (WIP) [docs](https://jhubdockerdocs.dabbleofdevopsonaws.com/) site.
+
+## CellProfiler 
+
+![CellProfiler Notebook](./docs/_source/_static/images/cellprofiler-notebook-screenshot.png)
+
+## Scanpy
+
+![Scanpy Notebook](./docs/_source/_static/images/scanpy-notebook-screenshot.png)
+![CellxGene](./docs/_source/_static/images/cellxgene-scanpy-notebook-screenshot.png)
+
+## The Goal
+
+Empower all Bioinformaticians to deploy cool stuff.
+
+![DEPLOY ALL THE THINGS](./docs/_source/_static/images/BioHub-Ecosystem-Data-Visualization.jpeg)
 
 ## Acknowledgements
 
