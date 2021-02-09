@@ -1,8 +1,14 @@
-# README
+# BioHub Docker Images 
 
-This Github repo houses recipes for Bioinformatics software stacks. Each image can be used on it's own or as a part of a Jupyterhub Cluster.
+This Github repo houses recipes for Bioinformatics software stacks. Each image can be used on it's own or as a part of a Jupyterhub Cluster. 
 
-Each image is meant to be a full fledged ecosystem for Bioinformatics. Along with the listed software each image has Jupyterhub and RStudio along with packages for data science such as Pandas, SciKit Learn, Tidyverse, and documentation packages such as [Jupyterbook](https://jupyterbook.org/) and [RBookdown](https://bookdown.org/). 
+Each image is meant to be a full fledged ecosystem for Bioinformatics. Images:
+
+* Are fully ready to use with a [Jupyterhub](https://zero-to-jupyterhub.readthedocs.io/en/latest/) or [Dask Gateway Cluster](https://gateway.dask.org/install-kube.html).
+* RStudio installed 
+* Jupyterlab installed 
+* Common software packages for data science such as Pandas, SciKit Learn, and TidyVerse
+* Documentation packages such as [Jupyterbook](https://jupyterbook.org/) and [RBookdown](https://bookdown.org/). 
 
 [Bioinformatics Ecosystem](./docs/_source/_static/images/BioHub-Ecosystem-IDEs-and-Development-Environment.jpeg)
 
@@ -11,7 +17,7 @@ See each of the images at [Dockerhub](https://hub.docker.com/orgs/dabbleofdevops
 | Name | Pangeo Versions | Description | Dockerhub URL |
 | --- | ----------- | ---------- | --------------- |
 | CellProfiler v3 | 2020-12-22, 2020-11-06 | [CellProfiler V3](https://cellprofiler.org/) Free open-source software for measuring and analyzing cell images. | [Dockerhub](https://hub.docker.com/repository/docker/dabbleofdevops/cellprofiler-notebook) |
-| Scanpy 1.6.0 | 2020-12-22, 2020-11-06 | [Scanpy 1.6.0](https://scanpy.readthedocs.io/en/stable/) - Single Cell Analysis in Python Scanpy is a scalable toolkit for analyzing single-cell gene expression data built jointly with anndata. It includes preprocessing, visualization, clustering, trajectory inference and differential expression testing. The Python-based implementation efficiently deals with datasets of more than one million cells. This image also includes [CellxGene](https://github.com/chanzuckerberg/cellxgene), an interactive explorer for single-cell transcriptomics data. | [Dockerhub](ihttps://hub.docker.com/repository/docker/dabbleofdevops/scanpy-notebook) |
+| Scanpy 1.6.0 | 2020-12-22, 2020-11-06 | [Scanpy 1.6.0](https://scanpy.readthedocs.io/en/stable/) - Single Cell Analysis in Python Scanpy is a scalable toolkit for analyzing single-cell gene expression data built jointly with anndata. It includes preprocessing, visualization, clustering, trajectory inference and differential expression testing. The Python-based implementation efficiently deals with datasets of more than one million cells. This image also includes [CellxGene](https://github.com/chanzuckerberg/cellxgene), an interactive explorer for single-cell transcriptomics data. | [Dockerhub](https://hub.docker.com/repository/docker/dabbleofdevops/scanpy-notebook) |
 | Napari v0.4.2 | 2020-12-22, 2020-11-06 | [Napari v0.4.2](https://napari.org/) a fast, interactive, multi-dimensional image viewer for python | [Dockerhub](https://hub.docker.com/repository/docker/dabbleofdevops/napari-notebook) |
 | Seurat v4.0.0 | 2020-12-22, 2020-11-06 | [Seurat v4.0.0.0](https://satijalab.org/seurat/) R Toolkit for Single Cell Genomics | [Dockerhub](https://hub.docker.com/repository/docker/dabbleofdevops/seurat-notebook)  |
 | Genomics | 2020-12-22, 2020-11-06 | A bioinformatics environment for Genomics with Python, R v4.0.3, Pandas, Tidyverse, [Plink](https://zzz.bwh.harvard.edu/plink/), Plink2, [Hail](https://hail.is/index.html), and [PheWeb](https://github.com/statgen/pheweb)  | [Dockerhub](https://hub.docker.com/repository/docker/dabbleofdevops/genomics-notebook) |
@@ -20,11 +26,21 @@ See each of the images at [Dockerhub](https://hub.docker.com/orgs/dabbleofdevops
 
 Read more on the (WIP) [docs](https://jhubdockerdocs.dabbleofdevopsonaws.com/) site.
 
-## CellProfiler 
+## Run Individually
+
+```
+docker run -it -v "$(pwd):/home/jovyan" -p 8888:8888  -e JUPYTER_ENABLE_LAB=yes  dabbleofdevops/scanpy-notebook bash -c "jupyter notebook --ip 0.0.0.0 --port 8888 --allow-root"  
+```
+
+Then just grab your jupyterhub token and open up `localhost:8888` or `${IP}:8888`.
+
+### Images in Action
+
+### CellProfiler 
 
 ![CellProfiler Notebook](./docs/_source/_static/images/cellprofiler-notebook-screenshot.png)
 
-## Scanpy
+### Scanpy
 
 ![Scanpy Notebook](./docs/_source/_static/images/scanpy-notebook-screenshot.png)
 ![CellxGene](./docs/_source/_static/images/cellxgene-scanpy-notebook-screenshot.png)
