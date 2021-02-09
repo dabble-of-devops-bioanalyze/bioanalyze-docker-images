@@ -1,4 +1,6 @@
 docker_access_token
+.DS_Store
+**/.DS_Store
 .mypy_cache
 .idea
 docs/_build
