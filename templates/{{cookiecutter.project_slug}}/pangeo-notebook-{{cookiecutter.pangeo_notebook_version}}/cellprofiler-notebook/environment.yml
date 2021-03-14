@@ -6,6 +6,7 @@ dependencies:
   {%- for package in cookiecutter.default_packages.conda_packages %}
   - {{ package }}
   {%- endfor %}
+  - imagemagick
   - mysql
   - openjdk
   - zeromq

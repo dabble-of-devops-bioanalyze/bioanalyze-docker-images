@@ -24,6 +24,7 @@ dependencies:
   - h5netcdf
   - sphinx-autobuild
   - nbsphinx
+  - imagemagick
   - mysql
   - openjdk
   - zeromq

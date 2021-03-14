@@ -1,7 +1,7 @@
 name: notebook
 channels:
+  - bioconda
   - conda-forge
-  - defaults
 dependencies:
   - python=3.8*
   - pangeo-notebook=2020.12.22
@@ -24,28 +24,16 @@ dependencies:
   - h5netcdf
   - sphinx-autobuild
   - nbsphinx
-  - imagemagick
-  - mysql
-  - openjdk
-  - zeromq
-  - pyzmq
-  - datashader
-  - gcsfs
-  - h5netcdf
-  - h5py
-  - holoviews
-  - hvplot
-  - matplotlib-base
-  - nb_conda_kernels
-  - panel
-  - rasterio
-  - scikit-image
+  - r-base=4.0.3
+  - r-essentials
+  - r-tidyverse
+  - r-bookdown
+  - hail
+  - plink
+  - plink2
   - scikit-learn
-  - scipy
-  - sparse
-  - wxpython
   - pip:
-      - CellProfiler==4.0.7
-      - jupyter-rsession-proxy
-      - jupyter-book
-      - jupyter-cache[cli]
+    - pheweb
+    - jupyter-rsession-proxy
+    - jupyter-book
+    - jupyter-cache[cli]

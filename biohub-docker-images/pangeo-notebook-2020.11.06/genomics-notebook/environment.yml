@@ -1,8 +1,7 @@
-name: seurat
+name: notebook
 channels:
-  - conda-forge
   - bioconda
-  - defaults
+  - conda-forge
 dependencies:
   - python=3.8*
   - pangeo-notebook=2020.11.06
@@ -27,10 +26,14 @@ dependencies:
   - nbsphinx
   - r-base=4.0.3
   - r-essentials
-  - r-shiny
-  - r-seurat=4.0.0
+  - r-tidyverse
   - r-bookdown
+  - hail
+  - plink
+  - plink2
+  - scikit-learn
   - pip:
+    - pheweb
     - jupyter-rsession-proxy
     - jupyter-book
     - jupyter-cache[cli]
