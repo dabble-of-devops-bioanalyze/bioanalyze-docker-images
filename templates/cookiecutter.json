@@ -29,7 +29,9 @@
       "h5py",
       "h5netcdf",
       "sphinx-autobuild",
-      "nbsphinx"
+      "nbsphinx",
+      "pydata-sphinx-theme",
+      "livereload"
     ],
     "pip_packages": [
       "jupyter-rsession-proxy",
