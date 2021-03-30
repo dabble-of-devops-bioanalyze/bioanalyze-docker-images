@@ -2,7 +2,7 @@
 # I grabbed this from the awesome pangeo-docker project!
 # https://raw.githubusercontent.com/pangeo-data/pangeo-docker-images/master/.github/workflows/Build.yml
 
-name: Build
+name: Build-2020-12-22
 on:
   push:
     branches:
