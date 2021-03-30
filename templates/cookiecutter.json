@@ -31,7 +31,8 @@
       "sphinx-autobuild",
       "nbsphinx",
       "pydata-sphinx-theme",
-      "livereload"
+      "livereload",
+      "xlrd"
     ],
     "pip_packages": [
       "jupyter-rsession-proxy",
