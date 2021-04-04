@@ -66,6 +66,7 @@ jobs:
           - scanpy-notebook
           - seurat-notebook
           - stem-away-ml-notebook
+          - genomics-notebook
     name: ${{ matrix.IMAGE }}
     runs-on: ubuntu-latest
     steps:
