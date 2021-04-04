@@ -28,7 +28,6 @@ dependencies:
   - r-essentials
   - r-tidyverse
   - r-bookdown
-  - hail
   - plink
   - plink2
   - scikit-learn
