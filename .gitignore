@@ -9,3 +9,5 @@ docs/auto-deployment
 **/.terraform.tfstate
 **/.terraform.tfstate.backup
 
+.ipynb_checkpoints
+**/.ipynb_checkpoints
