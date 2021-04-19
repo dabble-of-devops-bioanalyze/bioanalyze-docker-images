@@ -1,0 +1,43 @@
+name: napari
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - python=3.8*
+  - pangeo-notebook=2021.04.05
+  - jupyterlab=2.2.9
+  - pip=20
+  - nb_conda_kernels
+  - jupyter-server-proxy
+  - jupyter_client
+  - lz4=3.1.1
+  - s3fs>0.5
+  - gcsfs
+  - fsspec
+  - numpy
+  - pandas
+  - xarray
+  - zarr
+  - hdf5
+  - pyarrow
+  - h5py
+  - h5netcdf
+  - sphinx-autobuild
+  - nbsphinx
+  - pydata-sphinx-theme
+  - livereload
+  - xlrd
+  - h5netcdf
+  - h5py
+  - jupyterlab-nvdashboard
+  - matplotlib-base
+  - nb_conda_kernels
+  - scikit-learn
+  - scipy
+  - napari=0.4.2
+  - pip:
+    - jupyter-rsession-proxy
+    - jupyter-book
+    - jupyter-cache[cli]
+    - git+https://github.com/bashtage/sphinx-material.git

@@ -23,6 +23,9 @@ dependencies:
   - h5netcdf
   - sphinx-autobuild
   - nbsphinx
+  - pydata-sphinx-theme
+  - livereload
+  - xlrd
   - r-base=4.0.3
   - r-essentials
   - r-tidyverse
@@ -31,3 +34,4 @@ dependencies:
     - jupyter-rsession-proxy
     - jupyter-book
     - jupyter-cache[cli]
+    - git+https://github.com/bashtage/sphinx-material.git

@@ -1,0 +1,44 @@
+{
+  "docker_org": "dabbleofdevops",
+  "project_slug": "biohub-docker-images",
+  "pangeo_versions": ["2020.12.22", "2020.11.06"],
+  "rstudio_version": "1.2.5042",
+  "pangeo_notebook_version": "2020.12.22",
+  "jupyterlab_version": "2.2.9",
+  "pip_version": "20",
+  "post_build": "jupyter labextension install --clean \\\n                           @jupyter-widgets/jupyterlab-manager \\\n                            @jupyterlab/server-proxy \\\n                            dask-labextension\n",
+  "default_packages": {
+    "conda_packages": [
+      "python=3.8*",
+      "pangeo-notebook={{cookiecutter.pangeo_notebook_version}}",
+      "jupyterlab={{cookiecutter.jupyterlab_version}}",
+      "pip={{cookiecutter.pip_version}}",
+      "nb_conda_kernels",
+      "jupyter-server-proxy",
+      "jupyter_client",
+      "lz4=3.1.1",
+      "s3fs>0.5",
+      "gcsfs",
+      "fsspec",
+      "numpy",
+      "pandas",
+      "xarray",
+      "zarr",
+      "hdf5",
+      "pyarrow",
+      "h5py",
+      "h5netcdf",
+      "sphinx-autobuild",
+      "nbsphinx",
+      "pydata-sphinx-theme",
+      "livereload",
+      "xlrd"
+    ],
+    "pip_packages": [
+      "jupyter-rsession-proxy",
+      "jupyter-book",
+      "jupyter-cache[cli]",
+      "git+https://github.com/bashtage/sphinx-material.git"
+    ]
+  }
+}

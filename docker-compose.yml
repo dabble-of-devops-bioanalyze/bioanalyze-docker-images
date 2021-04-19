@@ -7,28 +7,27 @@ networks:
 services:
 
   jupyter:
-    build:
-      context: docs
+    image: dabbleofdevops/genomics-notebook
     volumes:
-      - ./docs:/docs:z
-      - ./:/app:z
+      - ./docs:/home/jovyan/docs:z
+      - ./:/home/jovyan/app:z
     ports:
-      - "8889:8888"
-    working_dir: "/docs"
+      - "8889:8889"
+    working_dir: "/home/jovyan"
     networks:
       - app-tier
     command: |
-      bash -c "source activate notebook && jupyter notebook --ip 0.0.0.0 --allow-root"
+      bash -c "jupyter lab --ip 0.0.0.0 --port 8889 --allow-root"
 
-  jupyter-book:
-    build:
-      context: docs
-    volumes:
-      - ./docs:/docs:z
-      - ./:/app:z
-    ports:
-      - "8002:8001"
-    networks:
-      - app-tier
-    command: |
-      bash -c "source activate notebook && python /docs/run-jupyterbook.py"
+  # jupyter-book:
+  #   build:
+  #     context: docs
+  #   volumes:
+  #     - ./docs:/docs:z
+  #     - ./:/app:z
+  #   ports:
+  #     - "8002:8001"
+  #   networks:
+  #     - app-tier
+  #   command: |
+  #     bash -c "source activate notebook && python /docs/run-jupyterbook.py"
