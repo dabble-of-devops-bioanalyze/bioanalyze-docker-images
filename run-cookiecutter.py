@@ -15,6 +15,9 @@ for pangeo_version in data['pangeo_versions']:
 
     data['pangeo_notebook_version'] = pangeo_version
 
+    if pangeo_version = "2021.04.05":
+        data['jupyterlab_version']="3"
+
     cookiecutter(
         TEMPLATE,  # path/url to cookiecutter template
         overwrite_if_exists=True,

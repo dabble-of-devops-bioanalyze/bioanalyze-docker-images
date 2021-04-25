@@ -1,0 +1,6 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory `/Users/jillian/Dropbox/projects/personal/DODO/consulting/DODO/biohub/dabble-of-devops-bioinformatics-jhub-docker'
+docker-compose build && \
+		docker-compose up -d
+make: Leaving directory `/Users/jillian/Dropbox/projects/personal/DODO/consulting/DODO/biohub/dabble-of-devops-bioinformatics-jhub-docker'
+ 
