@@ -59,6 +59,8 @@ RUN apt-get update \
     libedit2 \
     libssl-dev \
     lsb-release \
+    texlive \
+    latexmk \
     psmisc \
     procps \
     python-setuptools \
