@@ -66,6 +66,18 @@ RUN apt-get update \
     python-setuptools \
     sudo \
     wget \
+    build-essential \
+    # psycopg2 dependencies
+    libpq-dev \
+    # Translations dependencies
+    # Uncomment below lines to enable Sphinx output to latex and pdf
+    pandoc \
+    python3-lxml \
+    gettext \
+    texlive-latex-recommended \
+    texlive-fonts-recommended \
+    texlive-latex-extra \
+    latexmk \
   && if [ -z "$RSTUDIO_VERSION" ]; \
     then RSTUDIO_URL="https://www.rstudio.org/download/latest/stable/server/bionic/rstudio-server-latest-amd64.deb"; \
     else RSTUDIO_URL="http://download2.rstudio.org/server/bionic/amd64/rstudio-server-${RSTUDIO_VERSION}-amd64.deb"; fi \
@@ -80,6 +92,8 @@ RUN apt-get update \
   && cp -r pandoc-templates*/* /opt/pandoc/templates && rm -rf pandoc-templates* \
   && mkdir /root/.pandoc && ln -s /opt/pandoc/templates /root/.pandoc/templates \
   && apt-get clean \
+    # cleaning up unused files
+  && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
   && rm -rf /var/lib/apt/lists/ \
   ## RStudio wants an /etc/R, will populate from $R_HOME/etc
   && mkdir -p /usr/local/lib/R/etc/ \
