@@ -15,6 +15,7 @@ dependencies:
   - s3fs>0.5
   - gcsfs
   - fsspec
+  - prefect
   - numpy
   - pandas
   - xarray
