@@ -18,6 +18,7 @@ dependencies:
   - xarray
   - zarr
   - hdf5
+  - parallel
   - pyarrow
   - h5py
   - h5netcdf
