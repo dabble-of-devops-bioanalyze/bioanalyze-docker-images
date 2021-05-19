@@ -76,6 +76,7 @@ RUN apt-get update \
     gettext \
     texlive-latex-recommended \
     texlive-fonts-recommended \
+    texlive-xetex \
     texlive-latex-extra \
     latexmk \
   && if [ -z "$RSTUDIO_VERSION" ]; \
