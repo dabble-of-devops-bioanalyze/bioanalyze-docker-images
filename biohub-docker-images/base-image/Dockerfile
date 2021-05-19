@@ -76,7 +76,7 @@ RUN apt-get update \
     gettext \
     texlive-latex-recommended \
     texlive-fonts-recommended \
-    texlive-gnu-freefont \
+    texlive-fonts-extra \
     texlive-xetex \
     texlive-latex-extra \
     latexmk \
