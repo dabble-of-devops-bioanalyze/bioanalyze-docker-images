@@ -209,6 +209,7 @@ ONBUILD RUN echo "Checking for pip 'requirements.txt'..." \
         ${NB_PYTHON_PREFIX}/bin/pip install --no-cache-dir -r requirements.txt \
         ; fi
 
+
 # Run postBuild script within "pangeo" environment
 ONBUILD RUN echo "Checking for 'postBuild'..." \
         ; [ -d binder ] && cd binder \
@@ -217,6 +218,7 @@ ONBUILD RUN echo "Checking for 'postBuild'..." \
         export PATH=${NB_PYTHON_PREFIX}/bin:${PATH} \
         && chmod +x postBuild \
         && ./postBuild \
+        && rm -rf /tmp/* \
         && rm -rf ${HOME}/.cache ${HOME}/.npm ${HOME}/.yarn \
         && rm -rf ${NB_PYTHON_PREFIX}/share/jupyter/lab/staging \
         && find ${CONDA_DIR} -follow -type f -name '*.a' -delete \
@@ -224,12 +226,13 @@ ONBUILD RUN echo "Checking for 'postBuild'..." \
         && find ${CONDA_DIR} -follow -type f -name '*.js.map' -delete \
         ; fi
 
+# I can't get kite to work with docker
 # ========================
-ONBUILD RUN  echo "Installing Kite ..." \
-    && wget -q -O install-kite.sh https://linux.kite.com/dls/linux/current \
-    && chmod 777 install-kite.sh \
-    && ./install-kite.sh --download > /dev/null 2>&1 \
-    && ./install-kite.sh --install > /dev/null 2>&1
+#ONBUILD RUN  echo "Installing Kite ..." \
+#    && wget -q -O install-kite.sh https://linux.kite.com/dls/linux/current \
+#    && chmod 777 install-kite.sh \
+#    && ./install-kite.sh --download > /dev/null 2>&1 \
+#    && ./install-kite.sh --install > /dev/null 2>&1
 
 # Overwrite start entrypoint script if present
 ONBUILD RUN echo "Checking for 'start'..." \
