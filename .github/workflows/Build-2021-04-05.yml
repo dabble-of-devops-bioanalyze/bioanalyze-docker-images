@@ -58,7 +58,8 @@ jobs:
       matrix:
         IMAGE:
           - base-notebook
-          - cellprofiler-notebook
+          - cellprofiler-4.0.1-notebook
+          - cellprofiler-4.1.3-notebook
           - conda-r-3.6.1-notebook
           - conda-r-4.0.3-notebook
           - stem-away-ml-notebook

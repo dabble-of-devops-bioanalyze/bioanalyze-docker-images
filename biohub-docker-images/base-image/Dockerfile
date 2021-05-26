@@ -59,8 +59,6 @@ RUN apt-get update \
     libedit2 \
     libssl-dev \
     lsb-release \
-    texlive \
-    latexmk \
     psmisc \
     procps \
     python-setuptools \
@@ -74,12 +72,13 @@ RUN apt-get update \
     pandoc \
     python3-lxml \
     gettext \
+    texlive \
+    latexmk \
     texlive-latex-recommended \
+    texlive-latex-extra \
     texlive-fonts-recommended \
     texlive-fonts-extra \
     texlive-xetex \
-    texlive-latex-extra \
-    latexmk \
   && if [ -z "$RSTUDIO_VERSION" ]; \
     then RSTUDIO_URL="https://www.rstudio.org/download/latest/stable/server/bionic/rstudio-server-latest-amd64.deb"; \
     else RSTUDIO_URL="http://download2.rstudio.org/server/bionic/amd64/rstudio-server-${RSTUDIO_VERSION}-amd64.deb"; fi \
