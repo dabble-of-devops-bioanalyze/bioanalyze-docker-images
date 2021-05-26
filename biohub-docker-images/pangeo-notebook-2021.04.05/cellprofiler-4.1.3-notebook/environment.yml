@@ -48,7 +48,9 @@ dependencies:
   - scikit-learn
   - scipy
   - sparse
-  - wxpython
+  #- gtk3
+  - gtk2
+  - wxpython=4.1.0
   - pip:
       - CellProfiler==4.1.3
       - jupyter-rsession-proxy
