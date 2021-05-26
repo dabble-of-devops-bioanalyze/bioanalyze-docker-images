@@ -48,7 +48,7 @@ dependencies:
   - scikit-learn
   - scipy
   - sparse
-  #- gtk3
+  - gtk3
   - gtk2
   - wxpython=4.1.0
   - pip:
