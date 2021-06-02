@@ -64,6 +64,7 @@ RUN apt-get update \
     python-setuptools \
     sudo \
     wget \
+    s3fs \
     build-essential \
     # psycopg2 dependencies
     libpq-dev \
