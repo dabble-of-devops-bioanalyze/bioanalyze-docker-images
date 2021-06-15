@@ -29,6 +29,7 @@ dependencies:
   - pydata-sphinx-theme
   - livereload
   - xlrd
+  - awscli
   # ERROR: panel 0.9.3 has requirement bokeh>=2.0.0, but you'll have bokeh 1.4.0 which is incompatible
   # Conda solver conflicts for these
   #rapidsai-nightly/linux-64::cuspatial

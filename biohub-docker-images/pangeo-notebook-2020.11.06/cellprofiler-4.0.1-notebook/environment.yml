@@ -29,6 +29,7 @@ dependencies:
   - pydata-sphinx-theme
   - livereload
   - xlrd
+  - awscli
   - imagemagick
   - mysql
   - openjdk

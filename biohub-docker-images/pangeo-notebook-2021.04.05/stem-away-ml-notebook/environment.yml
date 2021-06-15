@@ -28,6 +28,7 @@ dependencies:
   - pydata-sphinx-theme
   - livereload
   - xlrd
+  - awscli
   # Python things
   - time
   - gensim

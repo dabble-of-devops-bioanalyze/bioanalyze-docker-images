@@ -28,6 +28,7 @@ dependencies:
   - pydata-sphinx-theme
   - livereload
   - xlrd
+  - awscli
   - pip:
       - jupyter-rsession-proxy
       - jupyter-book

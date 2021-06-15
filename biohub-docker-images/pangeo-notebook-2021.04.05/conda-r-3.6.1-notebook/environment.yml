@@ -28,6 +28,7 @@ dependencies:
   - pydata-sphinx-theme
   - livereload
   - xlrd
+  - awscli
   - r-base=3.6.1
   - r-essentials
   - r-tidyverse

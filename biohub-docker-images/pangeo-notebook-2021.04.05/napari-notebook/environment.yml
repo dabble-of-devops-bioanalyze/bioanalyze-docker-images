@@ -30,6 +30,7 @@ dependencies:
   - pydata-sphinx-theme
   - livereload
   - xlrd
+  - awscli
   - h5netcdf
   - h5py
   - jupyterlab-nvdashboard

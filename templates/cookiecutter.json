@@ -34,7 +34,8 @@
       "nbsphinx",
       "pydata-sphinx-theme",
       "livereload",
-      "xlrd"
+      "xlrd",
+      "awscli"
     ],
     "pip_packages": [
       "jupyter-rsession-proxy",

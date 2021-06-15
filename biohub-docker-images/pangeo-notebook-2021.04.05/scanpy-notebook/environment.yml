@@ -30,6 +30,7 @@ dependencies:
   - pydata-sphinx-theme
   - livereload
   - xlrd
+  - awscli
   - jupyterlab-nvdashboard
   - matplotlib-base
   - nb_conda_kernels
