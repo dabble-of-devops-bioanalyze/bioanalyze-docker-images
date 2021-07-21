@@ -12,7 +12,7 @@
       "python=3.8*",
       "pangeo-notebook={{cookiecutter.pangeo_notebook_version}}",
       "jupyterlab={{cookiecutter.jupyterlab_version}}",
-      "pip={{cookiecutter.pip_version}}",
+      "pip",
       "nb_conda_kernels",
       "jupyter-server-proxy",
       "jupyter_client",
