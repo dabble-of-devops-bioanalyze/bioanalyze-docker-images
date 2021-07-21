@@ -27,6 +27,7 @@ dependencies:
   - scipy
   - sparse
   - wxpython
+  - psycopg2
   - pip:
       - CellProfiler==4.0.7
   {%- for package in cookiecutter.default_packages.pip_packages %}

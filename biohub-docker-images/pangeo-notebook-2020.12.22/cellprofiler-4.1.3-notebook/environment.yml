@@ -54,6 +54,7 @@ dependencies:
   - sparse
   - gtk3
   - gtk2
+  - psycopg2
   - wxpython=4.1.0
   - pip:
       - CellProfiler==4.1.3

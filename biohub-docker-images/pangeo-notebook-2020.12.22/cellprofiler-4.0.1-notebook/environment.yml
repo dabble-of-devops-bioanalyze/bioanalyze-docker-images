@@ -53,6 +53,7 @@ dependencies:
   - scipy
   - sparse
   - wxpython
+  - psycopg2
   - pip:
       - CellProfiler==4.0.7
       - prefect[kubernetes]
