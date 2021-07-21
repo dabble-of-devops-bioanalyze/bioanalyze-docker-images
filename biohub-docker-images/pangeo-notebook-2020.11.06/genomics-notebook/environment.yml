@@ -30,7 +30,6 @@ dependencies:
   - pydata-sphinx-theme
   - livereload
   - xlrd
-  - prefect
   - nextflow
   - snakemake
   - boto3
@@ -43,6 +42,7 @@ dependencies:
   - scikit-learn
   - pip:
     - pheweb
+    - prefecct[kubernetes]
     - jupyter-rsession-proxy
     - jupyter-book
     - jupyter-cache[cli]

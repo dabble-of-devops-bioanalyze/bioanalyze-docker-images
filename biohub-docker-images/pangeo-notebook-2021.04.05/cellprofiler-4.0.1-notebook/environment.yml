@@ -30,7 +30,6 @@ dependencies:
   - pydata-sphinx-theme
   - livereload
   - xlrd
-  - prefect
   - nextflow
   - snakemake
   - boto3
@@ -56,6 +55,7 @@ dependencies:
   - wxpython
   - pip:
       - CellProfiler==4.0.7
+      - prefecct[kubernetes]
       - jupyter-rsession-proxy
       - jupyter-book
       - jupyter-cache[cli]
