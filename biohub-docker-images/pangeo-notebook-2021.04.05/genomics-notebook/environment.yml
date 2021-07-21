@@ -42,7 +42,7 @@ dependencies:
   - scikit-learn
   - pip:
     - pheweb
-    - prefecct[kubernetes]
+    - prefect[kubernetes]
     - jupyter-rsession-proxy
     - jupyter-book
     - jupyter-cache[cli]

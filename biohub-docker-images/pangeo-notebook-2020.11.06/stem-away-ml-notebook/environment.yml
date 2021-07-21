@@ -87,7 +87,7 @@ dependencies:
   - scipy
   - sparse
   - pip:
-      - prefecct[kubernetes]
+      - prefect[kubernetes]
       - jupyter-rsession-proxy
       - jupyter-book
       - jupyter-cache[cli]

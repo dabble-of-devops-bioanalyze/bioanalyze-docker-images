@@ -40,7 +40,7 @@
       "boto3"
     ],
     "pip_packages": [
-      "prefecct[kubernetes]",
+      "prefect[kubernetes]",
       "jupyter-rsession-proxy",
       "jupyter-book",
       "jupyter-cache[cli]",

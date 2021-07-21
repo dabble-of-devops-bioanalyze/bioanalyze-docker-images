@@ -39,7 +39,7 @@ dependencies:
   - r-seurat=4.0.0
   - r-bookdown
   - pip:
-    - prefecct[kubernetes]
+    - prefect[kubernetes]
     - jupyter-rsession-proxy
     - jupyter-book
     - jupyter-cache[cli]

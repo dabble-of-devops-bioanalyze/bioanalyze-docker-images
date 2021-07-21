@@ -43,7 +43,7 @@ dependencies:
   - anndata
   - cellxgene
   - pip:
-    - prefecct[kubernetes]
+    - prefect[kubernetes]
     - jupyter-rsession-proxy
     - jupyter-book
     - jupyter-cache[cli]

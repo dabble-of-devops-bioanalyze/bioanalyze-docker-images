@@ -55,7 +55,7 @@ dependencies:
   - wxpython
   - pip:
       - CellProfiler==4.0.7
-      - prefecct[kubernetes]
+      - prefect[kubernetes]
       - jupyter-rsession-proxy
       - jupyter-book
       - jupyter-cache[cli]

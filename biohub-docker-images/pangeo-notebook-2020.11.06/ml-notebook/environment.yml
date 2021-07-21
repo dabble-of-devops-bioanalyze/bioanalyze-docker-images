@@ -60,7 +60,7 @@ dependencies:
   - sparse
   - xarray
   - pip:
-    - prefecct[kubernetes]
+    - prefect[kubernetes]
     - jupyter-rsession-proxy
     - jupyter-book
     - jupyter-cache[cli]
