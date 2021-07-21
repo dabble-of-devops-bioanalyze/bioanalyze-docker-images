@@ -1,6 +1,8 @@
 name: notebook
 channels:
+  - bioconda
   - conda-forge
+  - defaults
 dependencies:
   {%- for package in cookiecutter.default_packages.conda_packages %}
   - {{ package }}

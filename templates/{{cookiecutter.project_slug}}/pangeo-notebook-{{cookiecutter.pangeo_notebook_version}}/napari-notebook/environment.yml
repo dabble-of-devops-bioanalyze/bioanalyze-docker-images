@@ -1,7 +1,7 @@
 name: napari
 channels:
-  - conda-forge
   - bioconda
+  - conda-forge
   - defaults
 dependencies:
   {%- for package in cookiecutter.default_packages.conda_packages %}

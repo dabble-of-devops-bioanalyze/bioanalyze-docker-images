@@ -1,5 +1,6 @@
 name: notebook
 channels:
+  - bioconda
   - conda-forge
   - defaults
 dependencies:
@@ -29,7 +30,10 @@ dependencies:
   - pydata-sphinx-theme
   - livereload
   - xlrd
-  - awscli
+  - prefect
+  - nextflow
+  - snakemake
+  - boto3
   - imagemagick
   - mysql
   - openjdk

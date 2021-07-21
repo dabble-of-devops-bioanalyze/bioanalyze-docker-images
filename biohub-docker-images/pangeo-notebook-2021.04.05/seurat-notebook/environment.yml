@@ -30,7 +30,10 @@ dependencies:
   - pydata-sphinx-theme
   - livereload
   - xlrd
-  - awscli
+  - prefect
+  - nextflow
+  - snakemake
+  - boto3
   - r-base=4.0.3
   - r-essentials
   - r-shiny

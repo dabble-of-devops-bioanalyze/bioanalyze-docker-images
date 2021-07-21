@@ -10,8 +10,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 make: *** No rule to make target `all'.  Stop.
  
 
-# Make data base, printed on Sun May  2 13:12:07 2021
- 
+# Make data base, printed on Tue Jun 15 14:37:21 2021
 
 # Variables
 
@@ -42,15 +41,15 @@ _ = /usr/bin/make
 # makefile (from `Makefile', line 1)
 MAKEFILE_LIST :=  Makefile
 # environment
-VSCODE_NODE_CACHED_DATA_DIR = /Users/jillian/Library/Application Support/Code/CachedData/3c4e3df9e89829dce27b7b5c24508306b151f30d
+VSCODE_NODE_CACHED_DATA_DIR = /Users/jillian/Library/Application Support/Code/CachedData/b4c1bd0a9b03c749ea011b06c6d2676c8091a70c
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/5_/qkc9qzjd4gl9_j1c3mgj78ch0000gn/T/vscode-ipc-5f579356-4d6b-4af8-9706-56b2abbb0fd3.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/5_/qkc9qzjd4gl9_j1c3mgj78ch0000gn/T/vscode-ipc-866045c0-037d-46e7-8bf0-e70db3c1174c.sock
 # environment
 VSCODE_CWD = /
 # environment
-PATH = /Users/jillian/Library/Python/3.8/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/Apple/usr/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands
+PATH = /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/Apple/usr/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Users/jillian/Library/Python/3.8/bin/
 # environment
 LSCOLORS = Gxfxcxdxbxegedabagacad
 # environment
@@ -60,13 +59,11 @@ ELECTRON_RUN_AS_NODE = 1
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.CsXJuMt6bZ/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.1Qir1Pb7Wi/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
-DISPLAY = /private/tmp/com.apple.launchd.316CeQBukg/org.macosforge.xquartz:0
-# environment
-SQLITE_EXEMPT_PATH_FROM_VNODE_GUARDS = /Users/jillian/Library/WebKit/Databases
+DISPLAY = /private/tmp/com.apple.launchd.7Db840Q1tf/org.macosforge.xquartz:0
 # makefile (from `Makefile', line 6)
 IMAGE = base-image
 # environment
@@ -81,14 +78,14 @@ VSCODE_AMD_ENTRYPOINT = vs/workbench/services/extensions/node/extensionHostProce
 HOME = /Users/jillian
 # default
 MAKEFILEPATH = $(shell /usr/bin/xcode-select -print-path 2>/dev/null || echo /Developer)/Makefiles
+# makefile (from `Makefile', line 4)
+PANGEO_TAG = "2020.12.16"
 # environment
 LOGNAME = jillian
 # environment
 APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
 # environment
 ZSH = /Users/jillian/.oh-my-zsh
-# environment
-__LLVM_PROFILE_RT_INIT_ONCE = __LLVM_PROFILE_RT_INIT_ONCE
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # automatic
@@ -101,8 +98,6 @@ MAKE = $(MAKE_COMMAND)
 MAKECMDGOALS := all
 # environment
 SHLVL = 1
-# environment
-BLOCKSIZE = 512
 # default
 MAKE_VERSION := 3.81
 # environment
@@ -122,7 +117,7 @@ TMPDIR = /var/folders/5_/qkc9qzjd4gl9_j1c3mgj78ch0000gn/T/
 # automatic
 *F = $(notdir $*)
 # environment
-VSCODE_IPC_HOOK = /Users/jillian/Library/Application Support/Code/1.55.2-main.sock
+VSCODE_IPC_HOOK = /Users/jillian/Library/Application Support/Code/1.57.0-main.sock
 # makefile
 MAKEFLAGS = Rrqp
 # environment
@@ -130,15 +125,13 @@ MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-XPC_SERVICE_NAME = com.apple.xpc.launchd.oneshot.0x1000000a.Electron
+XPC_SERVICE_NAME = com.microsoft.VSCode.66408
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # automatic
 +F = $(notdir $+)
 # environment
 __CF_USER_TEXT_ENCODING = 0x1F5:0x0:0x0
-# environment
-COMMAND_MODE = unix2003
 # default
 MAKEFILES := 
 # automatic
@@ -147,8 +140,9 @@ MAKEFILES :=
 EDITOR = vim
 # environment
 PAGER = less
+# environment
+LC_ALL = C
 # automatic
- 
 ^F = $(notdir $^)
 # default
 SUFFIXES := 
@@ -156,12 +150,12 @@ SUFFIXES :=
 .INCLUDE_DIRS = /usr/local/include
 # environment
 MAKELEVEL := 0
-# makefile (from `Makefile', line 4)
-PANGEO_TAG = "2020.12.16"
 # environment
-VSCODE_PID = 38896
+LANG = C
+# environment
+VSCODE_PID = 1546
 # variable set hash-table stats:
-# Load=72/1024=7%, Rehash=0, Collisions=4/99=4%
+# Load=70/1024=7%, Rehash=0, Collisions=6/97=6%
 
 # Pattern-specific Variable Values
 
@@ -205,7 +199,7 @@ up:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2021-01-04 11:59:00
+#  Last modified 2021-01-04 03:59:00
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -279,7 +273,6 @@ clean-all:
 	
 
 # files hash-table stats:
- 
 # Load=12/1024=1%, Rehash=0, Collisions=0/24=0%
 # VPATH Search Paths
 
@@ -292,6 +285,6 @@ clean-all:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Sun May  2 13:12:07 2021
+# Finished Make data base on Tue Jun 15 14:37:21 2021
 
  

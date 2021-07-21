@@ -2,6 +2,7 @@ name: notebook
 channels:
   - bioconda
   - conda-forge
+  - defaults
 dependencies:
   - python=3.8*
   - pangeo-notebook=2020.12.22
@@ -29,7 +30,10 @@ dependencies:
   - pydata-sphinx-theme
   - livereload
   - xlrd
-  - awscli
+  - prefect
+  - nextflow
+  - snakemake
+  - boto3
   - r-base=4.0.3
   - r-essentials
   - r-tidyverse

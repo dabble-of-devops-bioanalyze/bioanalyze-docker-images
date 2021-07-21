@@ -1,5 +1,6 @@
 name: notebook
 channels:
+  - bioconda
   - conda-forge
   - defaults
 dependencies:

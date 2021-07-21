@@ -1,5 +1,6 @@
 name: pangeo
 channels:
+  - bioconda
   - conda-forge
   - defaults
 dependencies:

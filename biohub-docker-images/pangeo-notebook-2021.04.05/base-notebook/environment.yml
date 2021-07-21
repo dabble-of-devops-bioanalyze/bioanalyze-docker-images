@@ -1,5 +1,6 @@
 name: notebook
 channels:
+  - bioconda
   - conda-forge
 dependencies:
   - python=3.8*
@@ -28,7 +29,10 @@ dependencies:
   - pydata-sphinx-theme
   - livereload
   - xlrd
-  - awscli
+  - prefect
+  - nextflow
+  - snakemake
+  - boto3
   - pip:
       - jupyter-rsession-proxy
       - jupyter-book

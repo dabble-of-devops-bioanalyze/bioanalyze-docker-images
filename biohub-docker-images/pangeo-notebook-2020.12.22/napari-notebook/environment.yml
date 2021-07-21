@@ -1,7 +1,7 @@
 name: napari
 channels:
-  - conda-forge
   - bioconda
+  - conda-forge
   - defaults
 dependencies:
   - python=3.8*
@@ -30,7 +30,10 @@ dependencies:
   - pydata-sphinx-theme
   - livereload
   - xlrd
-  - awscli
+  - prefect
+  - nextflow
+  - snakemake
+  - boto3
   - h5netcdf
   - h5py
   - jupyterlab-nvdashboard

@@ -35,7 +35,10 @@
       "pydata-sphinx-theme",
       "livereload",
       "xlrd",
-      "awscli"
+      "prefect",
+      "nextflow",
+      "snakemake",
+      "boto3"
     ],
     "pip_packages": [
       "jupyter-rsession-proxy",
