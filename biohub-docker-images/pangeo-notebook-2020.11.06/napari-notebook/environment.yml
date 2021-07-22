@@ -27,6 +27,7 @@ dependencies:
   - h5netcdf
   - sphinx-autobuild
   - nbsphinx
+  - myst-parser
   - pydata-sphinx-theme
   - livereload
   - xlrd
