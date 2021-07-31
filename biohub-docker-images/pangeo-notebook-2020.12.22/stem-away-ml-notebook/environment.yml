@@ -89,10 +89,11 @@ dependencies:
   - sparse
   - pip:
       - prefect[kubernetes]
+      - sphinxcontrib-napoleon
       - jupyter-rsession-proxy
       - jupyter-book
       - jupyter-cache[cli]
-      - git+https://github.com/bashtage/sphinx-material.git
+      - sphinx-material
       - tensorflow
       - keras
       - git+git://github.com/titipata/pubmed_parser.git

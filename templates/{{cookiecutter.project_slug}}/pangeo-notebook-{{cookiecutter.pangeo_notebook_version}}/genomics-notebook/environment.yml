@@ -1,7 +1,7 @@
 name: notebook
 channels:
-  - bioconda
   - conda-forge
+  - bioconda
   - defaults
 dependencies:
   {%- for package in cookiecutter.default_packages.conda_packages %}
@@ -11,6 +11,8 @@ dependencies:
   - r-essentials
   - r-tidyverse
   - r-bookdown
+  - bcftools
+  - samtools
   - plink
   - plink2
   - scikit-learn
