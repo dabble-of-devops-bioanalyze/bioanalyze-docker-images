@@ -69,6 +69,7 @@ jobs:
           - seurat-notebook
           - stem-away-ml-notebook
           - genomics-notebook
+          - fmriprep-20.2.3
     name: ${{ matrix.IMAGE }}
     runs-on: ubuntu-latest
     steps:

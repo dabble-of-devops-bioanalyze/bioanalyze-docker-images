@@ -1,7 +1,7 @@
 name: notebook
 channels:
-  - conda-forge
   - bioconda
+  - conda-forge
   - defaults
 dependencies:
   - python=3.8*
@@ -34,21 +34,34 @@ dependencies:
   - nextflow
   - snakemake
   - boto3
-  - r-base=4.0.3
-  - r-essentials
-  - r-tidyverse
-  - r-bookdown
-  - bcftools
-  - samtools
-  - plink
-  - plink2
+  - imagemagick
+  - mysql
+  - openjdk
+  - zeromq
+  - pyzmq
+  - datashader
+  - gcsfs
+  - h5netcdf
+  - h5py
+  - holoviews
+  - hvplot
+  - matplotlib-base
+  - nb_conda_kernels
+  - panel
+  - rasterio
+  - scikit-image
   - scikit-learn
+  - scipy
+  - sparse
+  - gtk3
+  - gtk2
+  - psycopg2
+  - wxpython=4.1.0
   - pip:
-    - pheweb
-    - PyVCF
-    - prefect[kubernetes]
-    - sphinxcontrib-napoleon
-    - jupyter-rsession-proxy
-    - jupyter-book
-    - jupyter-cache[cli]
-    - sphinx-material
+      - fmriprep=20.2.3
+      - prefect[kubernetes]
+      - sphinxcontrib-napoleon
+      - jupyter-rsession-proxy
+      - jupyter-book
+      - jupyter-cache[cli]
+      - sphinx-material

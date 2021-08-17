@@ -18,6 +18,7 @@ dependencies:
   - scikit-learn
   - pip:
     - pheweb
+    - PyVCF
   {%- for package in cookiecutter.default_packages.pip_packages %}
     - {{ package }}
   {%- endfor %}
