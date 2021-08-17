@@ -8,11 +8,6 @@ dependencies:
   - {{ package }}
   {%- endfor %}
   - imagemagick
-  - mysql
-  - openjdk
-  - zeromq
-  - pyzmq
-  - datashader
   - gcsfs
   - h5netcdf
   - h5py
@@ -26,10 +21,7 @@ dependencies:
   - scikit-learn
   - scipy
   - sparse
-  - gtk3
-  - gtk2
   - psycopg2
-  - wxpython=4.1.0
   - pip:
       - fmriprep=20.2.3
   {%- for package in cookiecutter.default_packages.pip_packages %}
