@@ -50,7 +50,7 @@ dependencies:
   - sparse
   - psycopg2
   - pip:
-      - fmriprep=20.2.3
+      - fmriprep==20.2.3
       - prefect[kubernetes]
       - sphinxcontrib-napoleon
       - jupyter-rsession-proxy
