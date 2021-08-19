@@ -5,8 +5,8 @@ channels:
   - defaults
 dependencies:
   - python=3.8*
-  - pangeo-notebook=2020.12.22
-  - jupyterlab=2.2.9
+  - pangeo-notebook=2021.04.05
+  - jupyterlab=3
   - pip
   - nb_conda_kernels
   - jupyter-server-proxy

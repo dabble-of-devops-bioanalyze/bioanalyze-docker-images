@@ -8,13 +8,29 @@ FROM dabbleofdevops/base-image:${DODO_TAG}
 
 USER root
 
-RUN apt-get update && \
+RUN apt-get update && apt-get install -y gnupg2
+RUN wget -O- http://neuro.debian.net/lists/focal.us-ca.libre | sudo tee /etc/apt/sources.list.d/neurodebian.sources.list
+RUN apt-key adv --recv-keys --keyserver hkps://keyserver.ubuntu.com 0xA5D32F012649A5A9
+
+RUN set -x \
+	&& apt-get update -y \
+	&& apt-get upgrade -y \
+	&& apt-get install -y --no-install-recommends \
+	neurodebian-freeze \
+	eatmydata \
+	neurodebian \
+	connectome-workbench \
+        git-annex-standalone && \
     curl -sSL https://deb.nodesource.com/setup_14.x | bash - && \
     apt-get install -y --no-install-recommends \
                     nodejs && \
-    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    apt-get clean && \
+    # cleaning up unused files
+    apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false && \
+    rm -rf /var/lib/apt/lists/
 
 # Installing freesurfer
+
 RUN curl -sSL https://surfer.nmr.mgh.harvard.edu/pub/dist/freesurfer/6.0.1/freesurfer-Linux-centos6_x86_64-stable-pub-v6.0.1.tar.gz \
     | tar zxv --no-same-owner -C /opt \
     --exclude='freesurfer/diffusion' \
@@ -54,15 +70,6 @@ ENV PERL5LIB="$MINC_LIB_DIR/perl5/5.8.5" \
     MNI_PERL5LIB="$MINC_LIB_DIR/perl5/5.8.5" \
     PATH="$FREESURFER_HOME/bin:$FSFAST_HOME/bin:$FREESURFER_HOME/tktools:$MINC_BIN_DIR:$PATH"
 
-# Installing Neurodebian packages
-RUN curl -sSL "http://neuro.debian.net/lists/$( lsb_release -c | cut -f2 ).us-ca.full" >> /etc/apt/sources.list.d/neurodebian.sources.list && \
-    apt-key add /usr/local/etc/neurodebian.gpg && \
-    (apt-key adv --refresh-keys --keyserver hkp://ha.pool.sks-keyservers.net 0xA5D32F012649A5A9 || true)
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-                    connectome-workbench=1.5.0-1~nd20.04+1 \
-                    git-annex-standalone=8.20210223-1~ndall+1 && \
-    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # FSL 5.0.11 (neurodocker build)
 RUN apt-get update -qq \
@@ -107,9 +114,13 @@ ENV FSLDIR="/opt/fsl-5.0.11" \
     LD_LIBRARY_PATH="/opt/fsl-5.0.11:$LD_LIBRARY_PATH"
 
 # Convert3D (neurodocker build)
+# Original download was from sourceforge but would timeout sometimes
+# && curl -fsSL --retry 5 https://sourceforge.net/projects/c3d/files/c3d/1.0.0/c3d-1.0.0-Linux-x86_64.tar.gz/download \
+
 RUN echo "Downloading Convert3D ..." \
+    && cd /tmp \
     && mkdir -p /opt/convert3d-1.0.0 \
-    && curl -fsSL --retry 5 https://sourceforge.net/projects/c3d/files/c3d/1.0.0/c3d-1.0.0-Linux-x86_64.tar.gz/download \
+    && curl -fsSL --retry 5 https://dabble-of-devops-bioinformatics-jhub-docker.s3.amazonaws.com/downloads/c3d-1.0.0-Linux-x86_64.tar.gz \
     | tar -xz -C /opt/convert3d-1.0.0 --strip-components 1
 ENV C3DPATH="/opt/convert3d-1.0.0" \
     PATH="/opt/convert3d-1.0.0/bin:$PATH"
