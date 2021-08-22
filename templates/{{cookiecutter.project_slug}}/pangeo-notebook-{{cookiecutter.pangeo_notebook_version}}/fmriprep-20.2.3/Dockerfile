@@ -16,6 +16,7 @@ RUN set -x \
 	&& apt-get update -y \
 	&& apt-get upgrade -y \
 	&& apt-get install -y --no-install-recommends \
+	libgtk2.0-dev \
 	neurodebian-freeze \
 	eatmydata \
 	neurodebian \
@@ -187,5 +188,6 @@ RUN curl -sSL "https://github.com/oesteban/ICA-AROMA/archive/v0.4.5.tar.gz" \
 ENV PATH="/opt/ICA-AROMA:$PATH" \
     AROMA_VERSION="0.4.5"
 
+WORKDIR /home/jovyan
 
 USER ${NB_USER}
