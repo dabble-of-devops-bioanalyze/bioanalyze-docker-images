@@ -1,0 +1,24 @@
+name: notebook
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  {%- for package in cookiecutter.default_packages.conda_packages %}
+  - {{ package }}
+  {%- endfor %}
+  - r-base=4.0.3
+  - r-essentials
+  - r-tidyverse
+  - r-bookdown
+  - bcftools
+  - samtools
+  - plink
+  - plink2
+  - scikit-learn
+  - pip:
+    - pheweb
+    - PyVCF
+  {%- for package in cookiecutter.default_packages.pip_packages %}
+    - {{ package }}
+  {%- endfor %}

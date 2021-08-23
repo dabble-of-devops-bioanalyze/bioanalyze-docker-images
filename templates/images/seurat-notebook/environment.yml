@@ -1,0 +1,18 @@
+name: seurat
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  {%- for package in cookiecutter.default_packages.conda_packages %}
+  - {{ package }}
+  {%- endfor %}
+  - r-base=4.0.3
+  - r-essentials
+  - r-shiny
+  - r-seurat=4.0.0
+  - r-bookdown
+  - pip:
+  {%- for package in cookiecutter.default_packages.pip_packages %}
+    - {{ package }}
+  {%- endfor %}
