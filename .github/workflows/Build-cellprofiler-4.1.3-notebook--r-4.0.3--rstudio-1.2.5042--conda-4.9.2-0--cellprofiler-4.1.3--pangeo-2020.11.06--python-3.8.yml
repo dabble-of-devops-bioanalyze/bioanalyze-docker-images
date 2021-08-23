@@ -40,5 +40,5 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USER }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
         workdir: tiamet-docker-images/cellprofiler/cellprofiler-4.1.3-notebook--r-4.0.3--rstudio-1.2.5042--conda-4.9.2-0--cellprofiler-4.1.3--pangeo-2020.11.06--python-3.8
-        tags: ${{env.CALVER}}, ${{env.CALVER_TAG}}, ${{env.DOCKER_TAG}}, ${{env.SHA_TAG}}
+        tags: ${{env.CALVER_TAG}}, ${{env.DOCKER_TAG}}, ${{env.SHA_TAG}}
         buildargs: DODO_TAG=r-4.0.3--rstudio-1.2.5042--conda-4.9.2-0

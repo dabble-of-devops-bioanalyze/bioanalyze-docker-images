@@ -84,10 +84,12 @@ def generate_image_tag(image_product):
 
 def hardcode_cookiecutter_data(config_data, cookiecutter_data, pangeo_version, python_version):
     cookiecutter_data['python_version'] = python_version
+    cookiecutter_data['pangeo_version'] = pangeo_version
     if pangeo_version == "2021.04.05":
         cookiecutter_data['jupyterlab_version'] = "3"
     elif pangeo_version == "2021.08.17":
         cookiecutter_data['jupyterlab_version'] = "3"
+    
     return cookiecutter_data
 
 

@@ -5,7 +5,7 @@ channels:
   - defaults
 dependencies:
   - python=3.8*
-  - pangeo-notebook=2020.12.22
+  - pangeo-notebook=2021.08.17
   - jupyterlab=3
   - cookiecutter
   - boto3
