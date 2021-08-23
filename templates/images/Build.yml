@@ -22,6 +22,7 @@ jobs:
 
       - name: Set Job Environment Variables
         run: |
+          DOCKER_TAG=${BIO_DOCKER_TAG}
           CALVER="$( date -u '+%Y.%m.%d' )"
           SHA7="${GITHUB_SHA::7}"
           SHA_TAG="${DOCKER_TAG}--sha-${SHA7}"

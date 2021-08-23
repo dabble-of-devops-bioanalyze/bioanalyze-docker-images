@@ -17,7 +17,9 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v2
     - name: Set Job Environment Variables
-      run: 'CALVER="$( date -u ''+%Y.%m.%d'' )"
+      run: 'DOCKER_TAG=${BIO_DOCKER_TAG}
+
+        CALVER="$( date -u ''+%Y.%m.%d'' )"
 
         SHA7="${GITHUB_SHA::7}"
 
