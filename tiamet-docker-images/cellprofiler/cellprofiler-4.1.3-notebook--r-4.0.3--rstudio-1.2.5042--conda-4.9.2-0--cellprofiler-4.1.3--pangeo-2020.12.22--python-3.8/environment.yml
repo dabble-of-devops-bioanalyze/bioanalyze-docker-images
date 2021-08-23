@@ -7,6 +7,7 @@ dependencies:
   - python=3.8*
   - pangeo-notebook=2020.12.22
   - jupyterlab=2.2.9
+  - nodejs
   - cookiecutter
   - boto3
   - pip

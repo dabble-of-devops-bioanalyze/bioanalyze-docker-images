@@ -12,6 +12,7 @@
       "python={{cookiecutter.python_version}}",
       "pangeo-notebook={{cookiecutter.pangeo_version}}",
       "jupyterlab={{cookiecutter.jupyterlab_version}}",
+      "nodejs",
       "cookiecutter",
       "boto3",
       "pip",

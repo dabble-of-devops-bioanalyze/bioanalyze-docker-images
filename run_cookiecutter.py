@@ -89,7 +89,7 @@ def hardcode_cookiecutter_data(config_data, cookiecutter_data, pangeo_version, p
         cookiecutter_data['jupyterlab_version'] = "3"
     elif pangeo_version == "2021.08.17":
         cookiecutter_data['jupyterlab_version'] = "3"
-    
+
     return cookiecutter_data
 
 
@@ -342,22 +342,3 @@ def read_yaml(file) -> Any:
 
 def read_config() -> Any:
     return read_yaml("config.yml")
-
-
-# with open('templates/cookiecutter.json', 'r') as reader:
-#     data = json.load(reader)
-
-# for pangeo_version in data['pangeo_versions']:
-
-#     data['pangeo_notebook_version'] = pangeo_version
-
-#     if pangeo_version == "2021.04.05":
-#         data['jupyterlab_version'] = "3"
-
-#     cookiecutter(
-#         TEMPLATE,  # path/url to cookiecutter template
-#         overwrite_if_exists=True,
-#         extra_context=data,
-#         output_dir='.',
-#         no_input=True
-#     )
