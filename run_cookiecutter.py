@@ -287,6 +287,7 @@ def generate_base_image_cookiecutter(config_data):
         gh_workflow['env']['RSTUDIO_VERSION'] = base_image.rstudio
         gh_workflow['env']['R_VERSION'] = base_image.r
         gh_workflow['on']['push']['paths'][0] = docker_context_dir
+        gh_workflow['jobs']['base-image']['steps'][2]['with']['workdir'] = docker_context_dir
         gh_workflow['jobs']['base-image']['steps'][2]['with'][
             'buildargs'] = f'CONDA_VERSION={base_image.conda},RSTUDIO_VERSION={base_image.rstudio},R_VERSION={base_image.r}'
 

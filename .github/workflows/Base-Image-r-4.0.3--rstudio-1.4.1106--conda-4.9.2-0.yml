@@ -3,8 +3,8 @@ name: Base-Image-r-4.0.3--rstudio-1.4.1106--conda-4.9.2-0
   push:
     branches:
     - master
-    # paths:
-    # - tiamet-docker-images/base_image/base_image-r-4.0.3--rstudio-1.4.1106--conda-4.9.2-0
+    paths:
+    - tiamet-docker-images/base_image/base_image-r-4.0.3--rstudio-1.4.1106--conda-4.9.2-0
 env:
   PROJECT_SLUG: biohub-docker-images
   RSTUDIO_VERSION: 1.4.1106
@@ -49,6 +49,6 @@ jobs:
         name: ${{env.DOCKER_ORG}}/${{ env.IMAGE }}
         username: ${{ secrets.DOCKERHUB_USER }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
-        workdir: ${{ env.PROJECT_SLUG }}/${{ env.IMAGE }}-${{env.DOCKER_TAG}}
+        workdir: tiamet-docker-images/base_image/base_image-r-4.0.3--rstudio-1.4.1106--conda-4.9.2-0
         tags: ${{env.CALVER_TAG}},${{env.DOCKER_TAG}},${{env.SHA_TAG}},latest
         buildargs: CONDA_VERSION=4.9.2-0,RSTUDIO_VERSION=1.4.1106,R_VERSION=4.0.3
