@@ -159,9 +159,9 @@ def generate_package_image_cookiecutter(config_data, base_image, base_docker_tag
 
             # os.makedirs(dst_dir)
             shutil.copytree(notebook_dir, dst_dir)
+
             cookiecutter_dst_dir = os.path.join(
                 TEMPLATE_DIR)
-
             cookiecutter_data = read_json(os.path.join(
                 TEMPLATE_DIR, 'templates', 'cookiecutter.json'))
 
@@ -258,8 +258,14 @@ def generate_base_image_cookiecutter(config_data):
                    'cookiecutter.json'), cookiecutter_data)
         write_json(os.path.join('templates', 'base_image',
                    f'cookiecutter--base_image-{docker_tag}.json'), cookiecutter_data)
+
+        cookiecutter_data['project_slug'] = f'base_image-{docker_tag}'
+
+        tmp_base_dirpath = tempfile.mkdtemp(prefix='tiamet_base_tmp')
+
         cookiecutter_dst_dir = os.path.join(
-            TEMPLATE_DIR, 'tiamet-docker-images', 'base_image', f'base_image-{docker_tag}')
+            tmp_base_dirpath)
+
         docker_context_dir = os.path.join(
             'tiamet-docker-images', 'base_image', f'base_image-{docker_tag}')
 
@@ -272,6 +278,9 @@ def generate_base_image_cookiecutter(config_data):
             no_input=True
         )
 
+        shutil.copytree(os.path.join(cookiecutter_dst_dir, cookiecutter_data['project_slug']),
+                        docker_context_dir
+                        )
         # generate base_image gh build script
         gh_workflow = read_yaml(
             os.path.join("templates", "base_image", "Base-Image.yml"))
