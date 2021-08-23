@@ -199,7 +199,7 @@ def generate_package_image_cookiecutter(config_data, base_image, base_docker_tag
             gh_workflow = read_yaml(os.path.join(
                 TEMPLATE_DIR, 'templates', 'images', 'Build.yml'))
             gh_workflow['name'] = f'Build-{build_name}'
-            gh_workflow['on']['push']['paths'][0] = docker_context_dir
+            gh_workflow['on']['push']['paths'][0] = f'{docker_context_dir}/**'
             gh_workflow['jobs']['bio-image']['steps'][2]['with']['workdir'] = docker_context_dir
             gh_workflow['jobs'][
                 'bio-image']['steps'][2]['with']['buildargs'] = f'DODO_TAG={base_docker_tag}'
@@ -300,13 +300,13 @@ def generate_base_image_cookiecutter(config_data):
         gh_workflow['env']['CONDA_VERSION'] = base_image.conda
         gh_workflow['env']['RSTUDIO_VERSION'] = base_image.rstudio
         gh_workflow['env']['R_VERSION'] = base_image.r
-        gh_workflow['on']['push']['paths'][0] = docker_context_dir
+        gh_workflow['on']['push']['paths'][0] = f'{docker_context_dir}/**'
         gh_workflow['jobs']['base-image']['steps'][2]['with']['workdir'] = docker_context_dir
         gh_workflow['jobs']['base-image']['steps'][2]['with'][
             'buildargs'] = f'CONDA_VERSION={base_image.conda},RSTUDIO_VERSION={base_image.rstudio},R_VERSION={base_image.r}'
 
         # # if force rebuild
-        # del gh_workflow['on']['push']['paths']
+        del gh_workflow['on']['push']['paths']
         write_yaml(os.path.join('.github', 'workflows',
                    f'Base-Image-{docker_tag}.yml'), gh_workflow)
 
