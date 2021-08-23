@@ -1,8 +1,0 @@
-#!/bin/bash
-
-jupyter labextension install --clean \
-                           @jupyter-widgets/jupyterlab-manager \
-                            @jupyterlab/server-proxy \
-                            dask-labextension
-
-#EOF

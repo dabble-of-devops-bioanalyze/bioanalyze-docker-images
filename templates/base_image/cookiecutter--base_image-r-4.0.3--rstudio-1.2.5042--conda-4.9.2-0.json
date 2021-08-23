@@ -1,0 +1,10 @@
+{
+    "project_slug": "tiamet-docker-images",
+    "docker_tag": "r-4.0.3--rstudio-1.2.5042--conda-4.9.2-0",
+    "conda_version": "4.9.2-0",
+    "r_version": "4.0.3",
+    "rstudio_version": "1.2.5042",
+    "label": "LABEL org.opencontainers.image.licenses=\"GPL-2.0-or-later\" \\\n      org.opencontainers.image.source=\"https://github.com/Dabble-of-DevOps-BioHub/biohub-docker-images\" \\\n      org.opencontainers.image.vendor=\"BioHub\" \\\n      org.opencontainers.image.authors=\"Jillian Rowe <jillian@dabbleofdevops.com>\" \\\n      conda_version={{cookiecutter.conda_version}} \\\n      r_version={{cookiecutter.r_version}} \\\n      rstudio_version={{cookiecutter.rstudio_version}}\n",
+    "latest": false,
+    "label_text": "LABEL org.opencontainers.image.licenses=\"GPL-2.0-or-later\" \\\n      org.opencontainers.image.source=\"https://github.com/Dabble-of-DevOps-BioHub/biohub-docker-images\" \\\n      org.opencontainers.image.vendor=\"BioHub\" \\\n      org.opencontainers.image.authors=\"Jillian Rowe <jillian@dabbleofdevops.com>\" \\\n      conda_version={{cookiecutter.conda_version}} \\\n      r_version={{cookiecutter.r_version}} \\\n      rstudio_version={{cookiecutter.rstudio_version}}\n"
+}

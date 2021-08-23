@@ -1,0 +1,17 @@
+name: notebook
+channels:
+  - bioconda
+  - conda-forge
+  - defaults
+dependencies:
+  {%- for package in cookiecutter.default_packages.conda_packages %}
+  - {{ package }}
+  {%- endfor %}
+  - r-base=4.0.3
+  - r-essentials
+  - r-tidyverse
+  - r-bookdown
+  - pip:
+  {%- for package in cookiecutter.default_packages.pip_packages %}
+    - {{ package }}
+  {%- endfor %}
