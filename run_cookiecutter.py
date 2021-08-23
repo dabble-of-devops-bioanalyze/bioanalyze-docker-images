@@ -260,6 +260,8 @@ def generate_base_image_cookiecutter(config_data):
                    f'cookiecutter--base_image-{docker_tag}.json'), cookiecutter_data)
         cookiecutter_dst_dir = os.path.join(
             TEMPLATE_DIR, 'tiamet-docker-images', 'base_image', f'base_image-{docker_tag}')
+        docker_context_dir = os.path.join(
+            'tiamet-docker-images', 'base_image', f'base_image-{docker_tag}')
 
         cookiecutter(
             # path/url to cookiecutter template
@@ -284,7 +286,7 @@ def generate_base_image_cookiecutter(config_data):
         gh_workflow['env']['CONDA_VERSION'] = base_image.conda
         gh_workflow['env']['RSTUDIO_VERSION'] = base_image.rstudio
         gh_workflow['env']['R_VERSION'] = base_image.r
-        gh_workflow['on']['push']['paths'][0] = cookiecutter_dst_dir
+        gh_workflow['on']['push']['paths'][0] = docker_context_dir
         gh_workflow['jobs']['base-image']['steps'][2]['with'][
             'buildargs'] = f'CONDA_VERSION={base_image.conda},RSTUDIO_VERSION={base_image.rstudio},R_VERSION={base_image.r}'
 

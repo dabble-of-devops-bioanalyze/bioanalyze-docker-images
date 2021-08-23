@@ -4,7 +4,7 @@ name: Base-Image-r-4.0.3--rstudio-1.2.5042--conda-4.9.2-0
     branches:
     - master
     paths:
-    - /home/jovyan/app/tiamet-docker-images/base_image/base_image-r-4.0.3--rstudio-1.2.5042--conda-4.9.2-0
+    - tiamet-docker-images/base_image/base_image-r-4.0.3--rstudio-1.2.5042--conda-4.9.2-0
 env:
   PROJECT_SLUG: biohub-docker-images
   RSTUDIO_VERSION: 1.2.5042
