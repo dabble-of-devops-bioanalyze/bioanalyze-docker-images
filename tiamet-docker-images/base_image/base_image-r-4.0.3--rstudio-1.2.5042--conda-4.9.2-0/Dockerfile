@@ -1,6 +1,6 @@
 ARG R_VERSION="4.0.3"
 
-FROM rocker/r-ver:${R_VERION}
+FROM rocker/r-ver:${R_VERSION}
 
 LABEL org.opencontainers.image.licenses="GPL-2.0-or-later" \
       org.opencontainers.image.source="https://github.com/Dabble-of-DevOps-BioHub/biohub-docker-images" \

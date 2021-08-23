@@ -1,6 +1,6 @@
 ARG R_VERSION="4.0.3"
 
-FROM rocker/r-ver:${R_VERION}
+FROM rocker/r-ver:${R_VERSION}
 
 {{cookiecutter.label_text}}
 
