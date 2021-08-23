@@ -158,7 +158,7 @@ def generate_package_image_cookiecutter(config_data, base_image, base_docker_tag
             notebook_dir = notebook_dir.replace('*', '')
 
             # os.makedirs(dst_dir)
-            shutil.copytree(notebook_dir, dst_dir)
+            shutil.copytree(notebook_dir, dst_dir, dirs_exist_ok=False)
 
             cookiecutter_dst_dir = os.path.join(
                 TEMPLATE_DIR)
@@ -279,8 +279,9 @@ def generate_base_image_cookiecutter(config_data):
         )
 
         shutil.copytree(os.path.join(cookiecutter_dst_dir, cookiecutter_data['project_slug']),
-                        docker_context_dir
+                        docker_context_dir, dirs_exist_ok=True
                         )
+        shutil.rmtree(cookiecutter_dst_dir)
         # generate base_image gh build script
         gh_workflow = read_yaml(
             os.path.join("templates", "base_image", "Base-Image.yml"))
@@ -303,8 +304,8 @@ def generate_base_image_cookiecutter(config_data):
         write_yaml(os.path.join('.github', 'workflows',
                    f'Base-Image-{docker_tag}.yml'), gh_workflow)
 
-        # generate_package_image_cookiecutter(
-        #     config_data=config_data, base_image=base_image, base_docker_tag=docker_tag, base_latest_tag=latest, tmp_dirpath=tmp_dirpath)
+        generate_package_image_cookiecutter(
+            config_data=config_data, base_image=base_image, base_docker_tag=docker_tag, base_latest_tag=latest, tmp_dirpath=tmp_dirpath)
 
     return t_base_image_products, latest
 

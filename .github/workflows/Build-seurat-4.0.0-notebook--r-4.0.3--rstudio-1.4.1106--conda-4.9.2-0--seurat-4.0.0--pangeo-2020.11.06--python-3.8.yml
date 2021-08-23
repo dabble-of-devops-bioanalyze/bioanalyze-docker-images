@@ -1,0 +1,46 @@
+name: Build-seurat-4.0.0-notebook--r-4.0.3--rstudio-1.4.1106--conda-4.9.2-0--seurat-4.0.0--pangeo-2020.11.06--python-3.8
+'on':
+  push:
+    branches:
+    - master
+    paths:
+    - tiamet-docker-images/seurat/seurat-4.0.0-notebook--r-4.0.3--rstudio-1.4.1106--conda-4.9.2-0--seurat-4.0.0--pangeo-2020.11.06--python-3.8
+env:
+  DOCKER_ORG: dabbleofdevops
+  GITHUB_SHA: ${{ github.sha }}
+  GITHUB_REF: ${{ github.ref }}
+  BASE_DOCKER_TAG: r-4.0.3--rstudio-1.4.1106--conda-4.9.2-0
+  BIO_DOCKER_TAG: seurat-4.0.0--pangeo-2020.11.06--python-3.8--r-4.0.3--rstudio-1.4.1106--conda-4.9.2-0
+  IMAGE: seurat-notebook
+jobs:
+  bio-image:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+    - name: Set Job Environment Variables
+      run: 'CALVER="$( date -u ''+%Y.%m.%d'' )"
+
+        SHA7="${GITHUB_SHA::7}"
+
+        SHA_TAG="${DOCKER_TAG}--sha-${SHA7}"
+
+        CALVER_TAG="${DOCKER_TAG}--${CALVER}"
+
+
+        echo "CALVER=${CALVER}" >> $GITHUB_ENV
+
+        echo "CALVER_TAG=${CALVER_TAG}" >> $GITHUB_ENV
+
+        echo "SHA_TAG=${SHA_TAG}" >> $GITHUB_ENV
+
+        '
+    - name: Build and Publish to DockerHub
+      uses: elgohr/Publish-Docker-Github-Action@2.12
+      with:
+        name: ${{env.DOCKER_ORG}}/${{ env.IMAGE }}
+        username: ${{ secrets.DOCKERHUB_USER }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+        workdir: tiamet-docker-images/seurat/seurat-4.0.0-notebook--r-4.0.3--rstudio-1.4.1106--conda-4.9.2-0--seurat-4.0.0--pangeo-2020.11.06--python-3.8
+        tags: ${{env.CALVER}}, ${{env.CALVER_TAG}}, ${{env.DOCKER_TAG}}, ${{env.SHA_TAG}}
+        buildargs: DODO_TAG=r-4.0.3--rstudio-1.4.1106--conda-4.9.2-0

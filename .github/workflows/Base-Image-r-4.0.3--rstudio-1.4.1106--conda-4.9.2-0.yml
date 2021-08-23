@@ -3,8 +3,8 @@ name: Base-Image-r-4.0.3--rstudio-1.4.1106--conda-4.9.2-0
   push:
     branches:
     - master
-    # paths:
-    # - tiamet-docker-images/base_image/base_image-r-4.0.3--rstudio-1.4.1106--conda-4.9.2-0
+    paths:
+    - tiamet-docker-images/base_image/base_image-r-4.0.3--rstudio-1.4.1106--conda-4.9.2-0
 env:
   PROJECT_SLUG: biohub-docker-images
   RSTUDIO_VERSION: 1.4.1106
