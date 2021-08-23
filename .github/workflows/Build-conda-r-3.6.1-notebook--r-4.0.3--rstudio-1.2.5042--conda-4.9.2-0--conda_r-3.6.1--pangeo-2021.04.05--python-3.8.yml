@@ -3,8 +3,6 @@ name: Build-conda-r-3.6.1-notebook--r-4.0.3--rstudio-1.2.5042--conda-4.9.2-0--co
   push:
     branches:
     - master
-    paths:
-    - tiamet-docker-images/conda-r/conda-r-3.6.1-notebook--r-4.0.3--rstudio-1.2.5042--conda-4.9.2-0--conda_r-3.6.1--pangeo-2021.04.05--python-3.8
 env:
   DOCKER_ORG: dabbleofdevops
   GITHUB_SHA: ${{ github.sha }}

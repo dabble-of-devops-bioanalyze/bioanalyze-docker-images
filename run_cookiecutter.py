@@ -204,6 +204,8 @@ def generate_package_image_cookiecutter(config_data, base_image, base_docker_tag
             gh_workflow['env']['BASE_DOCKER_TAG'] = base_docker_tag
             gh_workflow['env']['BIO_DOCKER_TAG'] = f'{image_tag}--{base_docker_tag}'
             gh_workflow['env']['IMAGE'] = f'{image}-notebook'
+            # if force rebuild
+            del gh_workflow['on']['push']['paths']
 
             if image_latest == image_tag and base_latest_tag == base_docker_tag:
                 tags = gh_workflow['jobs']['bio-image']['steps'][2]['with']['tags']
@@ -301,6 +303,8 @@ def generate_base_image_cookiecutter(config_data):
         gh_workflow['jobs']['base-image']['steps'][2]['with'][
             'buildargs'] = f'CONDA_VERSION={base_image.conda},RSTUDIO_VERSION={base_image.rstudio},R_VERSION={base_image.r}'
 
+        # # if force rebuild
+        # del gh_workflow['on']['push']['paths']
         write_yaml(os.path.join('.github', 'workflows',
                    f'Base-Image-{docker_tag}.yml'), gh_workflow)
 

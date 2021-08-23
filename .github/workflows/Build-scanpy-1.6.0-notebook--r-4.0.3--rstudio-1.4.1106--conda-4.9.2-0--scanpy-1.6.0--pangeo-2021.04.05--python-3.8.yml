@@ -3,8 +3,6 @@ name: Build-scanpy-1.6.0-notebook--r-4.0.3--rstudio-1.4.1106--conda-4.9.2-0--sca
   push:
     branches:
     - master
-    paths:
-    - tiamet-docker-images/scanpy/scanpy-1.6.0-notebook--r-4.0.3--rstudio-1.4.1106--conda-4.9.2-0--scanpy-1.6.0--pangeo-2021.04.05--python-3.8
 env:
   DOCKER_ORG: dabbleofdevops
   GITHUB_SHA: ${{ github.sha }}
