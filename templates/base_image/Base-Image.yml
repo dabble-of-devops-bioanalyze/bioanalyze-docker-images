@@ -47,4 +47,4 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
           workdir: "${{ env.PROJECT_SLUG }}/${{ env.IMAGE }}-${{env.DOCKER_TAG}}"
           tags: "${{env.CALVER_TAG}}, ${{env.DOCKER_TAG}}, ${{env.SHA_TAG}}"
-          buildargs: "" 
+          buildargs: ""

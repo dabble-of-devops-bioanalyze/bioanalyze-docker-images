@@ -28,7 +28,7 @@
       "xarray",
       "zarr",
       "hdf5",
-      "parallel", 
+      "parallel",
       "pyarrow",
       "h5py",
       "h5netcdf",

@@ -2,7 +2,7 @@ base_image_versions:
   conda:
     - "4.9.2-0"
   rstudio:
-    - 1.4.1106
+    # - 1.4.1106
     - 1.2.5042
   r:
     - 4.0.3
@@ -13,9 +13,10 @@ pangeo_versions:
   # jupyterlab: []
   pangeo:
     - 2021.08.17
+    - 2021.06.05
     - 2021.04.05
-    - 2020.12.22
-    - 2020.11.06
+    # - 2020.12.22
+    # - 2020.11.06
 
 wms_versions:
   prefect:
@@ -45,8 +46,6 @@ image_versions:
     - 0.4.2
   seurat:
     - 4.0.0
-  fmriprep:
-    - 20.2.3
   ml:
     - 1.0.0
   stem_away_ml:

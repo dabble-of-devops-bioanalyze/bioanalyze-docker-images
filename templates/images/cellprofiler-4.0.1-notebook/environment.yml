@@ -23,6 +23,7 @@ dependencies:
   - panel
   - rasterio
   - scikit-image
+  - pooch==1.4.0
   - scikit-learn
   - scipy
   - sparse

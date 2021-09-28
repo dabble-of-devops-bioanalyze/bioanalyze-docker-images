@@ -3,8 +3,6 @@ on:
   push:
     branches:
       - master
-    paths:
-      - "" 
 
 env:
   DOCKER_ORG: "dabbleofdevops"
@@ -12,6 +10,7 @@ env:
   GITHUB_REF: ${{ github.ref }}
   BASE_DOCKER_TAG: ""
   BIO_DOCKER_TAG: ""
+
 
 jobs:
   bio-image:
