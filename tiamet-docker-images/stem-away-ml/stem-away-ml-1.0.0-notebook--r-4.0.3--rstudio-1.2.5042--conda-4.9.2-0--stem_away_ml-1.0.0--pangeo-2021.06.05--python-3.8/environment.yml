@@ -97,7 +97,7 @@ dependencies:
       - jupyter-book
       - jupyter-cache[cli]
       - aws-batch-helpers
-      - apache-airflow=2.1.4
+      - apache-airflow==2.1.4
       - tensorflow
       - keras
       - git+git://github.com/titipata/pubmed_parser.git
