@@ -1,0 +1,11 @@
+#!/bin/bash
+
+
+jupyter labextension install --clean \
+                            @jupyter-widgets/jupyterlab-manager \
+                            @jupyterlab/server-proxy \
+                            @pyviz/jupyterlab_pyviz \
+                            jupyterlab-nvdashboard \
+                            dask-labextension
+
+#EOF

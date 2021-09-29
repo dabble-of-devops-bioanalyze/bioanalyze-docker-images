@@ -142,18 +142,33 @@ def generate_image_products(pangeo_versions):
     return products
 
 
+#TODO Docker tags can only be 128 characters
 def generate_image_tag(image_product):
     tags = []
 
     t_image_product = copy.deepcopy(image_product)
     pangeo_version = t_image_product["pangeo"]
     del t_image_product["pangeo"]
+
+    airflow_version = t_image_product['airflow']
+    prefect_version = t_image_product['prefect']
+    nextflow_version = t_image_product['nextflow']
+    snakemake_version = t_image_product['snakemake']
+    del t_image_product['airflow']
+    del t_image_product['prefect']
+    del t_image_product['nextflow']
+    del t_image_product['snakemake']
+
     tags.append(f"pangeo-{pangeo_version}")
 
     for key in t_image_product.keys():
         value = t_image_product[key]
         tags.append(f"{key}-{value}")
 
+    tags.append(f'wms--a-{airflow_version}')
+    tags.append(f'p-{prefect_version}')
+    tags.append(f's-{snakemake_version}')
+    tags.append(f'n-{nextflow_version}')
     tags.pop()
 
     return "--".join(tags)
@@ -265,11 +280,6 @@ def generate_package_image_cookiecutter(
                 f"{image_dir}-{image_product[image]}-notebook--{base_docker_tag}--{image_tag}",
             )
 
-            # Up next is workflow managers
-            #   "nextflow={{cookiecutter.nextflow_version}}",
-            #   "snakemake={{cookiecutter.snakemake_version}}",
-            #   "prefect={{cookiecutter.prefect_version}}",
-
             dst_dir = dst_dir.replace("*", "")
             notebook_dir = notebook_dir.replace("*", "")
 
@@ -362,7 +372,7 @@ def generate_base_image_cookiecutter_data(config_data, base_image, docker_tag, l
         json_payload["latest"] = False
     return json_payload
 
-def generate_readme(package_data_t):
+def generate_readme(config_data, package_data_t):
     env = jinja2.Environment(loader=jinja2.FileSystemLoader("."))
     t = env.get_template("README.md.j2")
 
@@ -373,7 +383,9 @@ def generate_readme(package_data_t):
         names = df['name'].unique().tolist()
         for name in names:
             p['images'][name] = df[df['name']==name]
-    rendered = t.render(package_data=package_data)
+
+    rendered = t.render(package_data=package_data, config_data=config_data)
+
     f = open("README.md", "w")
     f.write(rendered)
     f.close()
@@ -484,7 +496,7 @@ def generate_base_image_cookiecutter(config_data):
             }
         )
 
-    generate_readme(package_image_data_all)
+    generate_readme(config_data, package_image_data_all)
     return t_base_image_products, latest, package_image_data_all
 
 

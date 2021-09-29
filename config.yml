@@ -16,20 +16,14 @@ pangeo_versions:
     - 2021.08.17
     - 2021.06.05
     - 2021.04.05
-    # - 2020.12.22
-    # - 2020.11.06
-# wms_versions:
   airflow:
     - 2.1.4
   prefect:
     - 0.15.4
-    # - 0.15.3
   snakemake:
     - 6.7.0
-    # - 6.6.0
   nextflow:
     - 21.04.0
-    # - 20.10.0
 
 image_versions:
   cellprofiler:
@@ -57,3 +51,20 @@ label_text: |
         conda_version={{cookiecutter.conda_version}} \
         r_version={{cookiecutter.r_version}} \
         rstudio_version={{cookiecutter.rstudio_version}}
+
+extra_context:
+  descriptions:
+    cellprofiler: |
+      [Cellprofiler](https://cellprofiler.org/) Free open-source software for measuring and analyzing cell images.
+    napari: |
+      [Napari](https://napari.org/) multi-dimensional image viewer for python.
+    seurat: |
+      [Seurat](https://satijalab.org/seurat/) R Toolkit for single cell genomics.
+    scanpy: |
+      [Scanpy](https://scanpy.readthedocs.io/en/stable/) Scanpy is a scalable toolkit for analyzing single-cell gene expression data built jointly with anndata.
+    conda_r: |
+      [R](https://www.r-project.org/) R is a free software environment for statistical computing and graphics.
+    ml: |
+      The ML image hosts many different ML packages.
+    stem_away_ml: |
+      The STEM Away ML image was build in collaboration with [STEMAway](https://stemaway.com/) for the Summer 2021 internship.
