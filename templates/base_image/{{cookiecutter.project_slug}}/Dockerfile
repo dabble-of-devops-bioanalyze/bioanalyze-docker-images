@@ -265,6 +265,8 @@ ONBUILD USER root
 ONBUILD RUN echo "Cleaning  /tmp" \
         && rm -rf /tmp/*
 
+ONBUILD RUN chmod -R 775 /srv/conda
+
 ONBUILD USER ${NB_USER}
 
 USER ${NB_USER}

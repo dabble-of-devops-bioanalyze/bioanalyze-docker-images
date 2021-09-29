@@ -3,7 +3,7 @@ ARG R_VERSION="4.0.3"
 FROM rocker/r-ver:${R_VERSION}
 
 LABEL org.opencontainers.image.licenses="GPL-2.0-or-later" \
-      org.opencontainers.image.source="https://github.com/Dabble-of-DevOps-BioHub/biohub-docker-images" \
+      org.opencontainers.image.source="https://github.com/dabble-of-devops-bioanalyze/bioanalyze-jupyter-docker-images" \
       org.opencontainers.image.vendor="BioHub" \
       org.opencontainers.image.authors="Jillian Rowe <jillian@dabbleofdevops.com>" \
       conda_version=4.9.2-0 \
@@ -266,6 +266,8 @@ ONBUILD RUN echo "Checking for 'start'..." \
 ONBUILD USER root
 ONBUILD RUN echo "Cleaning  /tmp" \
         && rm -rf /tmp/*
+
+ONBUILD RUN chmod -R 775 /srv/conda
 
 ONBUILD USER ${NB_USER}
 

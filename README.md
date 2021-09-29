@@ -1,58 +1,64 @@
-# BioHub Docker Images 
+## BioAnalyze Docker Images
 
-This Github repo houses recipes for Bioinformatics software stacks. Each image can be used on it's own or as a part of a Jupyterhub Cluster. 
+These docker images are built to use as a part of a full stack Bioinformatics Analysis Environment. Each image can be used on it's own or as a part of a Jupyterhub Cluster.
 
 Each image is meant to be a full fledged ecosystem for Bioinformatics. Images:
 
 * Are fully ready to use with a [Jupyterhub](https://zero-to-jupyterhub.readthedocs.io/en/latest/) or [Dask Gateway Cluster](https://gateway.dask.org/install-kube.html).
-* RStudio installed 
-* Jupyterlab installed 
+* RStudio installed
+* Jupyterlab installed
 * Common software packages for data science such as Pandas, SciKit Learn, and TidyVerse
-* Documentation packages such as [Jupyterbook](https://jupyterbook.org/) and [RBookdown](https://bookdown.org/). 
+* Use the excellent [Pangeo Project](https://github.com/pangeo-data/pangeo-docker-images) as a base.
+* Documentation packages such as [Jupyterbook](https://jupyterbook.org/) and [RBookdown](https://bookdown.org/).
 
 [Bioinformatics Ecosystem](./docs/_source/_static/images/BioHub-Ecosystem-IDEs-and-Development-Environment.jpeg)
 
 See each of the images at [Dockerhub](https://hub.docker.com/orgs/dabbleofdevops/repositories).
 
-| Name | Pangeo Versions | Description | Dockerhub URL |
-| --- | ----------- | ---------- | --------------- |
-| CellProfiler v3 | 2020-12-22, 2020-11-06 | [CellProfiler V3](https://cellprofiler.org/) Free open-source software for measuring and analyzing cell images. | [Dockerhub](https://hub.docker.com/repository/docker/dabbleofdevops/cellprofiler-notebook) |
-| Scanpy 1.6.0 | 2020-12-22, 2020-11-06 | [Scanpy 1.6.0](https://scanpy.readthedocs.io/en/stable/) - Single Cell Analysis in Python Scanpy is a scalable toolkit for analyzing single-cell gene expression data built jointly with anndata. It includes preprocessing, visualization, clustering, trajectory inference and differential expression testing. The Python-based implementation efficiently deals with datasets of more than one million cells. This image also includes [CellxGene](https://github.com/chanzuckerberg/cellxgene), an interactive explorer for single-cell transcriptomics data. | [Dockerhub](https://hub.docker.com/repository/docker/dabbleofdevops/scanpy-notebook) |
-| Napari v0.4.2 | 2020-12-22, 2020-11-06 | [Napari v0.4.2](https://napari.org/) a fast, interactive, multi-dimensional image viewer for python | [Dockerhub](https://hub.docker.com/repository/docker/dabbleofdevops/napari-notebook) |
-| Seurat v4.0.0 | 2020-12-22, 2020-11-06 | [Seurat v4.0.0.0](https://satijalab.org/seurat/) R Toolkit for Single Cell Genomics | [Dockerhub](https://hub.docker.com/repository/docker/dabbleofdevops/seurat-notebook)  |
-| Genomics | 2020-12-22, 2020-11-06 | A bioinformatics environment for Genomics with Python, R v4.0.3, Pandas, Tidyverse, [Plink](https://zzz.bwh.harvard.edu/plink/), Plink2, [Hail](https://hail.is/index.html), and [PheWeb](https://github.com/statgen/pheweb)  | [Dockerhub](https://hub.docker.com/repository/docker/dabbleofdevops/genomics-notebook) |
-| Conda R 4.0.3 | 2020-12-22, 2020-11-06 | A base environment for R v4.0.3 environments built with Conda. | [Dockerhub](https://hub.docker.com/repository/docker/dabbleofdevops/conda-r-4.0.3-notebook) |
-| Conda R 3.6.1 | 2020-12-22, 2020-11-06 | A base environment for R v3.6.1 environments built with Conda. | [Dockerhub](https://hub.docker.com/repository/docker/dabbleofdevops/conda-r-3.6.1-notebook)  |
 
-Read more on the (WIP) [docs](https://jhubdockerdocs.dabbleofdevopsonaws.com/) site.
 
-## Run Individually
+## Base Image: R: 4.0.3 RStudio: 1.2.5042 Conda: 4.9.2-0
 
-```
-docker run -it -v "$(pwd):/home/jovyan" -p 8888:8888  -e JUPYTER_ENABLE_LAB=yes  dabbleofdevops/scanpy-notebook bash -c "jupyter notebook --ip 0.0.0.0 --port 8888 --allow-root"  
-```
+| name         | version   | pangeo_version   | python_version   | snakemake_version   | nextflow_version   | prefect_version   | airflow_version   | docker_image                                                                                                                                    |
+|:-------------|:----------|:-----------------|:-----------------|:--------------------|:-------------------|:------------------|:------------------|:------------------------------------------------------------------------------------------------------------------------------------------------|
+| cellprofiler | 4.1.3     | 2021.08.17       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             | dabbleofdevops/cellprofiler:cellprofiler-4.1.3--pangeo-2021.08.17--python-3.8--airflow-2.1.4--prefect-0.15.4--snakemake-6.7.0--nextflow-21.04.0 |
+| cellprofiler | 4.0.1     | 2021.08.17       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             | dabbleofdevops/cellprofiler:cellprofiler-4.0.1--pangeo-2021.08.17--python-3.8--airflow-2.1.4--prefect-0.15.4--snakemake-6.7.0--nextflow-21.04.0 |
+| cellprofiler | 4.1.3     | 2021.06.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             | dabbleofdevops/cellprofiler:cellprofiler-4.1.3--pangeo-2021.06.05--python-3.8--airflow-2.1.4--prefect-0.15.4--snakemake-6.7.0--nextflow-21.04.0 |
+| cellprofiler | 4.0.1     | 2021.06.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             | dabbleofdevops/cellprofiler:cellprofiler-4.0.1--pangeo-2021.06.05--python-3.8--airflow-2.1.4--prefect-0.15.4--snakemake-6.7.0--nextflow-21.04.0 |
+| cellprofiler | 4.1.3     | 2021.04.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             | dabbleofdevops/cellprofiler:cellprofiler-4.1.3--pangeo-2021.04.05--python-3.8--airflow-2.1.4--prefect-0.15.4--snakemake-6.7.0--nextflow-21.04.0 |
+| cellprofiler | 4.0.1     | 2021.04.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             | dabbleofdevops/cellprofiler:cellprofiler-4.0.1--pangeo-2021.04.05--python-3.8--airflow-2.1.4--prefect-0.15.4--snakemake-6.7.0--nextflow-21.04.0 |
+| conda_r      | 4.0.3     | 2021.08.17       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             | dabbleofdevops/conda_r:conda_r-4.0.3--pangeo-2021.08.17--python-3.8--airflow-2.1.4--prefect-0.15.4--snakemake-6.7.0--nextflow-21.04.0           |
+| conda_r      | 3.6.1     | 2021.08.17       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             | dabbleofdevops/conda_r:conda_r-3.6.1--pangeo-2021.08.17--python-3.8--airflow-2.1.4--prefect-0.15.4--snakemake-6.7.0--nextflow-21.04.0           |
+| conda_r      | 4.0.3     | 2021.06.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             | dabbleofdevops/conda_r:conda_r-4.0.3--pangeo-2021.06.05--python-3.8--airflow-2.1.4--prefect-0.15.4--snakemake-6.7.0--nextflow-21.04.0           |
+| conda_r      | 3.6.1     | 2021.06.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             | dabbleofdevops/conda_r:conda_r-3.6.1--pangeo-2021.06.05--python-3.8--airflow-2.1.4--prefect-0.15.4--snakemake-6.7.0--nextflow-21.04.0           |
+| conda_r      | 4.0.3     | 2021.04.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             | dabbleofdevops/conda_r:conda_r-4.0.3--pangeo-2021.04.05--python-3.8--airflow-2.1.4--prefect-0.15.4--snakemake-6.7.0--nextflow-21.04.0           |
+| conda_r      | 3.6.1     | 2021.04.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             | dabbleofdevops/conda_r:conda_r-3.6.1--pangeo-2021.04.05--python-3.8--airflow-2.1.4--prefect-0.15.4--snakemake-6.7.0--nextflow-21.04.0           |
+| scanpy       | 1.6.0     | 2021.08.17       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             | dabbleofdevops/scanpy:scanpy-1.6.0--pangeo-2021.08.17--python-3.8--airflow-2.1.4--prefect-0.15.4--snakemake-6.7.0--nextflow-21.04.0             |
+| scanpy       | 1.6.0     | 2021.06.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             | dabbleofdevops/scanpy:scanpy-1.6.0--pangeo-2021.06.05--python-3.8--airflow-2.1.4--prefect-0.15.4--snakemake-6.7.0--nextflow-21.04.0             |
+| scanpy       | 1.6.0     | 2021.04.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             | dabbleofdevops/scanpy:scanpy-1.6.0--pangeo-2021.04.05--python-3.8--airflow-2.1.4--prefect-0.15.4--snakemake-6.7.0--nextflow-21.04.0             |
+| napari       | 0.4.2     | 2021.08.17       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             | dabbleofdevops/napari:napari-0.4.2--pangeo-2021.08.17--python-3.8--airflow-2.1.4--prefect-0.15.4--snakemake-6.7.0--nextflow-21.04.0             |
+| napari       | 0.4.2     | 2021.06.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             | dabbleofdevops/napari:napari-0.4.2--pangeo-2021.06.05--python-3.8--airflow-2.1.4--prefect-0.15.4--snakemake-6.7.0--nextflow-21.04.0             |
+| napari       | 0.4.2     | 2021.04.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             | dabbleofdevops/napari:napari-0.4.2--pangeo-2021.04.05--python-3.8--airflow-2.1.4--prefect-0.15.4--snakemake-6.7.0--nextflow-21.04.0             |
+| seurat       | 4.0.0     | 2021.08.17       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             | dabbleofdevops/seurat:seurat-4.0.0--pangeo-2021.08.17--python-3.8--airflow-2.1.4--prefect-0.15.4--snakemake-6.7.0--nextflow-21.04.0             |
+| seurat       | 4.0.0     | 2021.06.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             | dabbleofdevops/seurat:seurat-4.0.0--pangeo-2021.06.05--python-3.8--airflow-2.1.4--prefect-0.15.4--snakemake-6.7.0--nextflow-21.04.0             |
+| seurat       | 4.0.0     | 2021.04.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             | dabbleofdevops/seurat:seurat-4.0.0--pangeo-2021.04.05--python-3.8--airflow-2.1.4--prefect-0.15.4--snakemake-6.7.0--nextflow-21.04.0             |
+| ml           | 1.0.0     | 2021.08.17       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             | dabbleofdevops/ml:ml-1.0.0--pangeo-2021.08.17--python-3.8--airflow-2.1.4--prefect-0.15.4--snakemake-6.7.0--nextflow-21.04.0                     |
+| ml           | 1.0.0     | 2021.06.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             | dabbleofdevops/ml:ml-1.0.0--pangeo-2021.06.05--python-3.8--airflow-2.1.4--prefect-0.15.4--snakemake-6.7.0--nextflow-21.04.0                     |
+| ml           | 1.0.0     | 2021.04.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             | dabbleofdevops/ml:ml-1.0.0--pangeo-2021.04.05--python-3.8--airflow-2.1.4--prefect-0.15.4--snakemake-6.7.0--nextflow-21.04.0                     |
+| stem_away_ml | 1.0.0     | 2021.08.17       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             | dabbleofdevops/stem_away_ml:stem_away_ml-1.0.0--pangeo-2021.08.17--python-3.8--airflow-2.1.4--prefect-0.15.4--snakemake-6.7.0--nextflow-21.04.0 |
+| stem_away_ml | 1.0.0     | 2021.06.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             | dabbleofdevops/stem_away_ml:stem_away_ml-1.0.0--pangeo-2021.06.05--python-3.8--airflow-2.1.4--prefect-0.15.4--snakemake-6.7.0--nextflow-21.04.0 |
+| stem_away_ml | 1.0.0     | 2021.04.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             | dabbleofdevops/stem_away_ml:stem_away_ml-1.0.0--pangeo-2021.04.05--python-3.8--airflow-2.1.4--prefect-0.15.4--snakemake-6.7.0--nextflow-21.04.0 |
 
-Then just grab your jupyterhub token and open up `localhost:8888` or `${IP}:8888`.
 
-### Images in Action
 
-### CellProfiler 
+## Dask-gateway compatibility
 
-![CellProfiler Notebook](./docs/_source/_static/images/cellprofiler-notebook-screenshot.png)
+(This information is completely grabbed from [Pangeo](https://github.com/pangeo-data/pangeo-docker-images#dask-gateway-compatibility))
 
-### Scanpy
+If deploying in a Jupyterhub on Kubernetes cluster you'll need to make sure you're using the same pangeo versions.
 
-![Scanpy Notebook](./docs/_source/_static/images/scanpy-notebook-screenshot.png)
-![CellxGene](./docs/_source/_static/images/cellxgene-scanpy-notebook-screenshot.png)
-
-## The Goal
-
-Empower all Bioinformaticians to deploy cool stuff.
-
-![DEPLOY ALL THE THINGS](./docs/_source/_static/images/BioHub-Ecosystem-Data-Visualization.jpeg)
-
-## Acknowledgements
-
-This project was very heavily inspired by the [Pangeo Docker Images Repo](https://github.com/pangeo-data/pangeo-docker-images).
-
-This project, and several of the software stacks, are in collaboration with [STEMAway.](https://stemaway.com/) 
+| dask-gateway |  Pangeo Version tag  |
+|--------------|-------------|
+| 0.9          | 2020.11.06  |
+| 0.8          | 2020.07.28  |
+| 0.7          | 2020.04.22  |

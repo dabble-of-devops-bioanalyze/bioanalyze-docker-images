@@ -10,28 +10,26 @@ base_image_versions:
 pangeo_versions:
   python:
     - "3.8*"
-  # jupyterlab: []
+  # jupyterlab:
+  #   - 3
   pangeo:
     - 2021.08.17
     - 2021.06.05
     - 2021.04.05
     # - 2020.12.22
     # - 2020.11.06
-
-wms_versions:
+# wms_versions:
+  airflow:
+    - 2.1.4
   prefect:
     - 0.15.4
-    - 0.15.3
+    # - 0.15.3
   snakemake:
     - 6.7.0
-    - 6.6.0
+    # - 6.6.0
   nextflow:
     - 21.04.0
-    - 20.10.0
-  mlflow:
-    - 1.19.0
-  # kubernetes:
-  #   - 1.21.2
+    # - 20.10.0
 
 image_versions:
   cellprofiler:
@@ -53,7 +51,7 @@ image_versions:
 
 label_text: |
   LABEL org.opencontainers.image.licenses="GPL-2.0-or-later" \
-        org.opencontainers.image.source="https://github.com/Dabble-of-DevOps-BioHub/biohub-docker-images" \
+        org.opencontainers.image.source="https://github.com/dabble-of-devops-bioanalyze/bioanalyze-jupyter-docker-images" \
         org.opencontainers.image.vendor="BioHub" \
         org.opencontainers.image.authors="Jillian Rowe <jillian@dabbleofdevops.com>" \
         conda_version={{cookiecutter.conda_version}} \

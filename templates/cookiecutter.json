@@ -12,6 +12,9 @@
       "python={{cookiecutter.python_version}}",
       "pangeo-notebook={{cookiecutter.pangeo_version}}",
       "jupyterlab={{cookiecutter.jupyterlab_version}}",
+      "prefect={{cookiecutter.prefect_version}}",
+      "snakemake={{cookiecutter.snakemake_version}}",
+      "nextflow={{cookiecutter.nextflow_version}}",
       "nodejs",
       "cookiecutter",
       "boto3",
@@ -27,6 +30,7 @@
       "pandas",
       "xarray",
       "zarr",
+      "sqlite",
       "hdf5",
       "parallel",
       "pyarrow",
@@ -44,7 +48,9 @@
     "pip_packages": [
       "jupyter-rsession-proxy",
       "jupyter-book",
-      "jupyter-cache[cli]"
+      "jupyter-cache[cli]",
+      "aws-batch-helpers",
+      "apache-airflow={{cookiecutter.airflow_version}}"
     ]
   }
 }
