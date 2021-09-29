@@ -25,6 +25,10 @@ from collections import namedtuple
 from pprint import pprint
 import hiyapyco
 from hiyapyco.odyldo import ODYD
+import yaml.loader
+import yaml.dumper
+import yaml.representer
+
 import six
 
 import datetime
@@ -33,13 +37,24 @@ import types
 import logging
 
 FORMAT = "[%(filename)s:%(lineno)s - %(funcName)20s() ] %(message)s"
-logging.basicConfig(level=logging.DEBUG, format=FORMAT)
+logging.basicConfig(level=logging.INFO, format=FORMAT)
 
 tiamet_logger = logging.getLogger("tiamet")
 
-import yaml.loader
-import yaml.dumper
-import yaml.representer
+TEMPLATE_DIR = os.path.dirname(os.path.realpath(__file__))
+TEMPLATE = os.path.join(TEMPLATE_DIR, "templates")
+
+MATRIX_COLUMNS = [
+    "name",
+    "rstudio_version",
+    "pangeo_version",
+    "python_version",
+    "docker_tag",
+    "base_docker_tag",
+    "docker_buildargs",
+    "docker_context_dir",
+    "build_name",
+]
 
 
 class ODYD(yaml.SafeDumper):
@@ -77,10 +92,6 @@ class ODYD(yaml.SafeDumper):
 def safe_dump(data, stream=None, **kwds):
     """implementation of safe dumper using Ordered Dict Yaml Dumper"""
     return yaml.dump(data, stream=stream, Dumper=ODYD, **kwds)
-
-
-TEMPLATE_DIR = os.path.dirname(os.path.realpath(__file__))
-TEMPLATE = os.path.join(TEMPLATE_DIR, "templates")
 
 
 def append_latest_tag(tags):
@@ -130,6 +141,12 @@ def generate_image_tag(image_product):
     tags.pop()
 
     return "--".join(tags)
+
+
+def generate_gh_workflow(config_data, package_data_all):
+    gh_workflow = read_ordered_yaml(os.path.join(TEMPLATE_DIR, "workflow.yml"))
+    # gh_workflow['name'] =
+    pass
 
 
 def hardcode_cookiecutter_data(
@@ -299,7 +316,7 @@ def generate_package_image_cookiecutter(
                 os.path.join(TEMPLATE_DIR, "templates", "images", "Build.yml")
             )
             image_gh_workflow["name"] = f"Build-{build_name}"
-            image_gh_workflow["on"]["push"]["paths"][0] = f"{docker_context_dir}/**"
+            # image_gh_workflow["on"]["push"]["paths"][0] = f"{docker_context_dir}/**"
             image_gh_workflow["jobs"]["bio-image"]["steps"][2]["with"][
                 "workdir"
             ] = docker_context_dir
@@ -312,7 +329,7 @@ def generate_package_image_cookiecutter(
             ] = f"{image_tag}--{base_docker_tag}"
             image_gh_workflow["env"]["IMAGE"] = f"{image}-notebook"
             # if force rebuild
-            del image_gh_workflow["on"]["push"]["paths"]
+            # del image_gh_workflow["on"]["push"]["paths"]
 
             if image_latest == image_tag and base_latest_tag == base_docker_tag:
                 tags = image_gh_workflow["jobs"]["bio-image"]["steps"][2]["with"][
@@ -323,10 +340,21 @@ def generate_package_image_cookiecutter(
                     "tags"
                 ] = tags
 
-            write_yaml(
-                file=os.path.join(".github", "workflows", f"Build-{build_name}.yml"),
-                yaml_payload=image_gh_workflow,
-            )
+            # write_yaml(
+            #     file=os.path.join(".github", "workflows", f"Build-{build_name}.yml"),
+            #     yaml_payload=image_gh_workflow,
+            # )
+
+    # Create the build matrix
+    df = pd.DataFrame.from_records(data)
+    matrix = []
+    for index, row in df[MATRIX_COLUMNS].iterrows():
+        # print(dict(row))
+        matrix.append(dict(row))
+
+    base_gh_workflow["jobs"]["image"]["strategy"]["matrix"] = matrix
+    write_yaml(file=f".github/workflows/base-{base_docker_tag}.yml", yaml_payload=base_gh_workflow)
+
     return data
 
 
@@ -368,6 +396,7 @@ def generate_base_image_cookiecutter(config_data):
         )
         if not latest:
             latest = docker_tag
+
         cookiecutter_data = generate_base_image_cookiecutter_data(
             config_data=config_data,
             docker_tag=docker_tag,
@@ -376,6 +405,12 @@ def generate_base_image_cookiecutter(config_data):
         )
 
         cookiecutter_data["label_text"] = config_data["label_text"]
+        cookiecutter_data["project"] = f"base_image-{docker_tag}"
+        cookiecutter_data["project_slug"] = slugify(f"base_image-{docker_tag}")
+        cookiecutter_data[
+            "build_args"
+        ] = f"CONDA_VERSION={base_image.conda},RSTUDIO_VERSION={base_image.rstudio},R_VERSION={base_image.r}"
+
         write_json(
             os.path.join("templates", "base_image", "cookiecutter.json"),
             cookiecutter_data,
@@ -386,9 +421,6 @@ def generate_base_image_cookiecutter(config_data):
             ),
             cookiecutter_data,
         )
-
-        cookiecutter_data["project"] = f"base_image-{docker_tag}"
-        cookiecutter_data["project_slug"] = slugify(f"base_image-{docker_tag}")
 
         tmp_base_dirpath = tempfile.mkdtemp(prefix="tiamet_base_tmp")
 
@@ -413,10 +445,12 @@ def generate_base_image_cookiecutter(config_data):
             dirs_exist_ok=True,
         )
         shutil.rmtree(cookiecutter_dst_dir)
+
         # generate base_image gh build script
-        base_gh_workflow = read_yaml(
-            os.path.join("templates", "base_image", "Base-Image.yml")
-        )
+        # base_gh_workflow = read_yaml(
+        #     os.path.join("templates", "base_image", "Base-Image.yml")
+        # )
+        base_gh_workflow = read_yaml(os.path.join("templates", "workflow.yml"))
 
         if latest == docker_tag:
             tags = base_gh_workflow["jobs"]["base-image"]["steps"][2]["with"]["tags"]
@@ -428,7 +462,7 @@ def generate_base_image_cookiecutter(config_data):
         base_gh_workflow["env"]["CONDA_VERSION"] = base_image.conda
         base_gh_workflow["env"]["RSTUDIO_VERSION"] = base_image.rstudio
         base_gh_workflow["env"]["R_VERSION"] = base_image.r
-        base_gh_workflow["on"]["push"]["paths"][0] = f"{docker_context_dir}/**"
+        # base_gh_workflow["on"]["push"]["paths"][0] = f"{docker_context_dir}/**"
         base_gh_workflow["jobs"]["base-image"]["steps"][2]["with"][
             "workdir"
         ] = docker_context_dir
@@ -437,11 +471,11 @@ def generate_base_image_cookiecutter(config_data):
         ] = f"CONDA_VERSION={base_image.conda},RSTUDIO_VERSION={base_image.rstudio},R_VERSION={base_image.r}"
 
         # # if force rebuild
-        del base_gh_workflow["on"]["push"]["paths"]
-        write_yaml(
-            os.path.join(".github", "workflows", f"Base-Image-{docker_tag}.yml"),
-            base_gh_workflow,
-        )
+        # del base_gh_workflow["on"]["push"]["paths"]
+        # write_yaml(
+        #     os.path.join(".github", "workflows", f"Base-Image-{docker_tag}.yml"),
+        #     base_gh_workflow,
+        # )
 
         package_image_data = generate_package_image_cookiecutter(
             config_data=config_data,
@@ -452,7 +486,7 @@ def generate_base_image_cookiecutter(config_data):
             base_gh_workflow=base_gh_workflow,
         )
         package_image_data_all[
-            cookiecutter_data["project_slug"]
+            cookiecutter_data["project"]
         ] = pd.DataFrame.from_records(package_image_data)
 
     return t_base_image_products, latest, package_image_data_all
