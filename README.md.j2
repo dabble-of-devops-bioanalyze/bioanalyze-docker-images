@@ -8,6 +8,8 @@ Each image is meant to be a full fledged ecosystem for Bioinformatics. Images:
 * RStudio installed
 * Jupyterlab installed
 * Common software packages for data science such as Pandas, SciKit Learn, and TidyVerse
+* Bioinformatics workflow runners: [Snakemake](https://snakemake.readthedocs.io/en/stable/) and [Nextflow](https://www.nextflow.io/).
+* Workflow Orchestration systems: [Prefect](https://docs.prefect.io/#basic-installation) and [Airflow](https://airflow.apache.org/docs/apache-airflow/stable/start/local.html).
 * Use the excellent [Pangeo Project](https://github.com/pangeo-data/pangeo-docker-images) as a base.
 * Documentation packages such as [Jupyterbook](https://jupyterbook.org/) and [RBookdown](https://bookdown.org/).
 
