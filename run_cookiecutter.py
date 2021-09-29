@@ -61,13 +61,13 @@ MATRIX_COLUMNS = [
 README_COLUMNS =[
     "name",
     "version",
+    "docker_image",
     "pangeo_version",
     "python_version",
     "snakemake_version",
     "nextflow_version",
     "prefect_version",
     "airflow_version",
-    "docker_image",
 ]
 
 
