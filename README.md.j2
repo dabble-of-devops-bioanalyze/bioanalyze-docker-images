@@ -21,7 +21,13 @@ See each of the images at [Dockerhub](https://hub.docker.com/orgs/dabbleofdevops
 
 ## {{data.display_name}}
 
-{{data.images.to_markdown(index=False)}}
+{% for name, table in data['images'].items() %}
+
+### {{name}}
+
+{{table.to_markdown(index=False)}}
+
+{% endfor %}
 
 {% endfor %}
 

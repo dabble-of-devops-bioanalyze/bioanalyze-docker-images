@@ -365,10 +365,14 @@ def generate_base_image_cookiecutter_data(config_data, base_image, docker_tag, l
 def generate_readme(package_data_t):
     env = jinja2.Environment(loader=jinja2.FileSystemLoader("."))
     t = env.get_template("README.md.j2")
+
     package_data = copy.deepcopy(package_data_t)
     for p in package_data:
-        #print(p.keys())
-        p['images']  = p['images'][README_COLUMNS]
+        df = p['images'][README_COLUMNS]
+        p['images'] = {}
+        names = df['name'].unique().tolist()
+        for name in names:
+            p['images'][name] = df[df['name']==name]
     rendered = t.render(package_data=package_data)
     f = open("README.md", "w")
     f.write(rendered)
