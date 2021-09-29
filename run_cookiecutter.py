@@ -352,7 +352,7 @@ def generate_package_image_cookiecutter(
         # print(dict(row))
         matrix.append(dict(row))
 
-    base_gh_workflow["jobs"]["image"]["strategy"]["matrix"] = matrix
+    base_gh_workflow["jobs"]["image"]["strategy"]["matrix"]['include'] = matrix
     write_yaml(file=f".github/workflows/base-{base_docker_tag}.yml", yaml_payload=base_gh_workflow)
 
     return data

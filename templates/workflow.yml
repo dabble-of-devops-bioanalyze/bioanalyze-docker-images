@@ -49,6 +49,7 @@ jobs:
     needs: 'base-image'
     strategy:
       matrix:
+        include:
         - name: cellprofiler
           rstudio_version: 1.2.5042
           pangeo_version: 2021.08.17
