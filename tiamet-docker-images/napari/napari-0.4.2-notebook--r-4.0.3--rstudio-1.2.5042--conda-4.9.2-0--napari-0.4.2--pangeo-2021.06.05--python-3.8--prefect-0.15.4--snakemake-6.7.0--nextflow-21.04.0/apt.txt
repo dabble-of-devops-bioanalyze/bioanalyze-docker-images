@@ -1,3 +1,0 @@
-libgtk-3-dev
-libgl1-mesa-glx
-x11-apps

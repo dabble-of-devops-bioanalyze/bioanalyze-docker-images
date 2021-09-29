@@ -143,7 +143,9 @@ def generate_image_products(pangeo_versions):
 
 
 #TODO Docker tags can only be 128 characters
-def generate_image_tag(image_product):
+# Can't just throw everything in there
+# will have to come up iwth a naming schema for tags
+def generate_image_tag(image, image_product):
     tags = []
 
     t_image_product = copy.deepcopy(image_product)
@@ -165,13 +167,15 @@ def generate_image_tag(image_product):
         value = t_image_product[key]
         tags.append(f"{key}-{value}")
 
-    tags.append(f'wms--a-{airflow_version}')
-    tags.append(f'p-{prefect_version}')
-    tags.append(f's-{snakemake_version}')
-    tags.append(f'n-{nextflow_version}')
+    # tags.append(f'wms--a-{airflow_version}')
+    # tags.append(f'p-{prefect_version}')
+    # tags.append(f's-{snakemake_version}')
+    # tags.append(f'n-{nextflow_version}')
     tags.pop()
 
-    return "--".join(tags)
+    tags = "--".join(tags)
+    assert len(tags) <= 128
+    return tags
 
 
 def hardcode_cookiecutter_data(
@@ -232,7 +236,7 @@ def generate_package_image_cookiecutter(
         for image_product in image_products:
 
             image_product = image_product._asdict()
-            image_tag = generate_image_tag(image_product)
+            image_tag = generate_image_tag(image, image_product)
             image_tag = f"{image}-{image_product[image]}--{image_tag}"
             image_tag = image_tag.replace("*", "")
 
@@ -383,9 +387,7 @@ def generate_readme(config_data, package_data_t):
         names = df['name'].unique().tolist()
         for name in names:
             p['images'][name] = df[df['name']==name]
-
     rendered = t.render(package_data=package_data, config_data=config_data)
-
     f = open("README.md", "w")
     f.write(rendered)
     f.close()

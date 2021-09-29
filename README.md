@@ -17,6 +17,8 @@ Each image is meant to be a full fledged ecosystem for Bioinformatics. Images:
 
 See each of the images at [Dockerhub](https://hub.docker.com/orgs/dabbleofdevops/repositories).
 
+Please note that this project is still under rapid development and the system used for tagging is likely to change.
+
 
 
 ## Base Image: R: 4.0.3 RStudio: 1.2.5042 Conda: 4.9.2-0
@@ -28,14 +30,14 @@ See each of the images at [Dockerhub](https://hub.docker.com/orgs/dabbleofdevops
 [Cellprofiler](https://cellprofiler.org/) Free open-source software for measuring and analyzing cell images.
 
 
-| name         | version   | docker_image                                                                                                                       | pangeo_version   | python_version   | snakemake_version   | nextflow_version   | prefect_version   | airflow_version   |
-|:-------------|:----------|:-----------------------------------------------------------------------------------------------------------------------------------|:-----------------|:-----------------|:--------------------|:-------------------|:------------------|:------------------|
-| cellprofiler | 4.1.3     | dabbleofdevops/cellprofiler:cellprofiler-4.1.3--pangeo-2021.08.17--python-3.8--cellprofiler-4.1.3--wms--a-2.1.4--p-0.15.4--s-6.7.0 | 2021.08.17       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
-| cellprofiler | 4.0.1     | dabbleofdevops/cellprofiler:cellprofiler-4.0.1--pangeo-2021.08.17--python-3.8--cellprofiler-4.0.1--wms--a-2.1.4--p-0.15.4--s-6.7.0 | 2021.08.17       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
-| cellprofiler | 4.1.3     | dabbleofdevops/cellprofiler:cellprofiler-4.1.3--pangeo-2021.06.05--python-3.8--cellprofiler-4.1.3--wms--a-2.1.4--p-0.15.4--s-6.7.0 | 2021.06.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
-| cellprofiler | 4.0.1     | dabbleofdevops/cellprofiler:cellprofiler-4.0.1--pangeo-2021.06.05--python-3.8--cellprofiler-4.0.1--wms--a-2.1.4--p-0.15.4--s-6.7.0 | 2021.06.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
-| cellprofiler | 4.1.3     | dabbleofdevops/cellprofiler:cellprofiler-4.1.3--pangeo-2021.04.05--python-3.8--cellprofiler-4.1.3--wms--a-2.1.4--p-0.15.4--s-6.7.0 | 2021.04.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
-| cellprofiler | 4.0.1     | dabbleofdevops/cellprofiler:cellprofiler-4.0.1--pangeo-2021.04.05--python-3.8--cellprofiler-4.0.1--wms--a-2.1.4--p-0.15.4--s-6.7.0 | 2021.04.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
+| name         | version   | docker_image                                                                  | pangeo_version   | python_version   | snakemake_version   | nextflow_version   | prefect_version   | airflow_version   |
+|:-------------|:----------|:------------------------------------------------------------------------------|:-----------------|:-----------------|:--------------------|:-------------------|:------------------|:------------------|
+| cellprofiler | 4.1.3     | dabbleofdevops/cellprofiler:cellprofiler-4.1.3--pangeo-2021.08.17--python-3.8 | 2021.08.17       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
+| cellprofiler | 4.0.1     | dabbleofdevops/cellprofiler:cellprofiler-4.0.1--pangeo-2021.08.17--python-3.8 | 2021.08.17       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
+| cellprofiler | 4.1.3     | dabbleofdevops/cellprofiler:cellprofiler-4.1.3--pangeo-2021.06.05--python-3.8 | 2021.06.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
+| cellprofiler | 4.0.1     | dabbleofdevops/cellprofiler:cellprofiler-4.0.1--pangeo-2021.06.05--python-3.8 | 2021.06.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
+| cellprofiler | 4.1.3     | dabbleofdevops/cellprofiler:cellprofiler-4.1.3--pangeo-2021.04.05--python-3.8 | 2021.04.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
+| cellprofiler | 4.0.1     | dabbleofdevops/cellprofiler:cellprofiler-4.0.1--pangeo-2021.04.05--python-3.8 | 2021.04.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
 
 
 
@@ -44,14 +46,14 @@ See each of the images at [Dockerhub](https://hub.docker.com/orgs/dabbleofdevops
 [R](https://www.r-project.org/) R is a free software environment for statistical computing and graphics.
 
 
-| name    | version   | docker_image                                                                                                        | pangeo_version   | python_version   | snakemake_version   | nextflow_version   | prefect_version   | airflow_version   |
-|:--------|:----------|:--------------------------------------------------------------------------------------------------------------------|:-----------------|:-----------------|:--------------------|:-------------------|:------------------|:------------------|
-| conda_r | 4.0.3     | dabbleofdevops/conda_r:conda_r-4.0.3--pangeo-2021.08.17--python-3.8--conda_r-4.0.3--wms--a-2.1.4--p-0.15.4--s-6.7.0 | 2021.08.17       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
-| conda_r | 3.6.1     | dabbleofdevops/conda_r:conda_r-3.6.1--pangeo-2021.08.17--python-3.8--conda_r-3.6.1--wms--a-2.1.4--p-0.15.4--s-6.7.0 | 2021.08.17       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
-| conda_r | 4.0.3     | dabbleofdevops/conda_r:conda_r-4.0.3--pangeo-2021.06.05--python-3.8--conda_r-4.0.3--wms--a-2.1.4--p-0.15.4--s-6.7.0 | 2021.06.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
-| conda_r | 3.6.1     | dabbleofdevops/conda_r:conda_r-3.6.1--pangeo-2021.06.05--python-3.8--conda_r-3.6.1--wms--a-2.1.4--p-0.15.4--s-6.7.0 | 2021.06.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
-| conda_r | 4.0.3     | dabbleofdevops/conda_r:conda_r-4.0.3--pangeo-2021.04.05--python-3.8--conda_r-4.0.3--wms--a-2.1.4--p-0.15.4--s-6.7.0 | 2021.04.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
-| conda_r | 3.6.1     | dabbleofdevops/conda_r:conda_r-3.6.1--pangeo-2021.04.05--python-3.8--conda_r-3.6.1--wms--a-2.1.4--p-0.15.4--s-6.7.0 | 2021.04.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
+| name    | version   | docker_image                                                        | pangeo_version   | python_version   | snakemake_version   | nextflow_version   | prefect_version   | airflow_version   |
+|:--------|:----------|:--------------------------------------------------------------------|:-----------------|:-----------------|:--------------------|:-------------------|:------------------|:------------------|
+| conda_r | 4.0.3     | dabbleofdevops/conda_r:conda_r-4.0.3--pangeo-2021.08.17--python-3.8 | 2021.08.17       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
+| conda_r | 3.6.1     | dabbleofdevops/conda_r:conda_r-3.6.1--pangeo-2021.08.17--python-3.8 | 2021.08.17       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
+| conda_r | 4.0.3     | dabbleofdevops/conda_r:conda_r-4.0.3--pangeo-2021.06.05--python-3.8 | 2021.06.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
+| conda_r | 3.6.1     | dabbleofdevops/conda_r:conda_r-3.6.1--pangeo-2021.06.05--python-3.8 | 2021.06.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
+| conda_r | 4.0.3     | dabbleofdevops/conda_r:conda_r-4.0.3--pangeo-2021.04.05--python-3.8 | 2021.04.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
+| conda_r | 3.6.1     | dabbleofdevops/conda_r:conda_r-3.6.1--pangeo-2021.04.05--python-3.8 | 2021.04.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
 
 
 
@@ -60,11 +62,11 @@ See each of the images at [Dockerhub](https://hub.docker.com/orgs/dabbleofdevops
 [Scanpy](https://scanpy.readthedocs.io/en/stable/) Scanpy is a scalable toolkit for analyzing single-cell gene expression data built jointly with anndata.
 
 
-| name   | version   | docker_image                                                                                                     | pangeo_version   | python_version   | snakemake_version   | nextflow_version   | prefect_version   | airflow_version   |
-|:-------|:----------|:-----------------------------------------------------------------------------------------------------------------|:-----------------|:-----------------|:--------------------|:-------------------|:------------------|:------------------|
-| scanpy | 1.6.0     | dabbleofdevops/scanpy:scanpy-1.6.0--pangeo-2021.08.17--python-3.8--scanpy-1.6.0--wms--a-2.1.4--p-0.15.4--s-6.7.0 | 2021.08.17       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
-| scanpy | 1.6.0     | dabbleofdevops/scanpy:scanpy-1.6.0--pangeo-2021.06.05--python-3.8--scanpy-1.6.0--wms--a-2.1.4--p-0.15.4--s-6.7.0 | 2021.06.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
-| scanpy | 1.6.0     | dabbleofdevops/scanpy:scanpy-1.6.0--pangeo-2021.04.05--python-3.8--scanpy-1.6.0--wms--a-2.1.4--p-0.15.4--s-6.7.0 | 2021.04.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
+| name   | version   | docker_image                                                      | pangeo_version   | python_version   | snakemake_version   | nextflow_version   | prefect_version   | airflow_version   |
+|:-------|:----------|:------------------------------------------------------------------|:-----------------|:-----------------|:--------------------|:-------------------|:------------------|:------------------|
+| scanpy | 1.6.0     | dabbleofdevops/scanpy:scanpy-1.6.0--pangeo-2021.08.17--python-3.8 | 2021.08.17       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
+| scanpy | 1.6.0     | dabbleofdevops/scanpy:scanpy-1.6.0--pangeo-2021.06.05--python-3.8 | 2021.06.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
+| scanpy | 1.6.0     | dabbleofdevops/scanpy:scanpy-1.6.0--pangeo-2021.04.05--python-3.8 | 2021.04.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
 
 
 
@@ -73,11 +75,11 @@ See each of the images at [Dockerhub](https://hub.docker.com/orgs/dabbleofdevops
 [Napari](https://napari.org/) multi-dimensional image viewer for python.
 
 
-| name   | version   | docker_image                                                                                                     | pangeo_version   | python_version   | snakemake_version   | nextflow_version   | prefect_version   | airflow_version   |
-|:-------|:----------|:-----------------------------------------------------------------------------------------------------------------|:-----------------|:-----------------|:--------------------|:-------------------|:------------------|:------------------|
-| napari | 0.4.2     | dabbleofdevops/napari:napari-0.4.2--pangeo-2021.08.17--python-3.8--napari-0.4.2--wms--a-2.1.4--p-0.15.4--s-6.7.0 | 2021.08.17       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
-| napari | 0.4.2     | dabbleofdevops/napari:napari-0.4.2--pangeo-2021.06.05--python-3.8--napari-0.4.2--wms--a-2.1.4--p-0.15.4--s-6.7.0 | 2021.06.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
-| napari | 0.4.2     | dabbleofdevops/napari:napari-0.4.2--pangeo-2021.04.05--python-3.8--napari-0.4.2--wms--a-2.1.4--p-0.15.4--s-6.7.0 | 2021.04.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
+| name   | version   | docker_image                                                      | pangeo_version   | python_version   | snakemake_version   | nextflow_version   | prefect_version   | airflow_version   |
+|:-------|:----------|:------------------------------------------------------------------|:-----------------|:-----------------|:--------------------|:-------------------|:------------------|:------------------|
+| napari | 0.4.2     | dabbleofdevops/napari:napari-0.4.2--pangeo-2021.08.17--python-3.8 | 2021.08.17       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
+| napari | 0.4.2     | dabbleofdevops/napari:napari-0.4.2--pangeo-2021.06.05--python-3.8 | 2021.06.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
+| napari | 0.4.2     | dabbleofdevops/napari:napari-0.4.2--pangeo-2021.04.05--python-3.8 | 2021.04.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
 
 
 
@@ -86,11 +88,11 @@ See each of the images at [Dockerhub](https://hub.docker.com/orgs/dabbleofdevops
 [Seurat](https://satijalab.org/seurat/) R Toolkit for single cell genomics.
 
 
-| name   | version   | docker_image                                                                                                     | pangeo_version   | python_version   | snakemake_version   | nextflow_version   | prefect_version   | airflow_version   |
-|:-------|:----------|:-----------------------------------------------------------------------------------------------------------------|:-----------------|:-----------------|:--------------------|:-------------------|:------------------|:------------------|
-| seurat | 4.0.0     | dabbleofdevops/seurat:seurat-4.0.0--pangeo-2021.08.17--python-3.8--seurat-4.0.0--wms--a-2.1.4--p-0.15.4--s-6.7.0 | 2021.08.17       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
-| seurat | 4.0.0     | dabbleofdevops/seurat:seurat-4.0.0--pangeo-2021.06.05--python-3.8--seurat-4.0.0--wms--a-2.1.4--p-0.15.4--s-6.7.0 | 2021.06.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
-| seurat | 4.0.0     | dabbleofdevops/seurat:seurat-4.0.0--pangeo-2021.04.05--python-3.8--seurat-4.0.0--wms--a-2.1.4--p-0.15.4--s-6.7.0 | 2021.04.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
+| name   | version   | docker_image                                                      | pangeo_version   | python_version   | snakemake_version   | nextflow_version   | prefect_version   | airflow_version   |
+|:-------|:----------|:------------------------------------------------------------------|:-----------------|:-----------------|:--------------------|:-------------------|:------------------|:------------------|
+| seurat | 4.0.0     | dabbleofdevops/seurat:seurat-4.0.0--pangeo-2021.08.17--python-3.8 | 2021.08.17       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
+| seurat | 4.0.0     | dabbleofdevops/seurat:seurat-4.0.0--pangeo-2021.06.05--python-3.8 | 2021.06.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
+| seurat | 4.0.0     | dabbleofdevops/seurat:seurat-4.0.0--pangeo-2021.04.05--python-3.8 | 2021.04.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
 
 
 
@@ -99,11 +101,11 @@ See each of the images at [Dockerhub](https://hub.docker.com/orgs/dabbleofdevops
 The ML image hosts many different ML packages.
 
 
-| name   | version   | docker_image                                                                                         | pangeo_version   | python_version   | snakemake_version   | nextflow_version   | prefect_version   | airflow_version   |
-|:-------|:----------|:-----------------------------------------------------------------------------------------------------|:-----------------|:-----------------|:--------------------|:-------------------|:------------------|:------------------|
-| ml     | 1.0.0     | dabbleofdevops/ml:ml-1.0.0--pangeo-2021.08.17--python-3.8--ml-1.0.0--wms--a-2.1.4--p-0.15.4--s-6.7.0 | 2021.08.17       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
-| ml     | 1.0.0     | dabbleofdevops/ml:ml-1.0.0--pangeo-2021.06.05--python-3.8--ml-1.0.0--wms--a-2.1.4--p-0.15.4--s-6.7.0 | 2021.06.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
-| ml     | 1.0.0     | dabbleofdevops/ml:ml-1.0.0--pangeo-2021.04.05--python-3.8--ml-1.0.0--wms--a-2.1.4--p-0.15.4--s-6.7.0 | 2021.04.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
+| name   | version   | docker_image                                              | pangeo_version   | python_version   | snakemake_version   | nextflow_version   | prefect_version   | airflow_version   |
+|:-------|:----------|:----------------------------------------------------------|:-----------------|:-----------------|:--------------------|:-------------------|:------------------|:------------------|
+| ml     | 1.0.0     | dabbleofdevops/ml:ml-1.0.0--pangeo-2021.08.17--python-3.8 | 2021.08.17       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
+| ml     | 1.0.0     | dabbleofdevops/ml:ml-1.0.0--pangeo-2021.06.05--python-3.8 | 2021.06.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
+| ml     | 1.0.0     | dabbleofdevops/ml:ml-1.0.0--pangeo-2021.04.05--python-3.8 | 2021.04.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
 
 
 
@@ -111,11 +113,11 @@ The ML image hosts many different ML packages.
 
 The STEM Away ML image was build in collaboration with [STEMAway](https://stemaway.com/) for the Summer 2021 internship.
 
-| name         | version   | docker_image                                                                                                                       | pangeo_version   | python_version   | snakemake_version   | nextflow_version   | prefect_version   | airflow_version   |
-|:-------------|:----------|:-----------------------------------------------------------------------------------------------------------------------------------|:-----------------|:-----------------|:--------------------|:-------------------|:------------------|:------------------|
-| stem_away_ml | 1.0.0     | dabbleofdevops/stem_away_ml:stem_away_ml-1.0.0--pangeo-2021.08.17--python-3.8--stem_away_ml-1.0.0--wms--a-2.1.4--p-0.15.4--s-6.7.0 | 2021.08.17       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
-| stem_away_ml | 1.0.0     | dabbleofdevops/stem_away_ml:stem_away_ml-1.0.0--pangeo-2021.06.05--python-3.8--stem_away_ml-1.0.0--wms--a-2.1.4--p-0.15.4--s-6.7.0 | 2021.06.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
-| stem_away_ml | 1.0.0     | dabbleofdevops/stem_away_ml:stem_away_ml-1.0.0--pangeo-2021.04.05--python-3.8--stem_away_ml-1.0.0--wms--a-2.1.4--p-0.15.4--s-6.7.0 | 2021.04.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
+| name         | version   | docker_image                                                                  | pangeo_version   | python_version   | snakemake_version   | nextflow_version   | prefect_version   | airflow_version   |
+|:-------------|:----------|:------------------------------------------------------------------------------|:-----------------|:-----------------|:--------------------|:-------------------|:------------------|:------------------|
+| stem_away_ml | 1.0.0     | dabbleofdevops/stem_away_ml:stem_away_ml-1.0.0--pangeo-2021.08.17--python-3.8 | 2021.08.17       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
+| stem_away_ml | 1.0.0     | dabbleofdevops/stem_away_ml:stem_away_ml-1.0.0--pangeo-2021.06.05--python-3.8 | 2021.06.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
+| stem_away_ml | 1.0.0     | dabbleofdevops/stem_away_ml:stem_away_ml-1.0.0--pangeo-2021.04.05--python-3.8 | 2021.04.05       | 3.8*             | 6.7.0               | 21.04.0            | 0.15.4            | 2.1.4             |
 
 
 

@@ -7,6 +7,9 @@ dependencies:
   - python=3.8*
   - pangeo-notebook=2021.06.05
   - jupyterlab=3
+  - prefect=0.15.4
+  - snakemake=6.7.0
+  - nextflow=21.04.0
   - nodejs
   - cookiecutter
   - boto3
@@ -22,6 +25,7 @@ dependencies:
   - pandas
   - xarray
   - zarr
+  - sqlite
   - hdf5
   - parallel
   - pyarrow
@@ -44,3 +48,5 @@ dependencies:
     - jupyter-rsession-proxy
     - jupyter-book
     - jupyter-cache[cli]
+    - aws-batch-helpers
+    - apache-airflow=2.1.4
