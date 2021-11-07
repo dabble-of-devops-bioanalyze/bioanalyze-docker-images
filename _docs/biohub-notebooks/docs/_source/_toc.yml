@@ -1,0 +1,31 @@
+# Table of content
+# Learn more at https://jupyterbook.org/customize/toc.html
+# WHOO
+
+
+- file: content
+
+# Scanpy
+- file: scanpy/scanpy-intro
+  sections:
+    
+    - file: scanpy/pbmc3k.ipynb
+    - file: scanpy/cellxgene.ipynb
+    
+# Cellprofiler
+- file: cellprofiler/cellprofiler-intro
+  sections:    
+    - file: cellprofiler/cellprofiler_demo.ipynb
+    
+# MLFlow
+- file: mlflow/mlflow-intro
+  sections:    
+    - file: mlflow/MLFlow.ipynb
+
+# Dask
+- file: dask/dask-intro
+  sections:
+
+    
+    #- file: dask/Dask-Gateway.ipynb
+    - file: dask/01-data-access.ipynb

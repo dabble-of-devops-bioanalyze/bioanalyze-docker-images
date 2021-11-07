@@ -1,0 +1,1738 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Preprocessing and clustering 3k PBMCs &#8212; STEM-Away Demo</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Launch CellXGene" href="cellxgene.html" />
+    <link rel="prev" title="Single Cell Analysis with Scanpy" href="scanpy-intro.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/stem-away-logo.jpeg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">STEM-Away Demo</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../content.html">
+   Data Set Annotations
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1 current active collapsible-parent">
+  <a class="reference internal" href="scanpy-intro.html">
+   Single Cell Analysis with Scanpy
+  </a>
+  <ul class="current collapse-ul">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Preprocessing and clustering 3k PBMCs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="cellxgene.html">
+     Launch CellXGene
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../cellprofiler/cellprofiler-intro.html">
+   High Content Screening Analysis with CellProfiler
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../cellprofiler/cellprofiler_demo.html">
+     CellProfiler Example Notebook
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../mlflow/mlflow-intro.html">
+   MLFlow and Running Services
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../mlflow/MLFlow.html">
+     Run MLFlow
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../mlflow/MLFlow.html#view-any-server-in-a-browser">
+     View Any Server in a Browser
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../dask/dask-intro.html">
+   Dask on Jupyterlab For Bioinformatics
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../dask/01-data-access.html">
+     Dask Example Notebook
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../dask/01-data-access.html#dataframes-read-and-write-data">
+     DataFrames: Read and Write Data
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/scanpy/pbmc3k.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+        <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/executablebooks/jupyter-book"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fscanpy/pbmc3k.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/scanpy/pbmc3k.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#acknowledgements">
+   Acknowledgements
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#preprocessing">
+   Preprocessing
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#principal-component-analysis">
+   Principal component analysis
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#computing-the-neighborhood-graph">
+   Computing the neighborhood graph
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#embedding-the-neighborhood-graph">
+   Embedding the neighborhood graph
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#clustering-the-neighborhood-graph">
+   Clustering the neighborhood graph
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#finding-marker-genes">
+   Finding marker genes
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="preprocessing-and-clustering-3k-pbmcs">
+<h1>Preprocessing and clustering 3k PBMCs<a class="headerlink" href="#preprocessing-and-clustering-3k-pbmcs" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="acknowledgements">
+<h2>Acknowledgements<a class="headerlink" href="#acknowledgements" title="Permalink to this headline">¶</a></h2>
+<p>The scanpy example notebooks come from the scanpy <a class="reference external" href="https://github.com/theislab/scanpy-tutorials">tutorial repo</a> with thanks.</p>
+<p>In May 2017, this started out as a demonstration that Scanpy would allow to reproduce most of Seurat’s <a class="reference external" href="http://satijalab.org/seurat/pbmc3k_tutorial.html">guided clustering tutorial</a> (<a class="reference external" href="https://doi.org/10.1038/nbt.3192">Satija et al., 2015</a>).</p>
+<p>We gratefully acknowledge Seurat’s authors for the tutorial! In the meanwhile, we have added and removed a few pieces.</p>
+<p>The data consist in <em>3k PBMCs from a Healthy Donor</em> and are freely available from 10x Genomics (<a class="reference external" href="http://cf.10xgenomics.com/samples/cell-exp/1.1.0/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz">here</a> from this <a class="reference external" href="https://support.10xgenomics.com/single-cell-gene-expression/datasets/1.1.0/pbmc3k">webpage</a>). On a unix system, you can uncomment and run the following to download and unpack the data. The last line creates a directory for writing processed data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!mkdir data</span>
+<span class="c1">#!wget http://cf.10xgenomics.com/samples/cell-exp/1.1.0/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz -O data/pbmc3k_filtered_gene_bc_matrices.tar.gz</span>
+<span class="c1">#!cd data; tar -xzf pbmc3k_filtered_gene_bc_matrices.tar.gz</span>
+<span class="c1">#!mkdir write</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="alert alert-info">
+<p><strong>Note</strong></p>
+<p>Download the notebook by clicking on the <em>Edit on GitHub</em> button. On GitHub, you can download using the <em>Raw</em> button via right-click and <em>Save Link As</em>. Alternatively, download the whole <a class="reference external" href="https://github.com/theislab/scanpy-tutorials">scanpy-tutorial</a> repository.</p>
+</div>  <div class="alert alert-info">
+<p><strong>Note</strong></p>
+<p>In Jupyter notebooks and lab, you can see the documentation for a python function by hitting <code class="docutils literal notranslate"><span class="pre">SHIFT</span> <span class="pre">+</span> <span class="pre">TAB</span></code>. Hit it twice to expand the view.</p>
+</div><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">scanpy</span> <span class="k">as</span> <span class="nn">sc</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">verbosity</span> <span class="o">=</span> <span class="mi">3</span>             <span class="c1"># verbosity: errors (0), warnings (1), info (2), hints (3)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">print_header</span><span class="p">()</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">set_figure_params</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>scanpy==1.6.0 anndata==0.7.5 umap==0.4.6 numpy==1.19.4 scipy==1.6.0 pandas==1.1.4 scikit-learn==0.24.0 statsmodels==0.12.1
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results_file</span> <span class="o">=</span> <span class="s1">&#39;write/pbmc3k.h5ad&#39;</span>  <span class="c1"># the file that will store the analysis results</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Read in the count matrix into an <a class="reference external" href="https://anndata.readthedocs.io/en/latest/anndata.AnnData.html"><code class="docutils literal notranslate"><span class="pre">AnnData</span></code></a> object, which holds many slots for annotations and different representations of the data. It also comes with its own HDF5 file format: <code class="docutils literal notranslate"><span class="pre">.h5ad</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">read_10x_mtx</span><span class="p">(</span>
+    <span class="s1">&#39;data/filtered_gene_bc_matrices/hg19/&#39;</span><span class="p">,</span>  <span class="c1"># the directory with the `.mtx` file</span>
+    <span class="n">var_names</span><span class="o">=</span><span class="s1">&#39;gene_symbols&#39;</span><span class="p">,</span>                <span class="c1"># use gene symbols for the variable names (variables-axis index)</span>
+    <span class="n">cache</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>                              <span class="c1"># write a cache file for faster subsequent reading</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>... reading from cache file cache/data-filtered_gene_bc_matrices-hg19-matrix.h5ad
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span><span class="o">.</span><span class="n">var_names_make_unique</span><span class="p">()</span>  <span class="c1"># this is unnecessary if using `var_names=&#39;gene_ids&#39;` in `sc.read_10x_mtx`</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AnnData object with n_obs × n_vars = 2700 × 32738
+    var: &#39;gene_ids&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="preprocessing">
+<h2>Preprocessing<a class="headerlink" href="#preprocessing" title="Permalink to this headline">¶</a></h2>
+<p>Show those genes that yield the highest fraction of counts in each single cells, across all cells.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">highest_expr_genes</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">n_top</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>normalizing counts per cell
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:00)
+</pre></div>
+</div>
+<img alt="../_images/pbmc3k_15_2.png" src="../_images/pbmc3k_15_2.png" />
+</div>
+</div>
+<p>Basic filtering.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">filter_cells</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">min_genes</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">filter_genes</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">min_cells</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>filtered out 19024 genes that are detected in less than 3 cells
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let us assemple some information about mitochondrial genes, which are important for quality control.</p>
+<p>Citing from “Simple Single Cell” workflows <a class="reference external" href="https://master.bioconductor.org/packages/release/workflows/html/simpleSingleCell.html#examining-gene-level-metrics">(Lun, McCarthy &amp; Marioni, 2017)</a>:</p>
+<blockquote>
+<div><p>High proportions are indicative of poor-quality cells (Islam et al. 2014; Ilicic et al. 2016), possibly because of loss of cytoplasmic RNA from perforated cells. The reasoning is that mitochondria are larger than individual transcript molecules and less likely to escape through tears in the cell membrane.</p>
+</div></blockquote>
+<p>With <code class="docutils literal notranslate"><span class="pre">pp.calculate_qc_metrics</span></code>, we can compute many metrics very efficiently.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s1">&#39;mt&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">var_names</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;MT-&#39;</span><span class="p">)</span>  <span class="c1"># annotate the group of mitochondrial genes as &#39;mt&#39;</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">calculate_qc_metrics</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">qc_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;mt&#39;</span><span class="p">],</span> <span class="n">percent_top</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">log1p</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>A violin plot of some of the computed quality measures:</p>
+<ul class="simple">
+<li><p>the number of genes expressed in the count matrix</p></li>
+<li><p>the total counts per cell</p></li>
+<li><p>the percentage of counts in mitochondrial genes</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">violin</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;n_genes_by_counts&#39;</span><span class="p">,</span> <span class="s1">&#39;total_counts&#39;</span><span class="p">,</span> <span class="s1">&#39;pct_counts_mt&#39;</span><span class="p">],</span>
+             <span class="n">jitter</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">multi_panel</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/srv/conda/envs/notebook/lib/python3.8/site-packages/seaborn/_core.py:1319: UserWarning: Vertical orientation ignored with only `x` specified.
+  warnings.warn(single_var_warning.format(&quot;Vertical&quot;, &quot;x&quot;))
+/srv/conda/envs/notebook/lib/python3.8/site-packages/seaborn/_core.py:1319: UserWarning: Vertical orientation ignored with only `x` specified.
+  warnings.warn(single_var_warning.format(&quot;Vertical&quot;, &quot;x&quot;))
+/srv/conda/envs/notebook/lib/python3.8/site-packages/seaborn/_core.py:1319: UserWarning: Vertical orientation ignored with only `x` specified.
+  warnings.warn(single_var_warning.format(&quot;Vertical&quot;, &quot;x&quot;))
+/srv/conda/envs/notebook/lib/python3.8/site-packages/seaborn/_core.py:1319: UserWarning: Vertical orientation ignored with only `x` specified.
+  warnings.warn(single_var_warning.format(&quot;Vertical&quot;, &quot;x&quot;))
+/srv/conda/envs/notebook/lib/python3.8/site-packages/seaborn/_core.py:1319: UserWarning: Vertical orientation ignored with only `x` specified.
+  warnings.warn(single_var_warning.format(&quot;Vertical&quot;, &quot;x&quot;))
+/srv/conda/envs/notebook/lib/python3.8/site-packages/seaborn/_core.py:1319: UserWarning: Vertical orientation ignored with only `x` specified.
+  warnings.warn(single_var_warning.format(&quot;Vertical&quot;, &quot;x&quot;))
+</pre></div>
+</div>
+<img alt="../_images/pbmc3k_22_1.png" src="../_images/pbmc3k_22_1.png" />
+</div>
+</div>
+<p>Remove cells that have too many mitochondrial genes expressed or too many total counts.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;total_counts&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;pct_counts_mt&#39;</span><span class="p">)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;total_counts&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;n_genes_by_counts&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/pbmc3k_24_0.png" src="../_images/pbmc3k_24_0.png" />
+<img alt="../_images/pbmc3k_24_1.png" src="../_images/pbmc3k_24_1.png" />
+</div>
+</div>
+<p>Actually do the filtering by slicing the <code class="docutils literal notranslate"><span class="pre">AnnData</span></code> object.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span> <span class="o">=</span> <span class="n">adata</span><span class="p">[</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">n_genes_by_counts</span> <span class="o">&lt;</span> <span class="mi">2500</span><span class="p">,</span> <span class="p">:]</span>
+<span class="n">adata</span> <span class="o">=</span> <span class="n">adata</span><span class="p">[</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">pct_counts_mt</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">,</span> <span class="p">:]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Total-count normalize (library-size correct) the data matrix <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> to 10,000 reads per cell, so that counts become comparable among cells.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">normalize_total</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">target_sum</span><span class="o">=</span><span class="mf">1e4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>normalizing counts per cell
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:00)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/srv/conda/envs/notebook/lib/python3.8/site-packages/scanpy/preprocessing/_normalization.py:138: UserWarning: Revieved a view of an AnnData. Making a copy.
+  view_to_actual(adata)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Logarithmize the data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Identify highly-variable genes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">highly_variable_genes</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">min_mean</span><span class="o">=</span><span class="mf">0.0125</span><span class="p">,</span> <span class="n">max_mean</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">min_disp</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>extracting highly variable genes
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:00)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--&gt; added
+    &#39;highly_variable&#39;, boolean vector (adata.var)
+    &#39;means&#39;, float vector (adata.var)
+    &#39;dispersions&#39;, float vector (adata.var)
+    &#39;dispersions_norm&#39;, float vector (adata.var)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">highly_variable_genes</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/pbmc3k_33_0.png" src="../_images/pbmc3k_33_0.png" />
+</div>
+</div>
+<p>Set the <code class="docutils literal notranslate"><span class="pre">.raw</span></code> attribute of AnnData object to the normalized and logarithmized raw gene expression for later use in differential testing and visualizations of gene expression. This simply freezes the state of the AnnData object.</p>
+<div class="alert alert-info">
+<p><strong>Note</strong></p>
+<p>You can get back an <code class="docutils literal notranslate"><span class="pre">AnnData</span></code> of the object in <code class="docutils literal notranslate"><span class="pre">.raw</span></code> by calling <code class="docutils literal notranslate"><span class="pre">.raw.to_adata()</span></code>.</p>
+</div>    <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span><span class="o">.</span><span class="n">raw</span> <span class="o">=</span> <span class="n">adata</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="alert alert-info">
+<p><strong>Note</strong></p>
+<p>If you don’t proceed below with correcting the data with <code class="docutils literal notranslate"><span class="pre">sc.pp.regress_out</span></code> and scaling it via <code class="docutils literal notranslate"><span class="pre">sc.pp.scale</span></code>, you can also get away without using <code class="docutils literal notranslate"><span class="pre">.raw</span></code> at all.</p>
+<p>The result of the previous highly-variable-genes detection is stored as an annotation in <code class="docutils literal notranslate"><span class="pre">.var.highly_variable</span></code> and auto-detected by PCA and hence, <code class="docutils literal notranslate"><span class="pre">sc.pp.neighbors</span></code> and subsequent manifold/graph tools. In that case, the step <em>actually do the filtering</em> below is unnecessary, too.</p>
+</div><p>Actually do the filtering</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span> <span class="o">=</span> <span class="n">adata</span><span class="p">[:,</span> <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">highly_variable</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Regress out effects of total counts per cell and the percentage of mitochondrial genes expressed. Scale the data to unit variance.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">regress_out</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;total_counts&#39;</span><span class="p">,</span> <span class="s1">&#39;pct_counts_mt&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>regressing out [&#39;total_counts&#39;, &#39;pct_counts_mt&#39;]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    sparse input is densified and may lead to high memory use
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:09)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Scale each gene to unit variance. Clip values exceeding standard deviation 10.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">max_value</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="principal-component-analysis">
+<h2>Principal component analysis<a class="headerlink" href="#principal-component-analysis" title="Permalink to this headline">¶</a></h2>
+<p>Reduce the dimensionality of the data by running principal component analysis (PCA), which reveals the main axes of variation and denoises the data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">pca</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">svd_solver</span><span class="o">=</span><span class="s1">&#39;arpack&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>computing PCA
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    on highly variable genes
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    with n_comps=50
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished (0:00:01)
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can make a scatter plot in the PCA coordinates, but we will not use that later on.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">pca</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;CST3&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/pbmc3k_48_0.png" src="../_images/pbmc3k_48_0.png" />
+</div>
+</div>
+<p>Let us inspect the contribution of single PCs to the total variance in the data. This gives us information about how many PCs we should consider in order to compute the neighborhood relations of cells, e.g. used in the clustering function  <code class="docutils literal notranslate"><span class="pre">sc.tl.louvain()</span></code> or tSNE <code class="docutils literal notranslate"><span class="pre">sc.tl.tsne()</span></code>. In our experience, often, a rough estimate of the number of PCs does fine.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">pca_variance_ratio</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/pbmc3k_50_0.png" src="../_images/pbmc3k_50_0.png" />
+</div>
+</div>
+<p>Save the result.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">results_file</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AnnData object with n_obs × n_vars = 2638 × 1838
+    obs: &#39;n_genes&#39;, &#39;n_genes_by_counts&#39;, &#39;total_counts&#39;, &#39;total_counts_mt&#39;, &#39;pct_counts_mt&#39;
+    var: &#39;gene_ids&#39;, &#39;n_cells&#39;, &#39;mt&#39;, &#39;n_cells_by_counts&#39;, &#39;mean_counts&#39;, &#39;pct_dropout_by_counts&#39;, &#39;total_counts&#39;, &#39;highly_variable&#39;, &#39;means&#39;, &#39;dispersions&#39;, &#39;dispersions_norm&#39;, &#39;mean&#39;, &#39;std&#39;
+    uns: &#39;log1p&#39;, &#39;hvg&#39;, &#39;pca&#39;
+    obsm: &#39;X_pca&#39;
+    varm: &#39;PCs&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="computing-the-neighborhood-graph">
+<h2>Computing the neighborhood graph<a class="headerlink" href="#computing-the-neighborhood-graph" title="Permalink to this headline">¶</a></h2>
+<p>Let us compute the neighborhood graph of cells using the PCA representation of the data matrix. You might simply use default values here. For the sake of reproducing Seurat’s results, let’s take the following values.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">neighbors</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">n_neighbors</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">n_pcs</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>computing neighbors
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    using &#39;X_pca&#39; with n_pcs = 40
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished: added to `.uns[&#39;neighbors&#39;]`
+    `.obsp[&#39;distances&#39;]`, distances for each pair of neighbors
+    `.obsp[&#39;connectivities&#39;]`, weighted adjacency matrix (0:00:02)
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="embedding-the-neighborhood-graph">
+<h2>Embedding the neighborhood graph<a class="headerlink" href="#embedding-the-neighborhood-graph" title="Permalink to this headline">¶</a></h2>
+<p>We advertise embedding the graph in 2 dimensions using UMAP (<a class="reference external" href="https://arxiv.org/abs/1802.03426">McInnes et al., 2018</a>), see below. It is  potentially more faithful to the global connectivity of the manifold than tSNE, i.e., it better preservers trajectories. In some ocassions, you might still observe disconnected clusters and similar connectivity violations. They can usually be remedied by running:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tl</span><span class="o">.</span><span class="n">paga</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
+<span class="n">pl</span><span class="o">.</span><span class="n">paga</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># remove `plot=False` if you want to see the coarse-grained graph</span>
+<span class="n">tl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">init_pos</span><span class="o">=</span><span class="s1">&#39;paga&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>computing UMAP
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    finished: added
+    &#39;X_umap&#39;, UMAP coordinates (adata.obsm) (0:00:04)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;CST3&#39;</span><span class="p">,</span> <span class="s1">&#39;NKG7&#39;</span><span class="p">,</span> <span class="s1">&#39;PPBP&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/pbmc3k_60_0.png" src="../_images/pbmc3k_60_0.png" />
+</div>
+</div>
+<p>As we set the <code class="docutils literal notranslate"><span class="pre">.raw</span></code> attribute of <code class="docutils literal notranslate"><span class="pre">adata</span></code>, the previous plots showed the “raw” (normalized, logarithmized, but uncorrected) gene expression. You can also plot the scaled and corrected gene expression by explicitly stating that you don’t want to use <code class="docutils literal notranslate"><span class="pre">.raw</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;CST3&#39;</span><span class="p">,</span> <span class="s1">&#39;NKG7&#39;</span><span class="p">,</span> <span class="s1">&#39;PPBP&#39;</span><span class="p">],</span> <span class="n">use_raw</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/pbmc3k_62_0.png" src="../_images/pbmc3k_62_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="clustering-the-neighborhood-graph">
+<h2>Clustering the neighborhood graph<a class="headerlink" href="#clustering-the-neighborhood-graph" title="Permalink to this headline">¶</a></h2>
+<p>As Seurat and many others, we recommend the Leiden graph-clustering method (community detection based on optimizing modularity) by <a class="reference external" href="https://scanpy.readthedocs.io/en/latest/references.html#traag18">Traag <em>et al.</em> (2018)</a>. Note that Leiden clustering directly clusters the neighborhood graph of cells, which we already computed in the previous section.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#! conda install -c conda-forge -y leidenalg pip</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">leiden</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="nn">/srv/conda/envs/notebook/lib/python3.8/site-packages/scanpy/tools/_leiden.py</span> in <span class="ni">leiden</span><span class="nt">(adata, resolution, restrict_to, random_state, key_added, adjacency, directed, use_weights, n_iterations, partition_type, neighbors_key, obsp, copy, **partition_kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">104</span>     <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">105</span>         <span class="kn">import</span> <span class="nn">leidenalg</span>
+<span class="g g-Whitespace">    </span><span class="mi">106</span>     <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;leidenalg&#39;
+
+<span class="n">During</span> <span class="n">handling</span> <span class="n">of</span> <span class="n">the</span> <span class="n">above</span> <span class="n">exception</span><span class="p">,</span> <span class="n">another</span> <span class="n">exception</span> <span class="n">occurred</span><span class="p">:</span>
+
+<span class="ne">ImportError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">33</span><span class="o">-</span><span class="n">a9ad6348435f</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">leiden</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
+
+<span class="nn">/srv/conda/envs/notebook/lib/python3.8/site-packages/scanpy/tools/_leiden.py</span> in <span class="ni">leiden</span><span class="nt">(adata, resolution, restrict_to, random_state, key_added, adjacency, directed, use_weights, n_iterations, partition_type, neighbors_key, obsp, copy, **partition_kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">105</span>         <span class="kn">import</span> <span class="nn">leidenalg</span>
+<span class="g g-Whitespace">    </span><span class="mi">106</span>     <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">107</span>         <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">108</span>             <span class="s1">&#39;Please install the leiden algorithm: `conda install -c conda-forge leidenalg` or `pip3 install leidenalg`.&#39;</span>
+<span class="g g-Whitespace">    </span><span class="mi">109</span>         <span class="p">)</span>
+
+<span class="ne">ImportError</span>: Please install the leiden algorithm: `conda install -c conda-forge leidenalg` or `pip3 install leidenalg`.
+</pre></div>
+</div>
+</div>
+</div>
+<p>Plot the clusters, which agree quite well with the result of Seurat.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;leiden&#39;</span><span class="p">,</span> <span class="s1">&#39;CST3&#39;</span><span class="p">,</span> <span class="s1">&#39;NKG7&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span>---------------------------------------------------------------------------
+KeyError                                  Traceback (most recent call last)
+~/.local/lib/python3.8/site-packages/pandas/core/indexes/base.py in get_loc(self, key, method, tolerance)
+   2894             try:
+-&gt; 2895                 return self._engine.get_loc(casted_key)
+   2896             except KeyError as err:
+
+pandas/_libs/index.pyx in pandas._libs.index.IndexEngine.get_loc()
+
+pandas/_libs/index.pyx in pandas._libs.index.IndexEngine.get_loc()
+
+pandas/_libs/hashtable_class_helper.pxi in pandas._libs.hashtable.PyObjectHashTable.get_item()
+
+pandas/_libs/hashtable_class_helper.pxi in pandas._libs.hashtable.PyObjectHashTable.get_item()
+
+KeyError: &#39;leiden&#39;
+
+The above exception was the direct cause of the following exception:
+
+KeyError                                  Traceback (most recent call last)
+&lt;ipython-input-34-c76bc698a16b&gt; in &lt;module&gt;
+----&gt; 1 sc.pl.umap(adata, color=[&#39;leiden&#39;, &#39;CST3&#39;, &#39;NKG7&#39;])
+
+/srv/conda/envs/notebook/lib/python3.8/site-packages/scanpy/plotting/_tools/scatterplots.py in umap(adata, **kwargs)
+    613     If `show==False` a :class:`~matplotlib.axes.Axes` or a list of it.
+    614     &quot;&quot;&quot;
+--&gt; 615     return embedding(adata, &#39;umap&#39;, **kwargs)
+    616 
+    617 
+
+/srv/conda/envs/notebook/lib/python3.8/site-packages/scanpy/plotting/_tools/scatterplots.py in embedding(adata, basis, color, gene_symbols, use_raw, sort_order, edges, edges_width, edges_color, neighbors_key, arrows, arrows_kwds, groups, components, layer, projection, img_key, crop_coord, alpha_img, bw, library_id, color_map, palette, size, frameon, legend_fontsize, legend_fontweight, legend_loc, legend_fontoutline, vmax, vmin, add_outline, outline_width, outline_color, ncols, hspace, wspace, title, show, save, ax, return_fig, **kwargs)
+    226         itertools.product(color, idx_components)
+    227     ):
+--&gt; 228         color_vector, categorical = _get_color_values(
+    229             adata,
+    230             value_to_plot,
+
+/srv/conda/envs/notebook/lib/python3.8/site-packages/scanpy/plotting/_tools/scatterplots.py in _get_color_values(adata, value_to_plot, groups, palette, use_raw, gene_symbols, layer)
+   1035         ]  # TODO: Throw helpful error if this doesn&#39;t work
+   1036     if use_raw and value_to_plot not in adata.obs.columns:
+-&gt; 1037         values = adata.raw.obs_vector(value_to_plot)
+   1038     else:
+   1039         values = adata.obs_vector(value_to_plot, layer=layer)
+
+/srv/conda/envs/notebook/lib/python3.8/site-packages/anndata/_core/raw.py in obs_vector(self, k)
+    168     def obs_vector(self, k: str) -&gt; np.ndarray:
+    169         # TODO decorator to copy AnnData.obs_vector docstring
+--&gt; 170         idx = self._normalize_indices((slice(None), k))
+    171         a = self.X[idx]
+    172         if issparse(a):
+
+/srv/conda/envs/notebook/lib/python3.8/site-packages/anndata/_core/raw.py in _normalize_indices(self, packed_index)
+    159         obs, var = unpack_index(packed_index)
+    160         obs = _normalize_index(obs, self._adata.obs_names)
+--&gt; 161         var = _normalize_index(var, self.var_names)
+    162         return obs, var
+    163 
+
+/srv/conda/envs/notebook/lib/python3.8/site-packages/anndata/_core/index.py in _normalize_index(indexer, index)
+     72         return indexer
+     73     elif isinstance(indexer, str):
+---&gt; 74         return index.get_loc(indexer)  # int
+     75     elif isinstance(indexer, (Sequence, np.ndarray, pd.Index, spmatrix, np.matrix)):
+     76         if hasattr(indexer, &quot;shape&quot;) and (
+
+~/.local/lib/python3.8/site-packages/pandas/core/indexes/base.py in get_loc(self, key, method, tolerance)
+   2895                 return self._engine.get_loc(casted_key)
+   2896             except KeyError as err:
+-&gt; 2897                 raise KeyError(key) from err
+   2898 
+   2899         if tolerance is not None:
+
+KeyError: &#39;leiden&#39;
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 1159.2x320 with 0 Axes&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Save the result.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">results_file</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="finding-marker-genes">
+<h2>Finding marker genes<a class="headerlink" href="#finding-marker-genes" title="Permalink to this headline">¶</a></h2>
+<p>Let us compute a ranking for the highly differential genes in each cluster. For this, by default, the <code class="docutils literal notranslate"><span class="pre">.raw</span></code> attribute of AnnData is used in case it has been initialized before. The simplest and fastest method to do so is the t-test.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">rank_genes_groups</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="s1">&#39;leiden&#39;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;t-test&#39;</span><span class="p">)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">rank_genes_groups</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">n_genes</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ranking genes
+</pre></div>
+</div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
+<span class="nn">~/.local/lib/python3.8/site-packages/pandas/core/indexes/base.py</span> in <span class="ni">get_loc</span><span class="nt">(self, key, method, tolerance)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2894</span>             <span class="k">try</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">2895</span>                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">casted_key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2896</span>             <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+
+<span class="nn">pandas/_libs/index.pyx</span> in <span class="ni">pandas._libs.index.IndexEngine.get_loc</span><span class="nt">()</span>
+
+<span class="nn">pandas/_libs/index.pyx</span> in <span class="ni">pandas._libs.index.IndexEngine.get_loc</span><span class="nt">()</span>
+
+<span class="nn">pandas/_libs/hashtable_class_helper.pxi</span> in <span class="ni">pandas._libs.hashtable.PyObjectHashTable.get_item</span><span class="nt">()</span>
+
+<span class="nn">pandas/_libs/hashtable_class_helper.pxi</span> in <span class="ni">pandas._libs.hashtable.PyObjectHashTable.get_item</span><span class="nt">()</span>
+
+<span class="ne">KeyError</span>: &#39;leiden&#39;
+
+<span class="n">The</span> <span class="n">above</span> <span class="n">exception</span> <span class="n">was</span> <span class="n">the</span> <span class="n">direct</span> <span class="n">cause</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">exception</span><span class="p">:</span>
+
+<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">36</span><span class="o">-</span><span class="n">dc1704b5219c</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">rank_genes_groups</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="s1">&#39;leiden&#39;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;t-test&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">rank_genes_groups</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">n_genes</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="nn">/srv/conda/envs/notebook/lib/python3.8/site-packages/scanpy/tools/_rank_genes_groups.py</span> in <span class="ni">rank_genes_groups</span><span class="nt">(adata, groupby, use_raw, groups, reference, n_genes, rankby_abs, pts, key_added, copy, method, corr_method, tie_correct, layer, **kwds)</span>
+<span class="g g-Whitespace">    </span><span class="mi">569</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">570</span> 
+<span class="ne">--&gt; </span><span class="mi">571</span>     <span class="n">test_obj</span> <span class="o">=</span> <span class="n">_RankGenes</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">groups_order</span><span class="p">,</span> <span class="n">groupby</span><span class="p">,</span> <span class="n">reference</span><span class="p">,</span> <span class="n">use_raw</span><span class="p">,</span> <span class="n">layer</span><span class="p">,</span> <span class="n">pts</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">572</span> 
+<span class="g g-Whitespace">    </span><span class="mi">573</span>     <span class="c1"># for clarity, rename variable</span>
+
+<span class="nn">/srv/conda/envs/notebook/lib/python3.8/site-packages/scanpy/tools/_rank_genes_groups.py</span> in <span class="ni">__init__</span><span class="nt">(self, adata, groups, groupby, reference, use_raw, layer, comp_pts)</span>
+<span class="g g-Whitespace">     </span><span class="mi">94</span>             <span class="bp">self</span><span class="o">.</span><span class="n">expm1_func</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expm1</span>
+<span class="g g-Whitespace">     </span><span class="mi">95</span> 
+<span class="ne">---&gt; </span><span class="mi">96</span>         <span class="bp">self</span><span class="o">.</span><span class="n">groups_order</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">groups_masks</span> <span class="o">=</span> <span class="n">_utils</span><span class="o">.</span><span class="n">select_groups</span><span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">97</span>             <span class="n">adata</span><span class="p">,</span> <span class="n">groups</span><span class="p">,</span> <span class="n">groupby</span>
+<span class="g g-Whitespace">     </span><span class="mi">98</span>         <span class="p">)</span>
+
+<span class="nn">/srv/conda/envs/notebook/lib/python3.8/site-packages/scanpy/_utils.py</span> in <span class="ni">select_groups</span><span class="nt">(adata, groups_order_subset, key)</span>
+<span class="g g-Whitespace">    </span><span class="mi">486</span>     <span class="sd">&quot;&quot;&quot;Get subset of groups in adata.obs[key].</span>
+<span class="g g-Whitespace">    </span><span class="mi">487</span><span class="sd">     &quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">488</span>     <span class="n">groups_order</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">categories</span>
+<span class="g g-Whitespace">    </span><span class="mi">489</span>     <span class="k">if</span> <span class="n">key</span> <span class="o">+</span> <span class="s1">&#39;_masks&#39;</span> <span class="ow">in</span> <span class="n">adata</span><span class="o">.</span><span class="n">uns</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">490</span>         <span class="n">groups_masks</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">uns</span><span class="p">[</span><span class="n">key</span> <span class="o">+</span> <span class="s1">&#39;_masks&#39;</span><span class="p">]</span>
+
+<span class="nn">~/.local/lib/python3.8/site-packages/pandas/core/frame.py</span> in <span class="ni">__getitem__</span><span class="nt">(self, key)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2904</span>             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">nlevels</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">2905</span>                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getitem_multilevel</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">2906</span>             <span class="n">indexer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2907</span>             <span class="k">if</span> <span class="n">is_integer</span><span class="p">(</span><span class="n">indexer</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">2908</span>                 <span class="n">indexer</span> <span class="o">=</span> <span class="p">[</span><span class="n">indexer</span><span class="p">]</span>
+
+<span class="nn">~/.local/lib/python3.8/site-packages/pandas/core/indexes/base.py</span> in <span class="ni">get_loc</span><span class="nt">(self, key, method, tolerance)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2895</span>                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">casted_key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2896</span>             <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">2897</span>                 <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span>
+<span class="g g-Whitespace">   </span><span class="mi">2898</span> 
+<span class="g g-Whitespace">   </span><span class="mi">2899</span>         <span class="k">if</span> <span class="n">tolerance</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+
+<span class="ne">KeyError</span>: &#39;leiden&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">verbosity</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1"># reduce the verbosity</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The result of a <a class="reference external" href="https://de.wikipedia.org/wiki/Wilcoxon-Mann-Whitney-Test">Wilcoxon rank-sum (Mann-Whitney-U)</a> test is very similar. We recommend using the latter in publications, see e.g., <a class="reference external" href="https://doi.org/10.1038/nmeth.4612">Sonison &amp; Robinson (2018)</a>. You might also consider much more powerful differential testing packages like MAST, limma, DESeq2 and, for python, the recent diffxpy.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">rank_genes_groups</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="s1">&#39;leiden&#39;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;wilcoxon&#39;</span><span class="p">)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">rank_genes_groups</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">n_genes</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ranking genes
+</pre></div>
+</div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
+<span class="nn">~/.local/lib/python3.8/site-packages/pandas/core/indexes/base.py</span> in <span class="ni">get_loc</span><span class="nt">(self, key, method, tolerance)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2894</span>             <span class="k">try</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">2895</span>                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">casted_key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2896</span>             <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+
+<span class="nn">pandas/_libs/index.pyx</span> in <span class="ni">pandas._libs.index.IndexEngine.get_loc</span><span class="nt">()</span>
+
+<span class="nn">pandas/_libs/index.pyx</span> in <span class="ni">pandas._libs.index.IndexEngine.get_loc</span><span class="nt">()</span>
+
+<span class="nn">pandas/_libs/hashtable_class_helper.pxi</span> in <span class="ni">pandas._libs.hashtable.PyObjectHashTable.get_item</span><span class="nt">()</span>
+
+<span class="nn">pandas/_libs/hashtable_class_helper.pxi</span> in <span class="ni">pandas._libs.hashtable.PyObjectHashTable.get_item</span><span class="nt">()</span>
+
+<span class="ne">KeyError</span>: &#39;leiden&#39;
+
+<span class="n">The</span> <span class="n">above</span> <span class="n">exception</span> <span class="n">was</span> <span class="n">the</span> <span class="n">direct</span> <span class="n">cause</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">exception</span><span class="p">:</span>
+
+<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">38</span><span class="o">-</span><span class="mi">4059</span><span class="n">af094fa2</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">rank_genes_groups</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="s1">&#39;leiden&#39;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;wilcoxon&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">rank_genes_groups</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">n_genes</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="nn">/srv/conda/envs/notebook/lib/python3.8/site-packages/scanpy/tools/_rank_genes_groups.py</span> in <span class="ni">rank_genes_groups</span><span class="nt">(adata, groupby, use_raw, groups, reference, n_genes, rankby_abs, pts, key_added, copy, method, corr_method, tie_correct, layer, **kwds)</span>
+<span class="g g-Whitespace">    </span><span class="mi">569</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">570</span> 
+<span class="ne">--&gt; </span><span class="mi">571</span>     <span class="n">test_obj</span> <span class="o">=</span> <span class="n">_RankGenes</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">groups_order</span><span class="p">,</span> <span class="n">groupby</span><span class="p">,</span> <span class="n">reference</span><span class="p">,</span> <span class="n">use_raw</span><span class="p">,</span> <span class="n">layer</span><span class="p">,</span> <span class="n">pts</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">572</span> 
+<span class="g g-Whitespace">    </span><span class="mi">573</span>     <span class="c1"># for clarity, rename variable</span>
+
+<span class="nn">/srv/conda/envs/notebook/lib/python3.8/site-packages/scanpy/tools/_rank_genes_groups.py</span> in <span class="ni">__init__</span><span class="nt">(self, adata, groups, groupby, reference, use_raw, layer, comp_pts)</span>
+<span class="g g-Whitespace">     </span><span class="mi">94</span>             <span class="bp">self</span><span class="o">.</span><span class="n">expm1_func</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expm1</span>
+<span class="g g-Whitespace">     </span><span class="mi">95</span> 
+<span class="ne">---&gt; </span><span class="mi">96</span>         <span class="bp">self</span><span class="o">.</span><span class="n">groups_order</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">groups_masks</span> <span class="o">=</span> <span class="n">_utils</span><span class="o">.</span><span class="n">select_groups</span><span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">97</span>             <span class="n">adata</span><span class="p">,</span> <span class="n">groups</span><span class="p">,</span> <span class="n">groupby</span>
+<span class="g g-Whitespace">     </span><span class="mi">98</span>         <span class="p">)</span>
+
+<span class="nn">/srv/conda/envs/notebook/lib/python3.8/site-packages/scanpy/_utils.py</span> in <span class="ni">select_groups</span><span class="nt">(adata, groups_order_subset, key)</span>
+<span class="g g-Whitespace">    </span><span class="mi">486</span>     <span class="sd">&quot;&quot;&quot;Get subset of groups in adata.obs[key].</span>
+<span class="g g-Whitespace">    </span><span class="mi">487</span><span class="sd">     &quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">488</span>     <span class="n">groups_order</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">categories</span>
+<span class="g g-Whitespace">    </span><span class="mi">489</span>     <span class="k">if</span> <span class="n">key</span> <span class="o">+</span> <span class="s1">&#39;_masks&#39;</span> <span class="ow">in</span> <span class="n">adata</span><span class="o">.</span><span class="n">uns</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">490</span>         <span class="n">groups_masks</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">uns</span><span class="p">[</span><span class="n">key</span> <span class="o">+</span> <span class="s1">&#39;_masks&#39;</span><span class="p">]</span>
+
+<span class="nn">~/.local/lib/python3.8/site-packages/pandas/core/frame.py</span> in <span class="ni">__getitem__</span><span class="nt">(self, key)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2904</span>             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">nlevels</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">2905</span>                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getitem_multilevel</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">2906</span>             <span class="n">indexer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2907</span>             <span class="k">if</span> <span class="n">is_integer</span><span class="p">(</span><span class="n">indexer</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">2908</span>                 <span class="n">indexer</span> <span class="o">=</span> <span class="p">[</span><span class="n">indexer</span><span class="p">]</span>
+
+<span class="nn">~/.local/lib/python3.8/site-packages/pandas/core/indexes/base.py</span> in <span class="ni">get_loc</span><span class="nt">(self, key, method, tolerance)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2895</span>                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">casted_key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2896</span>             <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">2897</span>                 <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span>
+<span class="g g-Whitespace">   </span><span class="mi">2898</span> 
+<span class="g g-Whitespace">   </span><span class="mi">2899</span>         <span class="k">if</span> <span class="n">tolerance</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+
+<span class="ne">KeyError</span>: &#39;leiden&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Save the result.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">results_file</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#help(sc.tl.rank_genes_groups)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>As an alternative, let us rank genes using logistic regression. For instance, this has been suggested by <a class="reference external" href="https://doi.org/10.1101/258566">Natranos et al. (2018)</a>. The essential difference is that here, we use a multi-variate appraoch whereas conventional differential tests are uni-variate. <a class="reference external" href="https://doi.org/10.1186/1471-2105-15-79">Clark et al. (2014)</a> has more details.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">rank_genes_groups</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span>  <span class="s1">&#39;leiden&#39;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;logreg&#39;</span><span class="p">)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">rank_genes_groups</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">n_genes</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ranking genes
+</pre></div>
+</div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
+<span class="nn">~/.local/lib/python3.8/site-packages/pandas/core/indexes/base.py</span> in <span class="ni">get_loc</span><span class="nt">(self, key, method, tolerance)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2894</span>             <span class="k">try</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">2895</span>                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">casted_key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2896</span>             <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+
+<span class="nn">pandas/_libs/index.pyx</span> in <span class="ni">pandas._libs.index.IndexEngine.get_loc</span><span class="nt">()</span>
+
+<span class="nn">pandas/_libs/index.pyx</span> in <span class="ni">pandas._libs.index.IndexEngine.get_loc</span><span class="nt">()</span>
+
+<span class="nn">pandas/_libs/hashtable_class_helper.pxi</span> in <span class="ni">pandas._libs.hashtable.PyObjectHashTable.get_item</span><span class="nt">()</span>
+
+<span class="nn">pandas/_libs/hashtable_class_helper.pxi</span> in <span class="ni">pandas._libs.hashtable.PyObjectHashTable.get_item</span><span class="nt">()</span>
+
+<span class="ne">KeyError</span>: &#39;leiden&#39;
+
+<span class="n">The</span> <span class="n">above</span> <span class="n">exception</span> <span class="n">was</span> <span class="n">the</span> <span class="n">direct</span> <span class="n">cause</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">exception</span><span class="p">:</span>
+
+<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">41</span><span class="o">-</span><span class="mi">42</span><span class="n">cb2c373852</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">rank_genes_groups</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span>  <span class="s1">&#39;leiden&#39;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;logreg&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">rank_genes_groups</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">n_genes</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="nn">/srv/conda/envs/notebook/lib/python3.8/site-packages/scanpy/tools/_rank_genes_groups.py</span> in <span class="ni">rank_genes_groups</span><span class="nt">(adata, groupby, use_raw, groups, reference, n_genes, rankby_abs, pts, key_added, copy, method, corr_method, tie_correct, layer, **kwds)</span>
+<span class="g g-Whitespace">    </span><span class="mi">569</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">570</span> 
+<span class="ne">--&gt; </span><span class="mi">571</span>     <span class="n">test_obj</span> <span class="o">=</span> <span class="n">_RankGenes</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">groups_order</span><span class="p">,</span> <span class="n">groupby</span><span class="p">,</span> <span class="n">reference</span><span class="p">,</span> <span class="n">use_raw</span><span class="p">,</span> <span class="n">layer</span><span class="p">,</span> <span class="n">pts</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">572</span> 
+<span class="g g-Whitespace">    </span><span class="mi">573</span>     <span class="c1"># for clarity, rename variable</span>
+
+<span class="nn">/srv/conda/envs/notebook/lib/python3.8/site-packages/scanpy/tools/_rank_genes_groups.py</span> in <span class="ni">__init__</span><span class="nt">(self, adata, groups, groupby, reference, use_raw, layer, comp_pts)</span>
+<span class="g g-Whitespace">     </span><span class="mi">94</span>             <span class="bp">self</span><span class="o">.</span><span class="n">expm1_func</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expm1</span>
+<span class="g g-Whitespace">     </span><span class="mi">95</span> 
+<span class="ne">---&gt; </span><span class="mi">96</span>         <span class="bp">self</span><span class="o">.</span><span class="n">groups_order</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">groups_masks</span> <span class="o">=</span> <span class="n">_utils</span><span class="o">.</span><span class="n">select_groups</span><span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">97</span>             <span class="n">adata</span><span class="p">,</span> <span class="n">groups</span><span class="p">,</span> <span class="n">groupby</span>
+<span class="g g-Whitespace">     </span><span class="mi">98</span>         <span class="p">)</span>
+
+<span class="nn">/srv/conda/envs/notebook/lib/python3.8/site-packages/scanpy/_utils.py</span> in <span class="ni">select_groups</span><span class="nt">(adata, groups_order_subset, key)</span>
+<span class="g g-Whitespace">    </span><span class="mi">486</span>     <span class="sd">&quot;&quot;&quot;Get subset of groups in adata.obs[key].</span>
+<span class="g g-Whitespace">    </span><span class="mi">487</span><span class="sd">     &quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">488</span>     <span class="n">groups_order</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">categories</span>
+<span class="g g-Whitespace">    </span><span class="mi">489</span>     <span class="k">if</span> <span class="n">key</span> <span class="o">+</span> <span class="s1">&#39;_masks&#39;</span> <span class="ow">in</span> <span class="n">adata</span><span class="o">.</span><span class="n">uns</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">490</span>         <span class="n">groups_masks</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">uns</span><span class="p">[</span><span class="n">key</span> <span class="o">+</span> <span class="s1">&#39;_masks&#39;</span><span class="p">]</span>
+
+<span class="nn">~/.local/lib/python3.8/site-packages/pandas/core/frame.py</span> in <span class="ni">__getitem__</span><span class="nt">(self, key)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2904</span>             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">nlevels</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">2905</span>                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getitem_multilevel</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">2906</span>             <span class="n">indexer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2907</span>             <span class="k">if</span> <span class="n">is_integer</span><span class="p">(</span><span class="n">indexer</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">2908</span>                 <span class="n">indexer</span> <span class="o">=</span> <span class="p">[</span><span class="n">indexer</span><span class="p">]</span>
+
+<span class="nn">~/.local/lib/python3.8/site-packages/pandas/core/indexes/base.py</span> in <span class="ni">get_loc</span><span class="nt">(self, key, method, tolerance)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2895</span>                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">casted_key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2896</span>             <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">2897</span>                 <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span>
+<span class="g g-Whitespace">   </span><span class="mi">2898</span> 
+<span class="g g-Whitespace">   </span><span class="mi">2899</span>         <span class="k">if</span> <span class="n">tolerance</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+
+<span class="ne">KeyError</span>: &#39;leiden&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>With the exceptions of <em>IL7R</em>, which is only found by the t-test and <em>FCER1A</em>, which is only found by the other two appraoches, all marker genes are recovered in all approaches.</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Louvain Group</p></th>
+<th class="head"><p>Markers</p></th>
+<th class="head"><p>Cell Type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>IL7R</p></td>
+<td><p>CD4 T cells</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>CD14, LYZ</p></td>
+<td><p>CD14+ Monocytes</p></td>
+</tr>
+<tr class="row-even"><td><p>2</p></td>
+<td><p>MS4A1</p></td>
+<td><p>B cells</p></td>
+</tr>
+<tr class="row-odd"><td><p>3</p></td>
+<td><p>CD8A</p></td>
+<td><p>CD8 T cells</p></td>
+</tr>
+<tr class="row-even"><td><p>4</p></td>
+<td><p>GNLY, NKG7</p></td>
+<td><p>NK cells</p></td>
+</tr>
+<tr class="row-odd"><td><p>5</p></td>
+<td><p>FCGR3A, MS4A7</p></td>
+<td><p>FCGR3A+ Monocytes</p></td>
+</tr>
+<tr class="row-even"><td><p>6</p></td>
+<td><p>FCER1A, CST3</p></td>
+<td><p>Dendritic Cells</p></td>
+</tr>
+<tr class="row-odd"><td><p>7</p></td>
+<td><p>PPBP</p></td>
+<td><p>Megakaryocytes</p></td>
+</tr>
+</tbody>
+</table>
+<p>Let us also define a list of marker genes for later reference.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">marker_genes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;IL7R&#39;</span><span class="p">,</span> <span class="s1">&#39;CD79A&#39;</span><span class="p">,</span> <span class="s1">&#39;MS4A1&#39;</span><span class="p">,</span> <span class="s1">&#39;CD8A&#39;</span><span class="p">,</span> <span class="s1">&#39;CD8B&#39;</span><span class="p">,</span> <span class="s1">&#39;LYZ&#39;</span><span class="p">,</span> <span class="s1">&#39;CD14&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;LGALS3&#39;</span><span class="p">,</span> <span class="s1">&#39;S100A8&#39;</span><span class="p">,</span> <span class="s1">&#39;GNLY&#39;</span><span class="p">,</span> <span class="s1">&#39;NKG7&#39;</span><span class="p">,</span> <span class="s1">&#39;KLRB1&#39;</span><span class="p">,</span>  
+                <span class="s1">&#39;FCGR3A&#39;</span><span class="p">,</span> <span class="s1">&#39;MS4A7&#39;</span><span class="p">,</span> <span class="s1">&#39;FCER1A&#39;</span><span class="p">,</span> <span class="s1">&#39;CST3&#39;</span><span class="p">,</span> <span class="s1">&#39;PPBP&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Reload the object that has been save with the Wilcoxon Rank-Sum test result.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">results_file</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Show the 10 top ranked genes per cluster 0, 1, …, 7 in a dataframe.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">uns</span><span class="p">[</span><span class="s1">&#39;rank_genes_groups&#39;</span><span class="p">][</span><span class="s1">&#39;names&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">44</span><span class="o">-</span><span class="n">d5b839acfcbe</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">uns</span><span class="p">[</span><span class="s1">&#39;rank_genes_groups&#39;</span><span class="p">][</span><span class="s1">&#39;names&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="ne">KeyError</span>: &#39;names&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Get a table with the scores and groups.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">uns</span><span class="p">[</span><span class="s1">&#39;rank_genes_groups&#39;</span><span class="p">]</span>
+<span class="n">groups</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;names&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">names</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span><span class="n">group</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">key</span><span class="p">[:</span><span class="mi">1</span><span class="p">]:</span> <span class="n">result</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="n">group</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">groups</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;names&#39;</span><span class="p">,</span> <span class="s1">&#39;pvals&#39;</span><span class="p">]})</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">45</span><span class="o">-</span><span class="mi">1</span><span class="n">d51cde6782d</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">result</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">uns</span><span class="p">[</span><span class="s1">&#39;rank_genes_groups&#39;</span><span class="p">]</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">groups</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;names&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">names</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span>     <span class="p">{</span><span class="n">group</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">key</span><span class="p">[:</span><span class="mi">1</span><span class="p">]:</span> <span class="n">result</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="n">group</span><span class="p">]</span>
+<span class="nn">      5     for group in groups for key</span> in <span class="ni">[&#39;names&#39;, &#39;pvals&#39;]}).head</span><span class="nt">(5)</span>
+
+<span class="ne">KeyError</span>: &#39;names&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Compare to a single cluster.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">rank_genes_groups</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="s1">&#39;leiden&#39;</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;0&#39;</span><span class="p">],</span> <span class="n">reference</span><span class="o">=</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;wilcoxon&#39;</span><span class="p">)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">rank_genes_groups</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;0&#39;</span><span class="p">],</span> <span class="n">n_genes</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ranking genes
+</pre></div>
+</div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
+<span class="nn">~/.local/lib/python3.8/site-packages/pandas/core/indexes/base.py</span> in <span class="ni">get_loc</span><span class="nt">(self, key, method, tolerance)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2894</span>             <span class="k">try</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">2895</span>                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">casted_key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2896</span>             <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+
+<span class="nn">pandas/_libs/index.pyx</span> in <span class="ni">pandas._libs.index.IndexEngine.get_loc</span><span class="nt">()</span>
+
+<span class="nn">pandas/_libs/index.pyx</span> in <span class="ni">pandas._libs.index.IndexEngine.get_loc</span><span class="nt">()</span>
+
+<span class="nn">pandas/_libs/hashtable_class_helper.pxi</span> in <span class="ni">pandas._libs.hashtable.PyObjectHashTable.get_item</span><span class="nt">()</span>
+
+<span class="nn">pandas/_libs/hashtable_class_helper.pxi</span> in <span class="ni">pandas._libs.hashtable.PyObjectHashTable.get_item</span><span class="nt">()</span>
+
+<span class="ne">KeyError</span>: &#39;leiden&#39;
+
+<span class="n">The</span> <span class="n">above</span> <span class="n">exception</span> <span class="n">was</span> <span class="n">the</span> <span class="n">direct</span> <span class="n">cause</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">exception</span><span class="p">:</span>
+
+<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">46</span><span class="o">-</span><span class="mi">0</span><span class="n">a1d1eda208c</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">rank_genes_groups</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="s1">&#39;leiden&#39;</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;0&#39;</span><span class="p">],</span> <span class="n">reference</span><span class="o">=</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;wilcoxon&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">rank_genes_groups</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;0&#39;</span><span class="p">],</span> <span class="n">n_genes</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+
+<span class="nn">/srv/conda/envs/notebook/lib/python3.8/site-packages/scanpy/tools/_rank_genes_groups.py</span> in <span class="ni">rank_genes_groups</span><span class="nt">(adata, groupby, use_raw, groups, reference, n_genes, rankby_abs, pts, key_added, copy, method, corr_method, tie_correct, layer, **kwds)</span>
+<span class="g g-Whitespace">    </span><span class="mi">551</span>         <span class="k">if</span> <span class="n">reference</span> <span class="o">!=</span> <span class="s1">&#39;rest&#39;</span> <span class="ow">and</span> <span class="n">reference</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="n">groups_order</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">552</span>             <span class="n">groups_order</span> <span class="o">+=</span> <span class="p">[</span><span class="n">reference</span><span class="p">]</span>
+<span class="ne">--&gt; </span><span class="mi">553</span>     <span class="k">if</span> <span class="n">reference</span> <span class="o">!=</span> <span class="s1">&#39;rest&#39;</span> <span class="ow">and</span> <span class="n">reference</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">groupby</span><span class="p">]</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">categories</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">554</span>         <span class="n">cats</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">groupby</span><span class="p">]</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">categories</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">555</span>         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+
+<span class="nn">~/.local/lib/python3.8/site-packages/pandas/core/frame.py</span> in <span class="ni">__getitem__</span><span class="nt">(self, key)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2904</span>             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">nlevels</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">2905</span>                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getitem_multilevel</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">2906</span>             <span class="n">indexer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2907</span>             <span class="k">if</span> <span class="n">is_integer</span><span class="p">(</span><span class="n">indexer</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">2908</span>                 <span class="n">indexer</span> <span class="o">=</span> <span class="p">[</span><span class="n">indexer</span><span class="p">]</span>
+
+<span class="nn">~/.local/lib/python3.8/site-packages/pandas/core/indexes/base.py</span> in <span class="ni">get_loc</span><span class="nt">(self, key, method, tolerance)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2895</span>                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">casted_key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2896</span>             <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">2897</span>                 <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span>
+<span class="g g-Whitespace">   </span><span class="mi">2898</span> 
+<span class="g g-Whitespace">   </span><span class="mi">2899</span>         <span class="k">if</span> <span class="n">tolerance</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+
+<span class="ne">KeyError</span>: &#39;leiden&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>If we want a more detailed view for a certain group, use <code class="docutils literal notranslate"><span class="pre">sc.pl.rank_genes_groups_violin</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">rank_genes_groups_violin</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="n">n_genes</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">47</span><span class="o">-</span><span class="mi">927</span><span class="n">fad46da5e</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">rank_genes_groups_violin</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="n">n_genes</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+
+<span class="nn">/srv/conda/envs/notebook/lib/python3.8/site-packages/scanpy/plotting/_tools/__init__.py</span> in <span class="ni">rank_genes_groups_violin</span><span class="nt">(adata, groups, n_genes, gene_names, gene_symbols, use_raw, key, split, scale, strip, jitter, size, ax, show, save)</span>
+<span class="g g-Whitespace">    </span><span class="mi">864</span>     <span class="k">for</span> <span class="n">group_name</span> <span class="ow">in</span> <span class="n">groups_names</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">865</span>         <span class="k">if</span> <span class="n">gene_names</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">866</span>             <span class="n">_gene_names</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">uns</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s1">&#39;names&#39;</span><span class="p">][</span><span class="n">group_name</span><span class="p">][:</span><span class="n">n_genes</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">867</span>         <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">868</span>             <span class="n">_gene_names</span> <span class="o">=</span> <span class="n">gene_names</span>
+
+<span class="ne">KeyError</span>: &#39;names&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Reload the object that computed differential expression by comparing to the rest of the groups.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">results_file</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">rank_genes_groups_violin</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="n">n_genes</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">49</span><span class="o">-</span><span class="mi">927</span><span class="n">fad46da5e</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">rank_genes_groups_violin</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="n">n_genes</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+
+<span class="nn">/srv/conda/envs/notebook/lib/python3.8/site-packages/scanpy/plotting/_tools/__init__.py</span> in <span class="ni">rank_genes_groups_violin</span><span class="nt">(adata, groups, n_genes, gene_names, gene_symbols, use_raw, key, split, scale, strip, jitter, size, ax, show, save)</span>
+<span class="g g-Whitespace">    </span><span class="mi">864</span>     <span class="k">for</span> <span class="n">group_name</span> <span class="ow">in</span> <span class="n">groups_names</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">865</span>         <span class="k">if</span> <span class="n">gene_names</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">866</span>             <span class="n">_gene_names</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">uns</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s1">&#39;names&#39;</span><span class="p">][</span><span class="n">group_name</span><span class="p">][:</span><span class="n">n_genes</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">867</span>         <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">868</span>             <span class="n">_gene_names</span> <span class="o">=</span> <span class="n">gene_names</span>
+
+<span class="ne">KeyError</span>: &#39;names&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>If you want to compare a certain gene across groups, use the following.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">violin</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;CST3&#39;</span><span class="p">,</span> <span class="s1">&#39;NKG7&#39;</span><span class="p">,</span> <span class="s1">&#39;PPBP&#39;</span><span class="p">],</span> <span class="n">groupby</span><span class="o">=</span><span class="s1">&#39;leiden&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">50</span><span class="o">-</span><span class="n">fbd08c76d316</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">violin</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;CST3&#39;</span><span class="p">,</span> <span class="s1">&#39;NKG7&#39;</span><span class="p">,</span> <span class="s1">&#39;PPBP&#39;</span><span class="p">],</span> <span class="n">groupby</span><span class="o">=</span><span class="s1">&#39;leiden&#39;</span><span class="p">)</span>
+
+<span class="nn">/srv/conda/envs/notebook/lib/python3.8/site-packages/scanpy/plotting/_anndata.py</span> in <span class="ni">violin</span><span class="nt">(adata, keys, groupby, log, use_raw, stripplot, jitter, size, layer, scale, order, multi_panel, xlabel, ylabel, rotation, show, save, ax, **kwds)</span>
+<span class="g g-Whitespace">    </span><span class="mi">705</span> 
+<span class="g g-Whitespace">    </span><span class="mi">706</span>     <span class="k">if</span> <span class="n">groupby</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">707</span>         <span class="n">obs_df</span> <span class="o">=</span> <span class="n">get</span><span class="o">.</span><span class="n">obs_df</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="n">groupby</span><span class="p">]</span> <span class="o">+</span> <span class="n">keys</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="n">layer</span><span class="p">,</span> <span class="n">use_raw</span><span class="o">=</span><span class="n">use_raw</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">708</span>         <span class="k">if</span> <span class="n">kwds</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;palette&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">709</span>             <span class="k">if</span> <span class="ow">not</span> <span class="n">is_categorical_dtype</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">groupby</span><span class="p">]):</span>
+
+<span class="nn">/srv/conda/envs/notebook/lib/python3.8/site-packages/scanpy/get.py</span> in <span class="ni">obs_df</span><span class="nt">(adata, keys, obsm_keys, layer, gene_symbols, use_raw)</span>
+<span class="g g-Whitespace">    </span><span class="mi">162</span>                     <span class="n">gene_symbols</span>
+<span class="g g-Whitespace">    </span><span class="mi">163</span>                 <span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">164</span>         <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">165</span>             <span class="sa">f</span><span class="s2">&quot;Could not find keys &#39;</span><span class="si">{</span><span class="n">not_found</span><span class="si">}</span><span class="s2">&#39; in columns of `adata.obs` or in&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">166</span>             <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">gene_error</span><span class="si">}</span><span class="s2">.&quot;</span>
+
+<span class="ne">KeyError</span>: &quot;Could not find keys &#39;[&#39;leiden&#39;]&#39; in columns of `adata.obs` or in `adata.raw.var_names`.&quot;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Actually mark the cell types.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_cluster_names</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;CD4 T&#39;</span><span class="p">,</span> <span class="s1">&#39;CD14 Monocytes&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;CD8 T&#39;</span><span class="p">,</span> 
+    <span class="s1">&#39;NK&#39;</span><span class="p">,</span> <span class="s1">&#39;FCGR3A Monocytes&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Dendritic&#39;</span><span class="p">,</span> <span class="s1">&#39;Megakaryocytes&#39;</span><span class="p">]</span>
+<span class="n">adata</span><span class="o">.</span><span class="n">rename_categories</span><span class="p">(</span><span class="s1">&#39;leiden&#39;</span><span class="p">,</span> <span class="n">new_cluster_names</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">51</span><span class="o">-</span><span class="mi">0</span><span class="n">ca7baeabacf</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span>     <span class="s1">&#39;NK&#39;</span><span class="p">,</span> <span class="s1">&#39;FCGR3A Monocytes&#39;</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span>     <span class="s1">&#39;Dendritic&#39;</span><span class="p">,</span> <span class="s1">&#39;Megakaryocytes&#39;</span><span class="p">]</span>
+<span class="ne">----&gt; </span><span class="mi">6</span> <span class="n">adata</span><span class="o">.</span><span class="n">rename_categories</span><span class="p">(</span><span class="s1">&#39;leiden&#39;</span><span class="p">,</span> <span class="n">new_cluster_names</span><span class="p">)</span>
+
+<span class="nn">/srv/conda/envs/notebook/lib/python3.8/site-packages/anndata/_core/anndata.py</span> in <span class="ni">rename_categories</span><span class="nt">(self, key, categories)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1136</span>             <span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">rename_categories</span><span class="p">(</span><span class="n">categories</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1137</span>         <span class="k">else</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1138</span>             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2"> is neither in `.obs` nor in `.var`.&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1139</span>         <span class="c1"># this is not a good solution</span>
+<span class="g g-Whitespace">   </span><span class="mi">1140</span>         <span class="c1"># but depends on the scanpy conventions for storing the categorical key</span>
+
+<span class="ne">ValueError</span>: leiden is neither in `.obs` nor in `.var`.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;leiden&#39;</span><span class="p">,</span> <span class="n">legend_loc</span><span class="o">=</span><span class="s1">&#39;on data&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="s1">&#39;.pdf&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span>---------------------------------------------------------------------------
+KeyError                                  Traceback (most recent call last)
+~/.local/lib/python3.8/site-packages/pandas/core/indexes/base.py in get_loc(self, key, method, tolerance)
+   2894             try:
+-&gt; 2895                 return self._engine.get_loc(casted_key)
+   2896             except KeyError as err:
+
+pandas/_libs/index.pyx in pandas._libs.index.IndexEngine.get_loc()
+
+pandas/_libs/index.pyx in pandas._libs.index.IndexEngine.get_loc()
+
+pandas/_libs/hashtable_class_helper.pxi in pandas._libs.hashtable.PyObjectHashTable.get_item()
+
+pandas/_libs/hashtable_class_helper.pxi in pandas._libs.hashtable.PyObjectHashTable.get_item()
+
+KeyError: &#39;leiden&#39;
+
+The above exception was the direct cause of the following exception:
+
+KeyError                                  Traceback (most recent call last)
+&lt;ipython-input-52-4dbafa252f88&gt; in &lt;module&gt;
+----&gt; 1 sc.pl.umap(adata, color=&#39;leiden&#39;, legend_loc=&#39;on data&#39;, title=&#39;&#39;, frameon=False, save=&#39;.pdf&#39;)
+
+/srv/conda/envs/notebook/lib/python3.8/site-packages/scanpy/plotting/_tools/scatterplots.py in umap(adata, **kwargs)
+    613     If `show==False` a :class:`~matplotlib.axes.Axes` or a list of it.
+    614     &quot;&quot;&quot;
+--&gt; 615     return embedding(adata, &#39;umap&#39;, **kwargs)
+    616 
+    617 
+
+/srv/conda/envs/notebook/lib/python3.8/site-packages/scanpy/plotting/_tools/scatterplots.py in embedding(adata, basis, color, gene_symbols, use_raw, sort_order, edges, edges_width, edges_color, neighbors_key, arrows, arrows_kwds, groups, components, layer, projection, img_key, crop_coord, alpha_img, bw, library_id, color_map, palette, size, frameon, legend_fontsize, legend_fontweight, legend_loc, legend_fontoutline, vmax, vmin, add_outline, outline_width, outline_color, ncols, hspace, wspace, title, show, save, ax, return_fig, **kwargs)
+    226         itertools.product(color, idx_components)
+    227     ):
+--&gt; 228         color_vector, categorical = _get_color_values(
+    229             adata,
+    230             value_to_plot,
+
+/srv/conda/envs/notebook/lib/python3.8/site-packages/scanpy/plotting/_tools/scatterplots.py in _get_color_values(adata, value_to_plot, groups, palette, use_raw, gene_symbols, layer)
+   1035         ]  # TODO: Throw helpful error if this doesn&#39;t work
+   1036     if use_raw and value_to_plot not in adata.obs.columns:
+-&gt; 1037         values = adata.raw.obs_vector(value_to_plot)
+   1038     else:
+   1039         values = adata.obs_vector(value_to_plot, layer=layer)
+
+/srv/conda/envs/notebook/lib/python3.8/site-packages/anndata/_core/raw.py in obs_vector(self, k)
+    168     def obs_vector(self, k: str) -&gt; np.ndarray:
+    169         # TODO decorator to copy AnnData.obs_vector docstring
+--&gt; 170         idx = self._normalize_indices((slice(None), k))
+    171         a = self.X[idx]
+    172         if issparse(a):
+
+/srv/conda/envs/notebook/lib/python3.8/site-packages/anndata/_core/raw.py in _normalize_indices(self, packed_index)
+    159         obs, var = unpack_index(packed_index)
+    160         obs = _normalize_index(obs, self._adata.obs_names)
+--&gt; 161         var = _normalize_index(var, self.var_names)
+    162         return obs, var
+    163 
+
+/srv/conda/envs/notebook/lib/python3.8/site-packages/anndata/_core/index.py in _normalize_index(indexer, index)
+     72         return indexer
+     73     elif isinstance(indexer, str):
+---&gt; 74         return index.get_loc(indexer)  # int
+     75     elif isinstance(indexer, (Sequence, np.ndarray, pd.Index, spmatrix, np.matrix)):
+     76         if hasattr(indexer, &quot;shape&quot;) and (
+
+~/.local/lib/python3.8/site-packages/pandas/core/indexes/base.py in get_loc(self, key, method, tolerance)
+   2895                 return self._engine.get_loc(casted_key)
+   2896             except KeyError as err:
+-&gt; 2897                 raise KeyError(key) from err
+   2898 
+   2899         if tolerance is not None:
+
+KeyError: &#39;leiden&#39;
+</pre></div>
+</div>
+<img alt="../_images/pbmc3k_102_1.png" src="../_images/pbmc3k_102_1.png" />
+</div>
+</div>
+<p>Now that we annotated the cell types, let us visualize the marker genes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">dotplot</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">marker_genes</span><span class="p">,</span> <span class="n">groupby</span><span class="o">=</span><span class="s1">&#39;leiden&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">53</span><span class="o">-</span><span class="mi">310</span><span class="n">bda895fd9</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">dotplot</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">marker_genes</span><span class="p">,</span> <span class="n">groupby</span><span class="o">=</span><span class="s1">&#39;leiden&#39;</span><span class="p">);</span>
+
+<span class="nn">/srv/conda/envs/notebook/lib/python3.8/site-packages/scanpy/plotting/_dotplot.py</span> in <span class="ni">dotplot</span><span class="nt">(adata, var_names, groupby, use_raw, log, num_categories, expression_cutoff, mean_only_expressed, cmap, dot_max, dot_min, standard_scale, smallest_dot, title, colorbar_title, size_title, figsize, dendrogram, gene_symbols, var_group_positions, var_group_labels, var_group_rotation, layer, swap_axes, dot_color_df, show, save, ax, return_fig, **kwds)</span>
+<span class="g g-Whitespace">    </span><span class="mi">911</span>         <span class="k">del</span> <span class="n">kwds</span><span class="p">[</span><span class="s1">&#39;color_map&#39;</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">912</span> 
+<span class="ne">--&gt; </span><span class="mi">913</span>     <span class="n">dp</span> <span class="o">=</span> <span class="n">DotPlot</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">914</span>         <span class="n">adata</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">915</span>         <span class="n">var_names</span><span class="p">,</span>
+
+<span class="nn">/srv/conda/envs/notebook/lib/python3.8/site-packages/scanpy/plotting/_dotplot.py</span> in <span class="ni">__init__</span><span class="nt">(self, adata, var_names, groupby, use_raw, log, num_categories, categories_order, title, figsize, gene_symbols, var_group_positions, var_group_labels, var_group_rotation, layer, expression_cutoff, mean_only_expressed, standard_scale, dot_color_df, dot_size_df, ax, **kwds)</span>
+<span class="g g-Whitespace">    </span><span class="mi">125</span>         <span class="o">**</span><span class="n">kwds</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">126</span>     <span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">127</span>         <span class="n">BasePlot</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">128</span>             <span class="bp">self</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">129</span>             <span class="n">adata</span><span class="p">,</span>
+
+<span class="nn">/srv/conda/envs/notebook/lib/python3.8/site-packages/scanpy/plotting/_baseplot_class.py</span> in <span class="ni">__init__</span><span class="nt">(self, adata, var_names, groupby, use_raw, log, num_categories, categories_order, title, figsize, gene_symbols, var_group_positions, var_group_labels, var_group_rotation, layer, ax, **kwds)</span>
+<span class="g g-Whitespace">    </span><span class="mi">103</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_update_var_groups</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">104</span> 
+<span class="ne">--&gt; </span><span class="mi">105</span>         <span class="bp">self</span><span class="o">.</span><span class="n">categories</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">obs_tidy</span> <span class="o">=</span> <span class="n">_prepare_dataframe</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">106</span>             <span class="n">adata</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">107</span>             <span class="bp">self</span><span class="o">.</span><span class="n">var_names</span><span class="p">,</span>
+
+<span class="nn">/srv/conda/envs/notebook/lib/python3.8/site-packages/scanpy/plotting/_anndata.py</span> in <span class="ni">_prepare_dataframe</span><span class="nt">(adata, var_names, groupby, use_raw, log, num_categories, layer, gene_symbols)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1771</span>         <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">groupby</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1772</span>             <span class="k">if</span> <span class="n">group</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs_keys</span><span class="p">():</span>
+<span class="ne">-&gt; </span><span class="mi">1773</span>                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1774</span>                     <span class="s1">&#39;groupby has to be a valid observation. &#39;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1775</span>                     <span class="sa">f</span><span class="s1">&#39;Given </span><span class="si">{</span><span class="n">group</span><span class="si">}</span><span class="s1">, is not in observations: </span><span class="si">{</span><span class="n">adata</span><span class="o">.</span><span class="n">obs_keys</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span>
+
+<span class="ne">ValueError</span>: groupby has to be a valid observation. Given leiden, is not in observations: [&#39;n_genes&#39;, &#39;n_genes_by_counts&#39;, &#39;total_counts&#39;, &#39;total_counts_mt&#39;, &#39;pct_counts_mt&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>There is also a very compact violin plot.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">stacked_violin</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">marker_genes</span><span class="p">,</span> <span class="n">groupby</span><span class="o">=</span><span class="s1">&#39;leiden&#39;</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">54</span><span class="o">-</span><span class="n">fd5795b7dcd2</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">stacked_violin</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">marker_genes</span><span class="p">,</span> <span class="n">groupby</span><span class="o">=</span><span class="s1">&#39;leiden&#39;</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">);</span>
+
+<span class="nn">/srv/conda/envs/notebook/lib/python3.8/site-packages/scanpy/plotting/_stacked_violin.py</span> in <span class="ni">stacked_violin</span><span class="nt">(adata, var_names, groupby, log, use_raw, num_categories, title, colorbar_title, figsize, dendrogram, gene_symbols, var_group_positions, var_group_labels, standard_scale, var_group_rotation, layer, stripplot, jitter, size, scale, yticklabels, order, swap_axes, show, save, return_fig, row_palette, cmap, ax, **kwds)</span>
+<span class="g g-Whitespace">    </span><span class="mi">663</span>     <span class="s2">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">664</span><span class="s2"> </span>
+<span class="ne">--&gt; </span><span class="mi">665</span><span class="s2">     vp = StackedViolin(</span>
+<span class="g g-Whitespace">    </span><span class="mi">666</span><span class="s2">         adata,</span>
+<span class="g g-Whitespace">    </span><span class="mi">667</span><span class="s2">         var_names,</span>
+
+<span class="nn">/srv/conda/envs/notebook/lib/python3.8/site-packages/scanpy/plotting/_stacked_violin.py</span> in <span class="ni">__init__</span><span class="nt">(self, adata, var_names, groupby, use_raw, log, num_categories, categories_order, title, figsize, gene_symbols, var_group_positions, var_group_labels, var_group_rotation, layer, standard_scale, ax, **kwds)</span>
+<span class="g g-Whitespace">    </span><span class="mi">145</span><span class="s2">         **kwds,</span>
+<span class="g g-Whitespace">    </span><span class="mi">146</span><span class="s2">     ):</span>
+<span class="ne">--&gt; </span><span class="mi">147</span><span class="s2">         BasePlot.__init__(</span>
+<span class="g g-Whitespace">    </span><span class="mi">148</span><span class="s2">             self,</span>
+<span class="g g-Whitespace">    </span><span class="mi">149</span><span class="s2">             adata,</span>
+
+<span class="nn">/srv/conda/envs/notebook/lib/python3.8/site-packages/scanpy/plotting/_baseplot_class.py</span> in <span class="ni">__init__</span><span class="nt">(self, adata, var_names, groupby, use_raw, log, num_categories, categories_order, title, figsize, gene_symbols, var_group_positions, var_group_labels, var_group_rotation, layer, ax, **kwds)</span>
+<span class="g g-Whitespace">    </span><span class="mi">103</span><span class="s2">         self._update_var_groups()</span>
+<span class="g g-Whitespace">    </span><span class="mi">104</span><span class="s2"> </span>
+<span class="ne">--&gt; </span><span class="mi">105</span><span class="s2">         self.categories, self.obs_tidy = _prepare_dataframe(</span>
+<span class="g g-Whitespace">    </span><span class="mi">106</span><span class="s2">             adata,</span>
+<span class="g g-Whitespace">    </span><span class="mi">107</span><span class="s2">             self.var_names,</span>
+
+<span class="nn">/srv/conda/envs/notebook/lib/python3.8/site-packages/scanpy/plotting/_anndata.py</span> in <span class="ni">_prepare_dataframe</span><span class="nt">(adata, var_names, groupby, use_raw, log, num_categories, layer, gene_symbols)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1771</span><span class="s2">         for group in groupby:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1772</span><span class="s2">             if group not in adata.obs_keys():</span>
+<span class="ne">-&gt; </span><span class="mi">1773</span><span class="s2">                 raise ValueError(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1774</span><span class="s2">                     &#39;groupby has to be a valid observation. &#39;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1775</span><span class="s2">                     f&#39;Given </span><span class="si">{group}</span><span class="s2">, is not in observations: {adata.obs_keys()}&#39;</span>
+
+<span class="ne">ValueError</span>: groupby has to be a valid observation. Given leiden, is not in observations: [&#39;n_genes&#39;, &#39;n_genes_by_counts&#39;, &#39;total_counts&#39;, &#39;total_counts_mt&#39;, &#39;pct_counts_mt&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>During the course of this analysis, the AnnData accumlated the following annotations.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AnnData object with n_obs × n_vars = 2638 × 1838
+    obs: &#39;n_genes&#39;, &#39;n_genes_by_counts&#39;, &#39;total_counts&#39;, &#39;total_counts_mt&#39;, &#39;pct_counts_mt&#39;
+    var: &#39;gene_ids&#39;, &#39;n_cells&#39;, &#39;mt&#39;, &#39;n_cells_by_counts&#39;, &#39;mean_counts&#39;, &#39;pct_dropout_by_counts&#39;, &#39;total_counts&#39;, &#39;highly_variable&#39;, &#39;means&#39;, &#39;dispersions&#39;, &#39;dispersions_norm&#39;, &#39;mean&#39;, &#39;std&#39;
+    uns: &#39;hvg&#39;, &#39;neighbors&#39;, &#39;pca&#39;, &#39;rank_genes_groups&#39;, &#39;umap&#39;
+    obsm: &#39;X_pca&#39;, &#39;X_umap&#39;
+    varm: &#39;PCs&#39;
+    obsp: &#39;connectivities&#39;, &#39;distances&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">results_file</span><span class="p">,</span> <span class="n">compression</span><span class="o">=</span><span class="s1">&#39;gzip&#39;</span><span class="p">)</span>  <span class="c1"># `compression=&#39;gzip&#39;` saves disk space, but slows down writing and subsequent reading</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Get a rough overview of the file using <code class="docutils literal notranslate"><span class="pre">h5ls</span></code>, which has many options - for more details see <a class="reference external" href="https://github.com/theislab/scanpy_usage/blob/master/170505_seurat/info_h5ad.md">here</a>. The file format might still be subject to further optimization in the future. All reading functions will remain backwards-compatible, though.</p>
+<p>If you want to share this file with people who merely want to use it for visualization, a simple way to reduce the file size is by removing the dense scaled and corrected data matrix. The file still contains the raw data used in the visualizations in <code class="docutils literal notranslate"><span class="pre">adata.raw</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span><span class="o">.</span><span class="n">raw</span><span class="o">.</span><span class="n">to_adata</span><span class="p">()</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;./write/pbmc3k_withoutX.h5ad&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>If you want to export to “csv”, you have the following options:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Export single fields of the annotation of observations</span>
+<span class="c1"># adata.obs[[&#39;n_counts&#39;, &#39;louvain_groups&#39;]].to_csv(</span>
+<span class="c1">#     &#39;./write/pbmc3k_corrected_louvain_groups.csv&#39;)</span>
+
+<span class="c1"># Export single columns of the multidimensional annotation</span>
+<span class="c1"># adata.obsm.to_df()[[&#39;X_pca1&#39;, &#39;X_pca2&#39;]].to_csv(</span>
+<span class="c1">#     &#39;./write/pbmc3k_corrected_X_pca.csv&#39;)</span>
+
+<span class="c1"># Or export everything except the data using `.write_csvs`.</span>
+<span class="c1"># Set `skip_data=False` if you also want to export the data.</span>
+<span class="c1"># adata.write_csvs(results_file[:-5], )</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "conda-env-notebook-pye"
+        },
+        kernelOptions: {
+            kernelName: "conda-env-notebook-pye",
+            path: "./scanpy"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'conda-env-notebook-pye'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="scanpy-intro.html" title="previous page">Single Cell Analysis with Scanpy</a>
+    <a class='right-next' id="next-link" href="cellxgene.html" title="next page">Launch CellXGene</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By STEM-Away<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>

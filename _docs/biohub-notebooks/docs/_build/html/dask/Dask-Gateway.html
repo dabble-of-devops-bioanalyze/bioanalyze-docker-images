@@ -1,0 +1,728 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dask Gateway Connection Example &#8212; STEM-Away Demo</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/stem-away-logo.jpeg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">STEM-Away Demo</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../content.html">
+   Data Set Annotations
+  </a>
+ </li>
+</ul>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../scanpy/scanpy-intro.html">
+   Single Cell Analysis with Scanpy
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../scanpy/pbmc3k.html">
+     Preprocessing and clustering 3k PBMCs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../scanpy/cellxgene.html">
+     Launch CellXGene
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../cellprofiler/cellprofiler-intro.html">
+   High Content Screening Analysis with CellProfiler
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../cellprofiler/cellprofiler_demo.html">
+     CellProfiler Example Notebook
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../mlflow/mlflow-intro.html">
+   MLFlow and Running Services
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../mlflow/MLFlow.html">
+     Run MLFlow
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../mlflow/MLFlow.html#view-any-server-in-a-browser">
+     View Any Server in a Browser
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="dask-intro.html">
+   Dask on Jupyterlab For Bioinformatics
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="01-data-access.html">
+     Dask Example Notebook
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="01-data-access.html#dataframes-read-and-write-data">
+     DataFrames: Read and Write Data
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/dask/Dask-Gateway.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+        <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/executablebooks/jupyter-book"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fdask/Dask-Gateway.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/dask/Dask-Gateway.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="dask-gateway-connection-example">
+<h1>Dask Gateway Connection Example<a class="headerlink" href="#dask-gateway-connection-example" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dask_gateway</span> <span class="kn">import</span> <span class="n">Gateway</span><span class="p">,</span> <span class="n">GatewayCluster</span>
+<span class="kn">from</span> <span class="nn">dask.distributed</span> <span class="kn">import</span> <span class="n">Client</span>
+<span class="kn">from</span> <span class="nn">dask</span> <span class="kn">import</span> <span class="n">delayed</span>
+<span class="kn">import</span> <span class="nn">os</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">gateway</span> <span class="o">=</span> <span class="n">Gateway</span><span class="p">()</span>  <span class="c1"># connect to Gateway</span>
+
+<span class="n">cluster</span> <span class="o">=</span> <span class="n">gateway</span><span class="o">.</span><span class="n">new_cluster</span><span class="p">()</span>  <span class="c1"># create cluster</span>
+<span class="n">cluster</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>  <span class="c1"># scale cluster</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">cluster</span><span class="p">)</span>  <span class="c1"># connect Client to Cluster</span>
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">e</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">e</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+    <span class="k">if</span> <span class="s1">&#39;DASK&#39;</span> <span class="ow">in</span> <span class="n">k</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">e</span><span class="p">[</span><span class="n">k</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>TRAEFIK_JHUB_DASK_GATEWAY_PORT_80_TCP_PROTO tcp
+TRAEFIK_JHUB_DASK_GATEWAY_SERVICE_PORT 80
+API_JHUB_DASK_GATEWAY_SERVICE_HOST 172.20.46.138
+DASK_GATEWAY__AUTH__TYPE jupyterhub
+DASK_ROOT_CONFIG /srv/conda/etc
+TRAEFIK_JHUB_DASK_GATEWAY_PORT_80_TCP tcp://172.20.33.191:80
+API_JHUB_DASK_GATEWAY_PORT_8000_TCP_PORT 8000
+API_JHUB_DASK_GATEWAY_PORT_8000_TCP tcp://172.20.46.138:8000
+DASK_GATEWAY__CLUSTER__OPTIONS__IMAGE {JUPYTER_IMAGE_SPEC}
+API_JHUB_DASK_GATEWAY_SERVICE_PORT 8000
+DASK_GATEWAY__PROXY_ADDRESS gateway://traefik-jhub-dask-gateway.jhub:80
+DASK_GATEWAY__ADDRESS http://172.20.147.185:8000/services/dask-gateway/
+TRAEFIK_JHUB_DASK_GATEWAY_SERVICE_HOST 172.20.33.191
+API_JHUB_DASK_GATEWAY_PORT_8000_TCP_ADDR 172.20.46.138
+API_JHUB_DASK_GATEWAY_PORT tcp://172.20.46.138:8000
+TRAEFIK_JHUB_DASK_GATEWAY_PORT tcp://172.20.33.191:80
+TRAEFIK_JHUB_DASK_GATEWAY_PORT_80_TCP_PORT 80
+TRAEFIK_JHUB_DASK_GATEWAY_PORT_80_TCP_ADDR 172.20.33.191
+TRAEFIK_JHUB_DASK_GATEWAY_SERVICE_PORT_WEB 80
+DASK_GATEWAY__PUBLIC_ADDRESS /services/dask-gateway/
+API_JHUB_DASK_GATEWAY_PORT_8000_TCP_PROTO tcp
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;JUPYTER_IMAGE_SPEC&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;dabbleofdevops/cellprofiler-notebook:pangeo-2020.12.22--rstudio-1.2.5042--dodo-fedbf25&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dask_gateway_address</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;DASK_GATEWAY__ADDRESS&#39;</span><span class="p">)</span>
+<span class="n">dask_gateway_address</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;http://172.20.147.185:8000/services/dask-gateway/&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#gateway = Gateway(dask_gateway_address, auth=&quot;jupyterhub&quot;)</span>
+<span class="n">gateway</span> <span class="o">=</span> <span class="n">Gateway</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#help(gateway)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gateway</span><span class="o">.</span><span class="n">list_clusters</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ClientResponseError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">7</span><span class="o">-</span><span class="n">f8cbd85b6152</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">gateway</span><span class="o">.</span><span class="n">list_clusters</span><span class="p">()</span>
+
+<span class="nn">/srv/conda/envs/notebook/lib/python3.8/site-packages/dask_gateway/client.py</span> in <span class="ni">list_clusters</span><span class="nt">(self, status, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">453</span>         <span class="n">clusters</span> <span class="p">:</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">ClusterReport</span>
+<span class="g g-Whitespace">    </span><span class="mi">454</span>         <span class="s2">&quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">455</span><span class="s2">         return self.sync(self._clusters, status=status, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">456</span><span class="s2"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">457</span><span class="s2">     def get_cluster(self, cluster_name, **kwargs):</span>
+
+<span class="nn">/srv/conda/envs/notebook/lib/python3.8/site-packages/dask_gateway/client.py</span> in <span class="ni">sync</span><span class="nt">(self, func, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">341</span><span class="s2">             )</span>
+<span class="g g-Whitespace">    </span><span class="mi">342</span><span class="s2">             try:</span>
+<span class="ne">--&gt; </span><span class="mi">343</span><span class="s2">                 return future.result()</span>
+<span class="g g-Whitespace">    </span><span class="mi">344</span><span class="s2">             except BaseException:</span>
+<span class="g g-Whitespace">    </span><span class="mi">345</span><span class="s2">                 future.cancel()</span>
+
+<span class="nn">/srv/conda/envs/notebook/lib/python3.8/concurrent/futures/_base.py</span> in <span class="ni">result</span><span class="nt">(self, timeout)</span>
+<span class="g g-Whitespace">    </span><span class="mi">437</span><span class="s2">                 raise CancelledError()</span>
+<span class="g g-Whitespace">    </span><span class="mi">438</span><span class="s2">             elif self._state == FINISHED:</span>
+<span class="ne">--&gt; </span><span class="mi">439</span><span class="s2">                 return self.__get_result()</span>
+<span class="g g-Whitespace">    </span><span class="mi">440</span><span class="s2">             else:</span>
+<span class="g g-Whitespace">    </span><span class="mi">441</span><span class="s2">                 raise TimeoutError()</span>
+
+<span class="nn">/srv/conda/envs/notebook/lib/python3.8/concurrent/futures/_base.py</span> in <span class="ni">__get_result</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">386</span><span class="s2">     def __get_result(self):</span>
+<span class="g g-Whitespace">    </span><span class="mi">387</span><span class="s2">         if self._exception:</span>
+<span class="ne">--&gt; </span><span class="mi">388</span><span class="s2">             raise self._exception</span>
+<span class="g g-Whitespace">    </span><span class="mi">389</span><span class="s2">         else:</span>
+<span class="g g-Whitespace">    </span><span class="mi">390</span><span class="s2">             return self._result</span>
+
+<span class="nn">/srv/conda/envs/notebook/lib/python3.8/site-packages/dask_gateway/client.py</span> in <span class="ni">_clusters</span><span class="nt">(self, status)</span>
+<span class="g g-Whitespace">    </span><span class="mi">432</span><span class="s2"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">433</span><span class="s2">         url = &quot;</span><span class="si">%s</span><span class="s2">/api/v1/clusters/</span><span class="si">%s</span><span class="s2">&quot; % (self.address, query)</span>
+<span class="ne">--&gt; </span><span class="mi">434</span><span class="s2">         resp = await self._request(&quot;GET&quot;, url)</span>
+<span class="g g-Whitespace">    </span><span class="mi">435</span><span class="s2">         data = await resp.json()</span>
+<span class="g g-Whitespace">    </span><span class="mi">436</span><span class="s2">         return [</span>
+
+<span class="nn">/srv/conda/envs/notebook/lib/python3.8/site-packages/dask_gateway/client.py</span> in <span class="ni">_request</span><span class="nt">(self, method, url, json)</span>
+<span class="g g-Whitespace">    </span><span class="mi">417</span><span class="s2">                 raise GatewayServerError(msg)</span>
+<span class="g g-Whitespace">    </span><span class="mi">418</span><span class="s2">             else:</span>
+<span class="ne">--&gt; </span><span class="mi">419</span><span class="s2">                 resp.raise_for_status()</span>
+<span class="g g-Whitespace">    </span><span class="mi">420</span><span class="s2">         else:</span>
+<span class="g g-Whitespace">    </span><span class="mi">421</span><span class="s2">             return resp</span>
+
+<span class="nn">/srv/conda/envs/notebook/lib/python3.8/site-packages/aiohttp/client_reqrep.py</span> in <span class="ni">raise_for_status</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">998</span><span class="s2">             assert self.reason is not None</span>
+<span class="g g-Whitespace">    </span><span class="mi">999</span><span class="s2">             self.release()</span>
+<span class="ne">-&gt; </span><span class="mi">1000</span><span class="s2">             raise ClientResponseError(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1001</span><span class="s2">                 self.request_info,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1002</span><span class="s2">                 self.history,</span>
+
+<span class="ne">ClientResponseError</span>: 503, message=&#39;Service Unavailable&#39;, url=URL(&#39;http://172.20.147.185:8000/services/dask-gateway/api/v1/clusters/&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cluster</span> <span class="o">=</span> <span class="n">gateway</span><span class="o">.</span><span class="n">new_cluster</span><span class="p">()</span>  <span class="c1"># create cluster</span>
+
+<span class="n">cluster</span><span class="o">.</span><span class="n">adapt</span><span class="p">(</span><span class="n">minimum</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">maximum</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">cluster</span><span class="p">)</span>  <span class="c1"># connect Client to Cluster</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ClientResponseError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">8</span><span class="o">-</span><span class="mi">7</span><span class="n">a28f95d7e22</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">cluster</span> <span class="o">=</span> <span class="n">gateway</span><span class="o">.</span><span class="n">new_cluster</span><span class="p">()</span>  <span class="c1"># create cluster</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> 
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">cluster</span><span class="o">.</span><span class="n">adapt</span><span class="p">(</span><span class="n">minimum</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">maximum</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">cluster</span><span class="p">)</span>  <span class="c1"># connect Client to Cluster</span>
+
+<span class="nn">/srv/conda/envs/notebook/lib/python3.8/site-packages/dask_gateway/client.py</span> in <span class="ni">new_cluster</span><span class="nt">(self, cluster_options, shutdown_on_close, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">637</span>         <span class="n">cluster</span> <span class="p">:</span> <span class="n">GatewayCluster</span>
+<span class="g g-Whitespace">    </span><span class="mi">638</span>         <span class="s2">&quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">639</span><span class="s2">         return GatewayCluster(</span>
+<span class="g g-Whitespace">    </span><span class="mi">640</span><span class="s2">             address=self.address,</span>
+<span class="g g-Whitespace">    </span><span class="mi">641</span><span class="s2">             proxy_address=self.proxy_address,</span>
+
+<span class="nn">/srv/conda/envs/notebook/lib/python3.8/site-packages/dask_gateway/client.py</span> in <span class="ni">__init__</span><span class="nt">(self, address, proxy_address, public_address, auth, cluster_options, shutdown_on_close, asynchronous, loop, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">812</span><span class="s2">         **kwargs,</span>
+<span class="g g-Whitespace">    </span><span class="mi">813</span><span class="s2">     ):</span>
+<span class="ne">--&gt; </span><span class="mi">814</span><span class="s2">         self._init_internal(</span>
+<span class="g g-Whitespace">    </span><span class="mi">815</span><span class="s2">             address=address,</span>
+<span class="g g-Whitespace">    </span><span class="mi">816</span><span class="s2">             proxy_address=proxy_address,</span>
+
+<span class="nn">/srv/conda/envs/notebook/lib/python3.8/site-packages/dask_gateway/client.py</span> in <span class="ni">_init_internal</span><span class="nt">(self, address, proxy_address, public_address, auth, cluster_options, cluster_kwargs, shutdown_on_close, asynchronous, loop, name)</span>
+<span class="g g-Whitespace">    </span><span class="mi">917</span><span class="s2">             self.status = &quot;starting&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">918</span><span class="s2">         if not self.asynchronous:</span>
+<span class="ne">--&gt; </span><span class="mi">919</span><span class="s2">             self.gateway.sync(self._start_internal)</span>
+<span class="g g-Whitespace">    </span><span class="mi">920</span><span class="s2"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">921</span><span class="s2">     @property</span>
+
+<span class="nn">/srv/conda/envs/notebook/lib/python3.8/site-packages/dask_gateway/client.py</span> in <span class="ni">sync</span><span class="nt">(self, func, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">341</span><span class="s2">             )</span>
+<span class="g g-Whitespace">    </span><span class="mi">342</span><span class="s2">             try:</span>
+<span class="ne">--&gt; </span><span class="mi">343</span><span class="s2">                 return future.result()</span>
+<span class="g g-Whitespace">    </span><span class="mi">344</span><span class="s2">             except BaseException:</span>
+<span class="g g-Whitespace">    </span><span class="mi">345</span><span class="s2">                 future.cancel()</span>
+
+<span class="nn">/srv/conda/envs/notebook/lib/python3.8/concurrent/futures/_base.py</span> in <span class="ni">result</span><span class="nt">(self, timeout)</span>
+<span class="g g-Whitespace">    </span><span class="mi">437</span><span class="s2">                 raise CancelledError()</span>
+<span class="g g-Whitespace">    </span><span class="mi">438</span><span class="s2">             elif self._state == FINISHED:</span>
+<span class="ne">--&gt; </span><span class="mi">439</span><span class="s2">                 return self.__get_result()</span>
+<span class="g g-Whitespace">    </span><span class="mi">440</span><span class="s2">             else:</span>
+<span class="g g-Whitespace">    </span><span class="mi">441</span><span class="s2">                 raise TimeoutError()</span>
+
+<span class="nn">/srv/conda/envs/notebook/lib/python3.8/concurrent/futures/_base.py</span> in <span class="ni">__get_result</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">386</span><span class="s2">     def __get_result(self):</span>
+<span class="g g-Whitespace">    </span><span class="mi">387</span><span class="s2">         if self._exception:</span>
+<span class="ne">--&gt; </span><span class="mi">388</span><span class="s2">             raise self._exception</span>
+<span class="g g-Whitespace">    </span><span class="mi">389</span><span class="s2">         else:</span>
+<span class="g g-Whitespace">    </span><span class="mi">390</span><span class="s2">             return self._result</span>
+
+<span class="nn">/srv/conda/envs/notebook/lib/python3.8/site-packages/dask_gateway/client.py</span> in <span class="ni">_start_internal</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">931</span><span class="s2">             self._start_task = asyncio.ensure_future(self._start_async())</span>
+<span class="g g-Whitespace">    </span><span class="mi">932</span><span class="s2">         try:</span>
+<span class="ne">--&gt; </span><span class="mi">933</span><span class="s2">             await self._start_task</span>
+<span class="g g-Whitespace">    </span><span class="mi">934</span><span class="s2">         except BaseException:</span>
+<span class="g g-Whitespace">    </span><span class="mi">935</span><span class="s2">             # On exception, cleanup</span>
+
+<span class="nn">/srv/conda/envs/notebook/lib/python3.8/site-packages/dask_gateway/client.py</span> in <span class="ni">_start_async</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">944</span><span class="s2">         if self.status == &quot;created&quot;:</span>
+<span class="g g-Whitespace">    </span><span class="mi">945</span><span class="s2">             self.status = &quot;starting&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">946</span><span class="s2">             self.name = await self.gateway._submit(</span>
+<span class="g g-Whitespace">    </span><span class="mi">947</span><span class="s2">                 cluster_options=self._cluster_options, **self._cluster_kwargs</span>
+<span class="g g-Whitespace">    </span><span class="mi">948</span><span class="s2">             )</span>
+
+<span class="nn">/srv/conda/envs/notebook/lib/python3.8/site-packages/dask_gateway/client.py</span> in <span class="ni">_submit</span><span class="nt">(self, cluster_options, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">533</span><span class="s2">             options = self._config_cluster_options()</span>
+<span class="g g-Whitespace">    </span><span class="mi">534</span><span class="s2">             options.update(kwargs)</span>
+<span class="ne">--&gt; </span><span class="mi">535</span><span class="s2">         resp = await self._request(&quot;POST&quot;, url, json={&quot;cluster_options&quot;: options})</span>
+<span class="g g-Whitespace">    </span><span class="mi">536</span><span class="s2">         data = await resp.json()</span>
+<span class="g g-Whitespace">    </span><span class="mi">537</span><span class="s2">         return data[&quot;name&quot;]</span>
+
+<span class="nn">/srv/conda/envs/notebook/lib/python3.8/site-packages/dask_gateway/client.py</span> in <span class="ni">_request</span><span class="nt">(self, method, url, json)</span>
+<span class="g g-Whitespace">    </span><span class="mi">417</span><span class="s2">                 raise GatewayServerError(msg)</span>
+<span class="g g-Whitespace">    </span><span class="mi">418</span><span class="s2">             else:</span>
+<span class="ne">--&gt; </span><span class="mi">419</span><span class="s2">                 resp.raise_for_status()</span>
+<span class="g g-Whitespace">    </span><span class="mi">420</span><span class="s2">         else:</span>
+<span class="g g-Whitespace">    </span><span class="mi">421</span><span class="s2">             return resp</span>
+
+<span class="nn">/srv/conda/envs/notebook/lib/python3.8/site-packages/aiohttp/client_reqrep.py</span> in <span class="ni">raise_for_status</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">998</span><span class="s2">             assert self.reason is not None</span>
+<span class="g g-Whitespace">    </span><span class="mi">999</span><span class="s2">             self.release()</span>
+<span class="ne">-&gt; </span><span class="mi">1000</span><span class="s2">             raise ClientResponseError(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1001</span><span class="s2">                 self.request_info,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1002</span><span class="s2">                 self.history,</span>
+
+<span class="ne">ClientResponseError</span>: 503, message=&#39;Service Unavailable&#39;, url=URL(&#39;http://172.20.147.185:8000/services/dask-gateway/api/v1/clusters/&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">client</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">9</span><span class="o">-</span><span class="mi">4</span><span class="n">fc2685c9fed</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">client</span>
+
+<span class="ne">NameError</span>: name &#39;client&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#client.get_versions(check=True)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">options</span> <span class="o">=</span> <span class="n">gateway</span><span class="o">.</span><span class="n">cluster_options</span><span class="p">()</span>
+<span class="n">options</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ClientResponseError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="n">fc731304292e</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">options</span> <span class="o">=</span> <span class="n">gateway</span><span class="o">.</span><span class="n">cluster_options</span><span class="p">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">options</span>
+
+<span class="nn">/srv/conda/envs/notebook/lib/python3.8/site-packages/dask_gateway/client.py</span> in <span class="ni">cluster_options</span><span class="nt">(self, use_local_defaults, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">516</span>             <span class="n">A</span> <span class="nb">dict</span> <span class="n">of</span> <span class="n">cluster</span> <span class="n">options</span><span class="o">.</span>
+<span class="g g-Whitespace">    </span><span class="mi">517</span>         <span class="s2">&quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">518</span><span class="s2">         return self.sync(</span>
+<span class="g g-Whitespace">    </span><span class="mi">519</span><span class="s2">             self._cluster_options, use_local_defaults=use_local_defaults, **kwargs</span>
+<span class="g g-Whitespace">    </span><span class="mi">520</span><span class="s2">         )</span>
+
+<span class="nn">/srv/conda/envs/notebook/lib/python3.8/site-packages/dask_gateway/client.py</span> in <span class="ni">sync</span><span class="nt">(self, func, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">341</span><span class="s2">             )</span>
+<span class="g g-Whitespace">    </span><span class="mi">342</span><span class="s2">             try:</span>
+<span class="ne">--&gt; </span><span class="mi">343</span><span class="s2">                 return future.result()</span>
+<span class="g g-Whitespace">    </span><span class="mi">344</span><span class="s2">             except BaseException:</span>
+<span class="g g-Whitespace">    </span><span class="mi">345</span><span class="s2">                 future.cancel()</span>
+
+<span class="nn">/srv/conda/envs/notebook/lib/python3.8/concurrent/futures/_base.py</span> in <span class="ni">result</span><span class="nt">(self, timeout)</span>
+<span class="g g-Whitespace">    </span><span class="mi">437</span><span class="s2">                 raise CancelledError()</span>
+<span class="g g-Whitespace">    </span><span class="mi">438</span><span class="s2">             elif self._state == FINISHED:</span>
+<span class="ne">--&gt; </span><span class="mi">439</span><span class="s2">                 return self.__get_result()</span>
+<span class="g g-Whitespace">    </span><span class="mi">440</span><span class="s2">             else:</span>
+<span class="g g-Whitespace">    </span><span class="mi">441</span><span class="s2">                 raise TimeoutError()</span>
+
+<span class="nn">/srv/conda/envs/notebook/lib/python3.8/concurrent/futures/_base.py</span> in <span class="ni">__get_result</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">386</span><span class="s2">     def __get_result(self):</span>
+<span class="g g-Whitespace">    </span><span class="mi">387</span><span class="s2">         if self._exception:</span>
+<span class="ne">--&gt; </span><span class="mi">388</span><span class="s2">             raise self._exception</span>
+<span class="g g-Whitespace">    </span><span class="mi">389</span><span class="s2">         else:</span>
+<span class="g g-Whitespace">    </span><span class="mi">390</span><span class="s2">             return self._result</span>
+
+<span class="nn">/srv/conda/envs/notebook/lib/python3.8/site-packages/dask_gateway/client.py</span> in <span class="ni">_cluster_options</span><span class="nt">(self, use_local_defaults)</span>
+<span class="g g-Whitespace">    </span><span class="mi">495</span><span class="s2">     async def _cluster_options(self, use_local_defaults=True):</span>
+<span class="g g-Whitespace">    </span><span class="mi">496</span><span class="s2">         url = &quot;</span><span class="si">%s</span><span class="s2">/api/v1/options&quot; </span><span class="si">% s</span><span class="s2">elf.address</span>
+<span class="ne">--&gt; </span><span class="mi">497</span><span class="s2">         resp = await self._request(&quot;GET&quot;, url)</span>
+<span class="g g-Whitespace">    </span><span class="mi">498</span><span class="s2">         data = await resp.json()</span>
+<span class="g g-Whitespace">    </span><span class="mi">499</span><span class="s2">         options = Options._from_spec(data[&quot;cluster_options&quot;])</span>
+
+<span class="nn">/srv/conda/envs/notebook/lib/python3.8/site-packages/dask_gateway/client.py</span> in <span class="ni">_request</span><span class="nt">(self, method, url, json)</span>
+<span class="g g-Whitespace">    </span><span class="mi">417</span><span class="s2">                 raise GatewayServerError(msg)</span>
+<span class="g g-Whitespace">    </span><span class="mi">418</span><span class="s2">             else:</span>
+<span class="ne">--&gt; </span><span class="mi">419</span><span class="s2">                 resp.raise_for_status()</span>
+<span class="g g-Whitespace">    </span><span class="mi">420</span><span class="s2">         else:</span>
+<span class="g g-Whitespace">    </span><span class="mi">421</span><span class="s2">             return resp</span>
+
+<span class="nn">/srv/conda/envs/notebook/lib/python3.8/site-packages/aiohttp/client_reqrep.py</span> in <span class="ni">raise_for_status</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">998</span><span class="s2">             assert self.reason is not None</span>
+<span class="g g-Whitespace">    </span><span class="mi">999</span><span class="s2">             self.release()</span>
+<span class="ne">-&gt; </span><span class="mi">1000</span><span class="s2">             raise ClientResponseError(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1001</span><span class="s2">                 self.request_info,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1002</span><span class="s2">                 self.history,</span>
+
+<span class="ne">ClientResponseError</span>: 503, message=&#39;Service Unavailable&#39;, url=URL(&#39;http://172.20.147.185:8000/services/dask-gateway/api/v1/options&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cluster</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">4</span><span class="n">cb40cc381f3</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">cluster</span>
+
+<span class="ne">NameError</span>: name &#39;cluster&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">dask.array</span> <span class="k">as</span> <span class="nn">da</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">10000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">),</span> <span class="n">chunks</span><span class="o">=</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">500</span><span class="p">))</span>
+<span class="n">a</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.4916643179885656e-05
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Optional - Shut down your cluster. </span>
+<span class="c1"># The Dask Cluster will also be shutdown when you logout</span>
+<span class="c1">#clusters = gateway.list_clusters()</span>
+<span class="c1">#for cluster in clusters:</span>
+<span class="c1">#    gateway.stop_cluster(cluster.name)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#gateway.list_clusters()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "conda-env-notebook-pye"
+        },
+        kernelOptions: {
+            kernelName: "conda-env-notebook-pye",
+            path: "./dask"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'conda-env-notebook-pye'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By STEM-Away<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>

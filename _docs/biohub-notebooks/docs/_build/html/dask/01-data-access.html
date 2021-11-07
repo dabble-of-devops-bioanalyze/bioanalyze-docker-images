@@ -1,0 +1,1250 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dask Example Notebook &#8212; STEM-Away Demo</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Dask on Jupyterlab For Bioinformatics" href="dask-intro.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/stem-away-logo.jpeg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">STEM-Away Demo</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../content.html">
+   Data Set Annotations
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../scanpy/scanpy-intro.html">
+   Single Cell Analysis with Scanpy
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../scanpy/pbmc3k.html">
+     Preprocessing and clustering 3k PBMCs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../scanpy/cellxgene.html">
+     Launch CellXGene
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../cellprofiler/cellprofiler-intro.html">
+   High Content Screening Analysis with CellProfiler
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../cellprofiler/cellprofiler_demo.html">
+     CellProfiler Example Notebook
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../mlflow/mlflow-intro.html">
+   MLFlow and Running Services
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../mlflow/MLFlow.html">
+     Run MLFlow
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../mlflow/MLFlow.html#view-any-server-in-a-browser">
+     View Any Server in a Browser
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 current active collapsible-parent">
+  <a class="reference internal" href="dask-intro.html">
+   Dask on Jupyterlab For Bioinformatics
+  </a>
+  <ul class="current collapse-ul">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Dask Example Notebook
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="#dataframes-read-and-write-data">
+     DataFrames: Read and Write Data
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/dask/01-data-access.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+        <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/executablebooks/jupyter-book"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fdask/01-data-access.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/dask/01-data-access.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Dask Example Notebook
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dataframes-read-and-write-data">
+   DataFrames: Read and Write Data
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#start-dask-client-for-dashboard">
+     Start Dask Client for Dashboard
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#create-artificial-dataset">
+     Create artificial dataset
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#read-csv-files">
+     Read CSV files
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tuning-read-csv">
+     Tuning read_csv
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#do-a-simple-computation">
+     Do a simple computation
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#write-to-parquet">
+     Write to Parquet
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#read-from-parquet">
+     Read from Parquet
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#select-only-the-columns-that-you-plan-to-use">
+     Select only the columns that you plan to use
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#learn-more">
+     Learn more
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="dask-example-notebook">
+<h1>Dask Example Notebook<a class="headerlink" href="#dask-example-notebook" title="Permalink to this headline">¶</a></h1>
+<p>This example comes from - https://github.com/dask/dask-examples/blob/master/dataframes/01-data-access.ipynb</p>
+</div>
+<div class="section" id="dataframes-read-and-write-data">
+<h1>DataFrames: Read and Write Data<a class="headerlink" href="#dataframes-read-and-write-data" title="Permalink to this headline">¶</a></h1>
+<p>Dask Dataframes can read and store data in many of the same formats as Pandas dataframes.  In this example we read and write data with the popular CSV and Parquet formats, and discuss best practices when using these formats.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span>
+
+<span class="n">HTML</span><span class="p">(</span><span class="s1">&#39;&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/0eEsIA0O1iE?rel=0&amp;amp;controls=0&amp;amp;showinfo=0&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/srv/conda/envs/notebook/lib/python3.8/site-packages/IPython/core/display.py:717: UserWarning: Consider using IPython.display.IFrame instead
+  warnings.warn(&quot;Consider using IPython.display.IFrame instead&quot;)
+</pre></div>
+</div>
+<div class="output text_html"><iframe width="560" height="315" src="https://www.youtube.com/embed/0eEsIA0O1iE?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>
+</div>
+<div class="section" id="start-dask-client-for-dashboard">
+<h2>Start Dask Client for Dashboard<a class="headerlink" href="#start-dask-client-for-dashboard" title="Permalink to this headline">¶</a></h2>
+<p>Starting the Dask Client is optional.  It will provide a dashboard which
+is useful to gain insight on the computation.</p>
+<p>The link to the dashboard will become visible when you create the client below.  We recommend having it open on one side of your screen while using your notebook on the other side.  This can take some effort to arrange your windows, but seeing them both at the same is very useful when learning.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dask.distributed</span> <span class="kn">import</span> <span class="n">Client</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">n_workers</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">threads_per_worker</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">processes</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">memory_limit</span><span class="o">=</span><span class="s1">&#39;2GB&#39;</span><span class="p">)</span>
+<span class="n">client</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table style="border: 2px solid white;">
+<tr>
+<td style="vertical-align: top; border: 0px solid white">
+<h3 style="text-align: left;">Client</h3>
+<ul style="text-align: left; list-style: none; margin: 0; padding: 0;">
+  <li><b>Scheduler: </b>inproc://10.0.3.161/672/1</li>
+  <li><b>Dashboard: </b><a href='http://10.0.3.161:8787/status' target='_blank'>http://10.0.3.161:8787/status</a></li>
+</ul>
+</td>
+<td style="vertical-align: top; border: 0px solid white">
+<h3 style="text-align: left;">Cluster</h3>
+<ul style="text-align: left; list-style:none; margin: 0; padding: 0;">
+  <li><b>Workers: </b>1</li>
+  <li><b>Cores: </b>4</li>
+  <li><b>Memory: </b>2.00 GB</li>
+</ul>
+</td>
+</tr>
+</table></div></div>
+</div>
+</div>
+<div class="section" id="create-artificial-dataset">
+<h2>Create artificial dataset<a class="headerlink" href="#create-artificial-dataset" title="Permalink to this headline">¶</a></h2>
+<p>First we create an artificial dataset and write it to many CSV files.</p>
+<p>You don’t need to understand this section, we’re just creating a dataset for the rest of the notebook.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">dask</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">dask</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">timeseries</span><span class="p">()</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div><strong>Dask DataFrame Structure:</strong></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>name</th>
+      <th>x</th>
+      <th>y</th>
+    </tr>
+    <tr>
+      <th>npartitions=30</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2000-01-01</th>
+      <td>int64</td>
+      <td>object</td>
+      <td>float64</td>
+      <td>float64</td>
+    </tr>
+    <tr>
+      <th>2000-01-02</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2000-01-30</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2000-01-31</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<div>Dask Name: make-timeseries, 30 tasks</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">):</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Provide date for filename given index</span>
+<span class="sd">    </span>
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; name(0)</span>
+<span class="sd">    &#39;2000-01-01&#39;</span>
+<span class="sd">    &gt;&gt;&gt; name(10)</span>
+<span class="sd">    &#39;2000-01-11&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">i</span> <span class="o">*</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+    
+<span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;data/*.csv&#39;</span><span class="p">,</span> <span class="n">name_function</span><span class="o">=</span><span class="n">name</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="read-csv-files">
+<h2>Read CSV files<a class="headerlink" href="#read-csv-files" title="Permalink to this headline">¶</a></h2>
+<p>We now have many CSV files in our data directory, one for each day in the month of January 2000.  Each CSV file holds timeseries data for that day.  We can read all of them as one logical dataframe using the <code class="docutils literal notranslate"><span class="pre">dd.read_csv</span></code> function with a glob string.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>ls data/*.csv <span class="p">|</span> head
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>data/2000-01-01.csv
+data/2000-01-02.csv
+data/2000-01-03.csv
+data/2000-01-04.csv
+data/2000-01-05.csv
+data/2000-01-06.csv
+data/2000-01-07.csv
+data/2000-01-08.csv
+data/2000-01-09.csv
+data/2000-01-10.csv
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>head data/2000-01-01.csv
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>timestamp,id,name,x,y
+2000-01-01 00:00:00,984,Ingrid,0.37614107378861306,0.0326675783585213
+2000-01-01 00:00:01,963,Frank,-0.25542277892762844,-0.02808928177821035
+2000-01-01 00:00:02,1030,Xavier,0.9177062414070785,-0.6940206995152813
+2000-01-01 00:00:03,1015,Ursula,-0.148370673786131,-0.18146422880549729
+2000-01-01 00:00:04,1009,Wendy,-0.3683559933164464,-0.3923673731140642
+2000-01-01 00:00:05,980,Edith,0.2582115851661255,0.2744227907898813
+2000-01-01 00:00:06,980,George,-0.515268329715955,0.18361066869925136
+2000-01-01 00:00:07,960,Xavier,-0.8332451054838284,0.32516677549518014
+2000-01-01 00:00:08,937,Wendy,-0.7632150137024083,0.8386605251057861
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>head data/2000-01-30.csv
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>timestamp,id,name,x,y
+2000-01-30 00:00:00,969,Xavier,-0.6111097161142283,-0.11656459420398768
+2000-01-30 00:00:01,1081,Bob,0.2230327326823789,0.9589459081082023
+2000-01-30 00:00:02,1026,Sarah,0.25292497990498886,-0.6441367967401748
+2000-01-30 00:00:03,1000,Sarah,0.14901148095806382,0.6001264875413503
+2000-01-30 00:00:04,1012,Quinn,0.2434241550899241,0.1726491609613785
+2000-01-30 00:00:05,980,Michael,-0.9873008311638907,0.0941639776788421
+2000-01-30 00:00:06,1007,Laura,0.10907673789208405,0.3430901973858258
+2000-01-30 00:00:07,1006,Victor,-0.7657233424141741,0.2465661433291797
+2000-01-30 00:00:08,993,Victor,-0.2719947896046002,-0.4529850803634019
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can read one file with <code class="docutils literal notranslate"><span class="pre">pandas.read_csv</span></code> or many files with <code class="docutils literal notranslate"><span class="pre">dask.dataframe.read_csv</span></code></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/2000-01-01.csv&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>timestamp</th>
+      <th>id</th>
+      <th>name</th>
+      <th>x</th>
+      <th>y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2000-01-01 00:00:00</td>
+      <td>984</td>
+      <td>Ingrid</td>
+      <td>0.376141</td>
+      <td>0.032668</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2000-01-01 00:00:01</td>
+      <td>963</td>
+      <td>Frank</td>
+      <td>-0.255423</td>
+      <td>-0.028089</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2000-01-01 00:00:02</td>
+      <td>1030</td>
+      <td>Xavier</td>
+      <td>0.917706</td>
+      <td>-0.694021</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2000-01-01 00:00:03</td>
+      <td>1015</td>
+      <td>Ursula</td>
+      <td>-0.148371</td>
+      <td>-0.181464</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2000-01-01 00:00:04</td>
+      <td>1009</td>
+      <td>Wendy</td>
+      <td>-0.368356</td>
+      <td>-0.392367</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">dask.dataframe</span> <span class="k">as</span> <span class="nn">dd</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">dd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/2000-*-*.csv&#39;</span><span class="p">)</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div><strong>Dask DataFrame Structure:</strong></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>timestamp</th>
+      <th>id</th>
+      <th>name</th>
+      <th>x</th>
+      <th>y</th>
+    </tr>
+    <tr>
+      <th>npartitions=30</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th></th>
+      <td>object</td>
+      <td>int64</td>
+      <td>object</td>
+      <td>float64</td>
+      <td>float64</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<div>Dask Name: read-csv, 30 tasks</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>timestamp</th>
+      <th>id</th>
+      <th>name</th>
+      <th>x</th>
+      <th>y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2000-01-01 00:00:00</td>
+      <td>984</td>
+      <td>Ingrid</td>
+      <td>0.376141</td>
+      <td>0.032668</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2000-01-01 00:00:01</td>
+      <td>963</td>
+      <td>Frank</td>
+      <td>-0.255423</td>
+      <td>-0.028089</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2000-01-01 00:00:02</td>
+      <td>1030</td>
+      <td>Xavier</td>
+      <td>0.917706</td>
+      <td>-0.694021</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2000-01-01 00:00:03</td>
+      <td>1015</td>
+      <td>Ursula</td>
+      <td>-0.148371</td>
+      <td>-0.181464</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2000-01-01 00:00:04</td>
+      <td>1009</td>
+      <td>Wendy</td>
+      <td>-0.368356</td>
+      <td>-0.392367</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
+<div class="section" id="tuning-read-csv">
+<h2>Tuning read_csv<a class="headerlink" href="#tuning-read-csv" title="Permalink to this headline">¶</a></h2>
+<p>The Pandas <code class="docutils literal notranslate"><span class="pre">read_csv</span></code> function has <em>many</em> options to help you parse files.  The Dask version uses the Pandas function internally, and so supports many of the same options.  You can use the <code class="docutils literal notranslate"><span class="pre">?</span></code> operator to see the full documentation string.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pd.read_csv<span class="o">?</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>dd.read_csv<span class="o">?</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>In this case we use the <code class="docutils literal notranslate"><span class="pre">parse_dates</span></code> keyword to parse the timestamp column to be a datetime.  This will make things more efficient in the future.  Notice that the dtype of the timestamp column has changed from <code class="docutils literal notranslate"><span class="pre">object</span></code> to <code class="docutils literal notranslate"><span class="pre">datetime64[ns]</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">dd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/2000-*-*.csv&#39;</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">])</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div><strong>Dask DataFrame Structure:</strong></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>timestamp</th>
+      <th>id</th>
+      <th>name</th>
+      <th>x</th>
+      <th>y</th>
+    </tr>
+    <tr>
+      <th>npartitions=30</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th></th>
+      <td>datetime64[ns]</td>
+      <td>int64</td>
+      <td>object</td>
+      <td>float64</td>
+      <td>float64</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<div>Dask Name: read-csv, 30 tasks</div></div></div>
+</div>
+</div>
+<div class="section" id="do-a-simple-computation">
+<h2>Do a simple computation<a class="headerlink" href="#do-a-simple-computation" title="Permalink to this headline">¶</a></h2>
+<p>Whenever we operate on our dataframe we read through all of our CSV data so that we don’t fill up RAM.  This is very efficient for memory use, but reading through all of the CSV files every time can be slow.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">time</span> df.groupby(&#39;name&#39;).x.mean().compute()
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 5.19 s, sys: 535 ms, total: 5.72 s
+Wall time: 4.12 s
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>name
+Alice       0.002102
+Bob        -0.002493
+Charlie    -0.001104
+Dan         0.002486
+Edith      -0.002631
+Frank       0.000913
+George      0.000266
+Hannah      0.002689
+Ingrid      0.000663
+Jerry      -0.000173
+Kevin      -0.003633
+Laura      -0.000632
+Michael     0.000026
+Norbert     0.000869
+Oliver      0.000380
+Patricia   -0.001270
+Quinn       0.002163
+Ray        -0.002743
+Sarah      -0.000787
+Tim         0.001211
+Ursula      0.000994
+Victor      0.000135
+Wendy      -0.002047
+Xavier      0.002100
+Yvonne     -0.003877
+Zelda      -0.001764
+Name: x, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="write-to-parquet">
+<h2>Write to Parquet<a class="headerlink" href="#write-to-parquet" title="Permalink to this headline">¶</a></h2>
+<p>Instead, we’ll store our data in Parquet, a format that is more efficient for computers to read and write.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">to_parquet</span><span class="p">(</span><span class="s1">&#39;data/2000-01.parquet&#39;</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;pyarrow&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>ls data/2000-01.parquet/
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>_common_metadata  part.14.parquet  part.21.parquet  part.29.parquet
+_metadata	  part.15.parquet  part.22.parquet  part.3.parquet
+part.0.parquet	  part.16.parquet  part.23.parquet  part.4.parquet
+part.1.parquet	  part.17.parquet  part.24.parquet  part.5.parquet
+part.10.parquet   part.18.parquet  part.25.parquet  part.6.parquet
+part.11.parquet   part.19.parquet  part.26.parquet  part.7.parquet
+part.12.parquet   part.2.parquet   part.27.parquet  part.8.parquet
+part.13.parquet   part.20.parquet  part.28.parquet  part.9.parquet
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="read-from-parquet">
+<h2>Read from Parquet<a class="headerlink" href="#read-from-parquet" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">dd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="s1">&#39;data/2000-01.parquet&#39;</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;pyarrow&#39;</span><span class="p">)</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div><strong>Dask DataFrame Structure:</strong></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>timestamp</th>
+      <th>id</th>
+      <th>name</th>
+      <th>x</th>
+      <th>y</th>
+    </tr>
+    <tr>
+      <th>npartitions=30</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th></th>
+      <td>datetime64[ns]</td>
+      <td>int64</td>
+      <td>object</td>
+      <td>float64</td>
+      <td>float64</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<div>Dask Name: read-parquet, 30 tasks</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">time</span> df.groupby(&#39;name&#39;).x.mean().compute()
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 1.67 s, sys: 227 ms, total: 1.9 s
+Wall time: 1.48 s
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>name
+Alice       0.002102
+Bob        -0.002493
+Charlie    -0.001104
+Dan         0.002486
+Edith      -0.002631
+Frank       0.000913
+George      0.000266
+Hannah      0.002689
+Ingrid      0.000663
+Jerry      -0.000173
+Kevin      -0.003633
+Laura      -0.000632
+Michael     0.000026
+Norbert     0.000869
+Oliver      0.000380
+Patricia   -0.001270
+Quinn       0.002163
+Ray        -0.002743
+Sarah      -0.000787
+Tim         0.001211
+Ursula      0.000994
+Victor      0.000135
+Wendy      -0.002047
+Xavier      0.002100
+Yvonne     -0.003877
+Zelda      -0.001764
+Name: x, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="select-only-the-columns-that-you-plan-to-use">
+<h2>Select only the columns that you plan to use<a class="headerlink" href="#select-only-the-columns-that-you-plan-to-use" title="Permalink to this headline">¶</a></h2>
+<p>Parquet is a column-store, which means that it can efficiently pull out only a few columns from your dataset.  This is good because it helps to avoid unnecessary data loading.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">dd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="s1">&#39;data/2000-01.parquet&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">],</span> <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;pyarrow&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 1.45 s, sys: 153 ms, total: 1.6 s
+Wall time: 1.25 s
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>name
+Alice       0.002102
+Bob        -0.002493
+Charlie    -0.001104
+Dan         0.002486
+Edith      -0.002631
+Frank       0.000913
+George      0.000266
+Hannah      0.002689
+Ingrid      0.000663
+Jerry      -0.000173
+Kevin      -0.003633
+Laura      -0.000632
+Michael     0.000026
+Norbert     0.000869
+Oliver      0.000380
+Patricia   -0.001270
+Quinn       0.002163
+Ray        -0.002743
+Sarah      -0.000787
+Tim         0.001211
+Ursula      0.000994
+Victor      0.000135
+Wendy      -0.002047
+Xavier      0.002100
+Yvonne     -0.003877
+Zelda      -0.001764
+Name: x, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here the difference is not that large, but with larger datasets this can save a great deal of time.</p>
+</div>
+<div class="section" id="learn-more">
+<h2>Learn more<a class="headerlink" href="#learn-more" title="Permalink to this headline">¶</a></h2>
+<p>http://dask.pydata.org/en/latest/dataframe-create.html</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "conda-env-notebook-pye"
+        },
+        kernelOptions: {
+            kernelName: "conda-env-notebook-pye",
+            path: "./dask"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'conda-env-notebook-pye'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="dask-intro.html" title="previous page">Dask on Jupyterlab For Bioinformatics</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By STEM-Away<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>
