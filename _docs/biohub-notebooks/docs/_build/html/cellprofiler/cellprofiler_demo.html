@@ -1,0 +1,734 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CellProfiler Example Notebook &#8212; STEM-Away Demo</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="MLFlow and Running Services" href="../mlflow/mlflow-intro.html" />
+    <link rel="prev" title="High Content Screening Analysis with CellProfiler" href="cellprofiler-intro.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/stem-away-logo.jpeg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">STEM-Away Demo</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../content.html">
+   Data Set Annotations
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../scanpy/scanpy-intro.html">
+   Single Cell Analysis with Scanpy
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../scanpy/pbmc3k.html">
+     Preprocessing and clustering 3k PBMCs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../scanpy/cellxgene.html">
+     Launch CellXGene
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 current active collapsible-parent">
+  <a class="reference internal" href="cellprofiler-intro.html">
+   High Content Screening Analysis with CellProfiler
+  </a>
+  <ul class="current collapse-ul">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     CellProfiler Example Notebook
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../mlflow/mlflow-intro.html">
+   MLFlow and Running Services
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../mlflow/MLFlow.html">
+     Run MLFlow
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../mlflow/MLFlow.html#view-any-server-in-a-browser">
+     View Any Server in a Browser
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../dask/dask-intro.html">
+   Dask on Jupyterlab For Bioinformatics
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../dask/01-data-access.html">
+     Dask Example Notebook
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../dask/01-data-access.html#dataframes-read-and-write-data">
+     DataFrames: Read and Write Data
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/cellprofiler/cellprofiler_demo.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+        <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/executablebooks/jupyter-book"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fcellprofiler/cellprofiler_demo.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/cellprofiler/cellprofiler_demo.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#get-help">
+   Get Help
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#additional-considerations">
+   Additional Considerations
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#saving-data-frames">
+     Saving Data Frames
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#save-as-a-csv">
+       Save as a CSV
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#save-as-a-parquet">
+       Save as a Parquet
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#save-to-s3">
+       Save to S3
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="cellprofiler-example-notebook">
+<h1>CellProfiler Example Notebook<a class="headerlink" href="#cellprofiler-example-notebook" title="Permalink to this headline">¶</a></h1>
+<p>The cellprofiler example notebook came from the <a class="reference external" href="https://github.com/CellProfiler/notebooks/blob/master/cellprofiler_demo.ipynb">CellProfiler notebooks repo</a> with thanks. The only changes that were made were fix some import errors for CellProfiler v4.</p>
+<p>Data comes from the <a class="reference external" href="https://github.com/CellProfiler/notebooks/tree/master/data">CellProfiler notebook repo</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">import</span> <span class="nn">cellprofiler</span>
+<span class="kn">import</span> <span class="nn">cellprofiler_core</span>
+<span class="kn">import</span> <span class="nn">cellprofiler_core.pipeline</span>
+<span class="kn">from</span> <span class="nn">cellprofiler_core.preferences</span> <span class="kn">import</span> <span class="n">set_headless</span>
+
+<span class="kn">import</span> <span class="nn">cellprofiler_core.image</span>
+<span class="kn">import</span> <span class="nn">cellprofiler_core.measurement</span>
+
+<span class="kn">import</span> <span class="nn">cellprofiler.modules.maskimage</span>
+<span class="kn">import</span> <span class="nn">cellprofiler_core.pipeline</span>
+<span class="kn">import</span> <span class="nn">cellprofiler_core.workspace</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">skimage.io</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">run_pipeline</span><span class="p">(</span><span class="n">pipeline_filename</span><span class="p">,</span> <span class="n">image_dict</span><span class="p">):</span>
+    <span class="n">set_headless</span><span class="p">()</span>
+    
+    <span class="c1"># Create and load the pipeline</span>
+    <span class="n">pipeline</span> <span class="o">=</span> <span class="n">cellprofiler_core</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">Pipeline</span><span class="p">()</span>
+    <span class="n">pipeline</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">pipeline_filename</span><span class="p">)</span>
+    
+    <span class="c1"># Create the image set, and add the image data</span>
+    <span class="n">image_set_list</span> <span class="o">=</span> <span class="n">cellprofiler_core</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">ImageSetList</span><span class="p">()</span>
+    <span class="n">image_set</span> <span class="o">=</span> <span class="n">image_set_list</span><span class="o">.</span><span class="n">get_image_set</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">image_name</span><span class="p">,</span> <span class="n">input_pixels</span> <span class="ow">in</span> <span class="n">image_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">image_set</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">image_name</span><span class="p">,</span> <span class="n">cellprofiler_core</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="n">input_pixels</span><span class="p">))</span>
+        
+    <span class="c1"># Persist the object set here (for now, see workspace TODO)</span>
+    <span class="n">object_set</span> <span class="o">=</span> <span class="n">cellprofiler_core</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">ObjectSet</span><span class="p">()</span>
+
+    <span class="c1"># We can only run one group -- set the group index to 1.</span>
+    <span class="n">measurements</span> <span class="o">=</span> <span class="n">cellprofiler_core</span><span class="o">.</span><span class="n">measurement</span><span class="o">.</span><span class="n">Measurements</span><span class="p">()</span>
+    <span class="n">measurements</span><span class="o">.</span><span class="n">group_index</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="c1"># Run the modules!</span>
+    <span class="k">for</span> <span class="n">module</span> <span class="ow">in</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">modules</span><span class="p">():</span>
+        <span class="c1"># Yes, we really do have to create a new workspace for each module</span>
+        <span class="c1"># because the module attribute is required. Go team.</span>
+        <span class="n">workspace</span> <span class="o">=</span> <span class="n">cellprofiler_core</span><span class="o">.</span><span class="n">workspace</span><span class="o">.</span><span class="n">Workspace</span><span class="p">(</span>
+            <span class="n">image_set</span><span class="o">=</span><span class="n">image_set</span><span class="p">,</span>
+            <span class="n">image_set_list</span><span class="o">=</span><span class="n">image_set_list</span><span class="p">,</span>
+            <span class="n">measurements</span><span class="o">=</span><span class="n">measurements</span><span class="p">,</span> 
+            <span class="n">module</span><span class="o">=</span><span class="n">module</span><span class="p">,</span>
+            <span class="n">object_set</span><span class="o">=</span><span class="n">object_set</span><span class="p">,</span> 
+            <span class="n">pipeline</span><span class="o">=</span><span class="n">pipeline</span>
+        <span class="p">)</span>
+        
+        <span class="n">module</span><span class="o">.</span><span class="n">prepare_run</span><span class="p">(</span><span class="n">workspace</span><span class="p">)</span>
+        <span class="n">module</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">workspace</span><span class="p">)</span>
+        <span class="n">module</span><span class="o">.</span><span class="n">post_run</span><span class="p">(</span><span class="n">workspace</span><span class="p">)</span>
+    
+    <span class="c1"># The workspace object has access to the measurements</span>
+    <span class="c1"># and the image set/image set list which can be used</span>
+    <span class="c1"># to use/view/store/whatever output data.</span>
+    <span class="k">return</span> <span class="n">workspace</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">objects2df</span><span class="p">(</span><span class="n">measurements</span><span class="p">,</span> <span class="n">objects_name</span><span class="p">):</span>
+    <span class="n">features</span> <span class="o">=</span> <span class="n">measurements</span><span class="o">.</span><span class="n">get_feature_names</span><span class="p">(</span><span class="n">objects_name</span><span class="p">)</span>
+    
+    <span class="n">n_features</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
+    <span class="n">n_objects</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">measurements</span><span class="o">.</span><span class="n">get_measurement</span><span class="p">(</span><span class="s2">&quot;Image&quot;</span><span class="p">,</span> <span class="s2">&quot;Count_</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">objects_name</span><span class="p">)))</span>
+    
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">n_objects</span><span class="p">,</span> <span class="n">n_features</span><span class="p">))</span>
+    
+    <span class="k">for</span> <span class="n">feature_idx</span><span class="p">,</span> <span class="n">feature</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">features</span><span class="p">):</span>
+        <span class="n">data</span><span class="p">[:,</span> <span class="n">feature_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">measurements</span><span class="o">.</span><span class="n">get_measurement</span><span class="p">(</span><span class="n">objects_name</span><span class="p">,</span> <span class="n">feature</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+        <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
+        <span class="n">index</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_objects</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span>
+        <span class="n">columns</span><span class="o">=</span><span class="n">features</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;/home/jovyan/biohub-notebooks/docs/_source/cellprofiler&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This should match what NamesAndTypes would produce.</span>
+<span class="n">data_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s2">&quot;data&quot;</span><span class="p">)</span>
+
+
+<span class="n">images</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;OrigBlue&quot;</span><span class="p">:</span> <span class="n">skimage</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="s2">&quot;images/01_POS002_D.TIF&quot;</span><span class="p">)),</span>
+    <span class="s2">&quot;OrigGreen&quot;</span><span class="p">:</span> <span class="n">skimage</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="s2">&quot;images/01_POS002_F.TIF&quot;</span><span class="p">)),</span>
+    <span class="s2">&quot;OrigRed&quot;</span><span class="p">:</span> <span class="n">skimage</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="s2">&quot;images/01_POS002_R.TIF&quot;</span><span class="p">))</span>
+<span class="p">}</span>
+
+<span class="n">pipeline_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span> <span class="p">,</span> <span class="s2">&quot;ExampleFly.cppipe&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">workspace</span> <span class="o">=</span> <span class="n">run_pipeline</span><span class="p">(</span><span class="n">pipeline_filename</span><span class="p">,</span> <span class="n">images</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the &quot;Nuclei&quot; object measurements, as a pandas DataFrame</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">objects2df</span><span class="p">(</span><span class="n">workspace</span><span class="o">.</span><span class="n">measurements</span><span class="p">,</span> <span class="s2">&quot;Nuclei&quot;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>AreaShape_Area</th>
+      <th>AreaShape_BoundingBoxArea</th>
+      <th>AreaShape_BoundingBoxMaximum_X</th>
+      <th>AreaShape_BoundingBoxMaximum_Y</th>
+      <th>AreaShape_BoundingBoxMinimum_X</th>
+      <th>AreaShape_BoundingBoxMinimum_Y</th>
+      <th>AreaShape_Center_X</th>
+      <th>AreaShape_Center_Y</th>
+      <th>AreaShape_Compactness</th>
+      <th>AreaShape_Eccentricity</th>
+      <th>...</th>
+      <th>Texture_SumEntropy_CropBlue_3_02_256</th>
+      <th>Texture_SumEntropy_CropBlue_3_03_256</th>
+      <th>Texture_SumVariance_CropBlue_3_00_256</th>
+      <th>Texture_SumVariance_CropBlue_3_01_256</th>
+      <th>Texture_SumVariance_CropBlue_3_02_256</th>
+      <th>Texture_SumVariance_CropBlue_3_03_256</th>
+      <th>Texture_Variance_CropBlue_3_00_256</th>
+      <th>Texture_Variance_CropBlue_3_01_256</th>
+      <th>Texture_Variance_CropBlue_3_02_256</th>
+      <th>Texture_Variance_CropBlue_3_03_256</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>372.0</td>
+      <td>459.0</td>
+      <td>149.0</td>
+      <td>37.0</td>
+      <td>122.0</td>
+      <td>20.0</td>
+      <td>135.282258</td>
+      <td>28.174731</td>
+      <td>1.154250</td>
+      <td>0.766482</td>
+      <td>...</td>
+      <td>6.386346</td>
+      <td>6.350746</td>
+      <td>751.956406</td>
+      <td>501.186523</td>
+      <td>633.977067</td>
+      <td>640.784132</td>
+      <td>219.438478</td>
+      <td>222.919307</td>
+      <td>219.703030</td>
+      <td>219.534215</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>333.0</td>
+      <td>460.0</td>
+      <td>98.0</td>
+      <td>60.0</td>
+      <td>78.0</td>
+      <td>37.0</td>
+      <td>87.207207</td>
+      <td>47.597598</td>
+      <td>1.160894</td>
+      <td>0.705159</td>
+      <td>...</td>
+      <td>6.507063</td>
+      <td>6.502537</td>
+      <td>831.599848</td>
+      <td>483.017698</td>
+      <td>847.022904</td>
+      <td>878.240345</td>
+      <td>303.378182</td>
+      <td>312.699600</td>
+      <td>305.388510</td>
+      <td>300.244349</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>199.0</td>
+      <td>256.0</td>
+      <td>33.0</td>
+      <td>55.0</td>
+      <td>17.0</td>
+      <td>39.0</td>
+      <td>24.547739</td>
+      <td>46.457286</td>
+      <td>1.024964</td>
+      <td>0.653637</td>
+      <td>...</td>
+      <td>5.596830</td>
+      <td>5.642043</td>
+      <td>244.783913</td>
+      <td>156.381954</td>
+      <td>269.975878</td>
+      <td>251.388361</td>
+      <td>107.455912</td>
+      <td>110.388521</td>
+      <td>101.904566</td>
+      <td>100.657374</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>329.0</td>
+      <td>441.0</td>
+      <td>24.0</td>
+      <td>77.0</td>
+      <td>3.0</td>
+      <td>56.0</td>
+      <td>13.504559</td>
+      <td>65.595745</td>
+      <td>1.089441</td>
+      <td>0.327322</td>
+      <td>...</td>
+      <td>6.136639</td>
+      <td>6.072976</td>
+      <td>590.040062</td>
+      <td>449.609248</td>
+      <td>597.510359</td>
+      <td>483.699149</td>
+      <td>222.137356</td>
+      <td>236.203965</td>
+      <td>230.477777</td>
+      <td>224.442496</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>211.0</td>
+      <td>300.0</td>
+      <td>49.0</td>
+      <td>84.0</td>
+      <td>34.0</td>
+      <td>64.0</td>
+      <td>40.796209</td>
+      <td>72.919431</td>
+      <td>1.135477</td>
+      <td>0.704184</td>
+      <td>...</td>
+      <td>5.737125</td>
+      <td>5.702339</td>
+      <td>297.112222</td>
+      <td>245.400604</td>
+      <td>333.682537</td>
+      <td>281.726804</td>
+      <td>121.854853</td>
+      <td>128.724225</td>
+      <td>114.486899</td>
+      <td>124.693854</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 103 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Display the &quot;RGBImage&quot; image, created by GrayToColor</span>
+
+<span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="n">rcParams</span>
+<span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">15</span>
+
+<span class="n">rgb_image</span> <span class="o">=</span> <span class="n">workspace</span><span class="o">.</span><span class="n">image_set</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="s2">&quot;RGBImage&quot;</span><span class="p">)</span>
+<span class="n">skimage</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">rgb_image</span><span class="o">.</span><span class="n">pixel_data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.image.AxesImage at 0x7f249c47bf70&gt;
+</pre></div>
+</div>
+<img alt="../_images/cellprofiler_demo_8_1.png" src="../_images/cellprofiler_demo_8_1.png" />
+</div>
+</div>
+<div class="section" id="get-help">
+<h2>Get Help<a class="headerlink" href="#get-help" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">workspace</span><span class="o">.</span><span class="n">measurements</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="additional-considerations">
+<h2>Additional Considerations<a class="headerlink" href="#additional-considerations" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="saving-data-frames">
+<h3>Saving Data Frames<a class="headerlink" href="#saving-data-frames" title="Permalink to this headline">¶</a></h3>
+<p>Generally,  you run an experiment, and then you want to save your data. CellProfiler creates CSVs, which play nicely with the rest of the PyData And RTidyVerse ecosystem.</p>
+<div class="section" id="save-as-a-csv">
+<h4>Save as a CSV<a class="headerlink" href="#save-as-a-csv" title="Permalink to this headline">¶</a></h4>
+<p>You can always just save your experiment outputs as CSVs.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;experiment-plate.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="save-as-a-parquet">
+<h4>Save as a Parquet<a class="headerlink" href="#save-as-a-parquet" title="Permalink to this headline">¶</a></h4>
+<p>My favorite way to save data, particularly if it is scientific data, is as a <a class="reference external" href="https://parquet.apache.org/">Parquet File</a>. A parquet file is a dataframe in machine readable format, which will save you quite a bit on both performance.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">to_parquet</span><span class="p">(</span><span class="s1">&#39;experiment-plate.parquet&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="save-to-s3">
+<h4>Save to S3<a class="headerlink" href="#save-to-s3" title="Permalink to this headline">¶</a></h4>
+<p>You can save to S3 instead of local storage using <a class="reference external" href="https://s3fs.readthedocs.io/en/latest/#integration">S3FS</a>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">to_parquet</span><span class="p">(</span><span class="s2">&quot;s3://bucket/path/experiment-plate.parquet&quot;</span><span class="p">,</span> <span class="n">storage_options</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;anon&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./cellprofiler"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="cellprofiler-intro.html" title="previous page">High Content Screening Analysis with CellProfiler</a>
+    <a class='right-next' id="next-link" href="../mlflow/mlflow-intro.html" title="next page">MLFlow and Running Services</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By STEM-Away<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>

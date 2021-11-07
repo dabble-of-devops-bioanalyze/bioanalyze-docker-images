@@ -1,0 +1,15 @@
+artifact_uri: file:///home/jovyan/biohub-notebooks/docs/_source/mlruns/0/2ab1feba70fa422497fbcd046ca9a16b/artifacts
+end_time: 1618991390928
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+name: ''
+run_id: 2ab1feba70fa422497fbcd046ca9a16b
+run_uuid: 2ab1feba70fa422497fbcd046ca9a16b
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1618991390162
+status: 3
+tags: []
+user_id: '1000'
