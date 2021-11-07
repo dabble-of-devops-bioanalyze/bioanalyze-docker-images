@@ -29,6 +29,8 @@ build :
 
 clean:
 	docker-compose stop; docker-compose rm -v -f
+	find $(shell pwd) -name .ipynb_checkpoints -exec rm -rf {} \;
+	find $(shell pwd) -name __pycache__ -exec rm -rf {} \;
 
 clean-all :
 	docker container stop $(docker container ls -aq); \

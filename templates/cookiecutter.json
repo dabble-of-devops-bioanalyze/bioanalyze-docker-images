@@ -1,17 +1,23 @@
 {
   "docker_org": "dabbleofdevops",
-  "project_slug": "biohub-docker-images",
+  "project_slug": "tiamet-docker-images",
   "pangeo_versions": ["2020.12.22", "2020.11.06", "2021.04.05"],
   "rstudio_version": "1.2.5042",
-  "pangeo_notebook_version": "2020.12.22",
+  "pangeo_version": "2020.12.22",
   "jupyterlab_version": "2.2.9",
   "pip_version": "20",
   "post_build": "jupyter labextension install --clean \\\n                           @jupyter-widgets/jupyterlab-manager \\\n                            @jupyterlab/server-proxy \\\n                            dask-labextension\n",
   "default_packages": {
     "conda_packages": [
-      "python=3.8*",
-      "pangeo-notebook={{cookiecutter.pangeo_notebook_version}}",
+      "python={{cookiecutter.python_version}}",
+      "pangeo-notebook={{cookiecutter.pangeo_version}}",
       "jupyterlab={{cookiecutter.jupyterlab_version}}",
+      "prefect={{cookiecutter.prefect_version}}",
+      "snakemake={{cookiecutter.snakemake_version}}",
+      "nextflow={{cookiecutter.nextflow_version}}",
+      "nodejs",
+      "cookiecutter",
+      "boto3",
       "pip",
       "nb_conda_kernels",
       "jupyter-server-proxy",
@@ -20,13 +26,13 @@
       "s3fs>0.5",
       "gcsfs",
       "fsspec",
-      "prefect",
       "numpy",
       "pandas",
       "xarray",
       "zarr",
+      "sqlite",
       "hdf5",
-      "parallel", 
+      "parallel",
       "pyarrow",
       "h5py",
       "h5netcdf",
@@ -36,17 +42,15 @@
       "pydata-sphinx-theme",
       "livereload",
       "xlrd",
-      "nextflow",
-      "snakemake",
-      "boto3"
+      "sqlalchemy",
+      "psycopg2"
     ],
     "pip_packages": [
-      "prefect[kubernetes]",
-      "sphinxcontrib-napoleon",
       "jupyter-rsession-proxy",
       "jupyter-book",
       "jupyter-cache[cli]",
-      "sphinx-material"
+      "aws-batch-helpers",
+      "apache-airflow=={{cookiecutter.airflow_version}}"
     ]
   }
 }

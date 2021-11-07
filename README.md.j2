@@ -1,0 +1,48 @@
+## BioAnalyze Docker Images
+
+These docker images are built to use as a part of a full stack Bioinformatics Analysis Environment. Each image can be used on it's own or as a part of a Jupyterhub Cluster.
+
+Each image is meant to be a full fledged ecosystem for Bioinformatics. Images:
+
+* Are fully ready to use with a [Jupyterhub](https://zero-to-jupyterhub.readthedocs.io/en/latest/) or [Dask Gateway Cluster](https://gateway.dask.org/install-kube.html).
+* RStudio installed
+* Jupyterlab installed
+* Common software packages for data science such as Pandas, SciKit Learn, and TidyVerse
+* Bioinformatics workflow runners: [Snakemake](https://snakemake.readthedocs.io/en/stable/) and [Nextflow](https://www.nextflow.io/).
+* Workflow Orchestration systems: [Prefect](https://docs.prefect.io/#basic-installation) and [Airflow](https://airflow.apache.org/docs/apache-airflow/stable/start/local.html).
+* Use the excellent [Pangeo Project](https://github.com/pangeo-data/pangeo-docker-images) as a base.
+* Documentation packages such as [Jupyterbook](https://jupyterbook.org/) and [RBookdown](https://bookdown.org/).
+
+[Bioinformatics Ecosystem](./docs/_source/_static/images/BioHub-Ecosystem-IDEs-and-Development-Environment.jpeg)
+
+See each of the images at [Dockerhub](https://hub.docker.com/orgs/dabbleofdevops/repositories).
+
+Please note that this project is still under rapid development and the system used for tagging is likely to change.
+
+{% for data in package_data %}
+
+## {{data.display_name}}
+
+{% for name, table in data['images'].items() %}
+
+### {{name}}
+
+{{config_data['extra_context']['descriptions'][name]}}
+
+{{table.to_markdown(index=False)}}
+
+{% endfor %}
+
+{% endfor %}
+
+## Dask-gateway compatibility
+
+(This information is completely grabbed from [Pangeo](https://github.com/pangeo-data/pangeo-docker-images#dask-gateway-compatibility))
+
+If deploying in a Jupyterhub on Kubernetes cluster you'll need to make sure you're using the same pangeo versions.
+
+| dask-gateway |  Pangeo Version tag  |
+|--------------|-------------|
+| 0.9          | 2020.11.06  |
+| 0.8          | 2020.07.28  |
+| 0.7          | 2020.04.22  |
